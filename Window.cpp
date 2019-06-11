@@ -1,6 +1,7 @@
 #include "Window.h"
 #include <sstream>
 
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 	//control window behaviour via switch
@@ -29,7 +30,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 
 //register and create a window
-Window::Window(int width, int height, const char* name) noexcept : hInstance(GetModuleHandle(nullptr)),gfx() {
+Window::Window(int width, int height, const char* name) noexcept : hInstance(GetModuleHandle(nullptr)) {
 
 	WNDCLASSEX wc = { 0 };
 	const char* wndName = "myMum";
@@ -59,12 +60,12 @@ Window::Window(int width, int height, const char* name) noexcept : hInstance(Get
 		nullptr
 		);
 
-	gfx.setWndHandle(hWnd);
-	gfx.createDevice();
-	
-
 	ShowWindow(hWnd, SW_SHOW);
 	
+	//create graphics object
+	pGfx = std::make_unique<Graphics>(hWnd);
+
+
 
 }
 
@@ -85,7 +86,6 @@ const char* Window::getClassName() {
 	return className;
 }
 
-Graphics Window::Gfx()
-{
-	return gfx;
+Graphics& Window::Gfx() {
+	return *pGfx;
 }
