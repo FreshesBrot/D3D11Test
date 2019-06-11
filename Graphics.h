@@ -1,24 +1,27 @@
 #pragma once
 #include <d3d11.h>
+#include <wrl.h>
+
+namespace wrl = Microsoft::WRL;
 
 struct Graphics {
 public:
 
-	Graphics();
+	Graphics(HWND hWnd);
 	~Graphics();
 	void setWndHandle(HWND hWnd);
 	
-	ID3D11Device* Device();
-	ID3D11DeviceContext* Context();
+	wrl::ComPtr<ID3D11Device> Device();
+	wrl::ComPtr<ID3D11DeviceContext> Context();
 	void EndFrame();
-	void createDevice();
-
+	
 private:
 	
+	void DoFrame();
 	HWND hWnd;
-	ID3D11Device* device = nullptr;
-	ID3D11DeviceContext* context = nullptr;
-	IDXGISwapChain* swapChain = nullptr;
+	wrl::ComPtr<ID3D11Device> device = nullptr;
+	wrl::ComPtr<ID3D11DeviceContext> context = nullptr;
+	wrl::ComPtr<IDXGISwapChain> swapChain = nullptr;
 
 };
 
