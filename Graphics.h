@@ -14,14 +14,17 @@ public:
 	wrl::ComPtr<ID3D11Device> Device();
 	wrl::ComPtr<ID3D11DeviceContext> Context();
 	void EndFrame();
-	
+	void ClearBuffer(float r, float g, float b);
+
+	void DrawTest();
+
 private:
 	
-	void DoFrame();
 	HWND hWnd;
 	wrl::ComPtr<ID3D11Device> device = nullptr;
 	wrl::ComPtr<ID3D11DeviceContext> context = nullptr;
 	wrl::ComPtr<IDXGISwapChain> swapChain = nullptr;
+	wrl::ComPtr<ID3D11RenderTargetView> target = nullptr;
 
 };
 

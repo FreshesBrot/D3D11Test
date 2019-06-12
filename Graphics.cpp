@@ -1,12 +1,20 @@
 #include "Graphics.h"
 #include "Redef.h"
+#include "CustomException.h"
 #include <d3d11.h>
+#include <d3dcompiler.h>
 #pragma comment(lib,"d3d11.lib")
+#pragma comment(lib,"D3DCompiler.lib")
+
+//throw some exceptions
+#define CUSTOM_EXC(hr)(CustomException(__LINE__,__FILE__,hr));
 
 //setup adapteres
 
 
 Graphics::Graphics(HWND hWnd) {
+
+	HRESULT hr;
 
 	//swap chain description
 	DXGI_SWAP_CHAIN_DESC sd = {};
@@ -27,7 +35,7 @@ Graphics::Graphics(HWND hWnd) {
 	sd.Flags = 0;
 
 	//setting up
-	if FAILED( D3D11CreateDeviceAndSwapChain(
+	if FAILED( hr = D3D11CreateDeviceAndSwapChain(
 		nullptr,
 		D3D_DRIVER_TYPE_HARDWARE,
 		nullptr,
@@ -40,18 +48,24 @@ Graphics::Graphics(HWND hWnd) {
 		&device,
 		nullptr,
 		&context
-	)) throw EXCEPTION_DEBUG_INFO();
+	)) throw CUSTOM_EXC(hr);
+
+	//access to render target view
+	wrl::ComPtr<ID3D11Resource> pBackBuffer;
+	if FAILED(hr = swapChain.Get()->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer)) throw CUSTOM_EXC(hr);
+	if FAILED(hr = device.Get()->CreateRenderTargetView(
+		pBackBuffer.Get(), nullptr, &target
+	)) throw CUSTOM_EXC(hr);
+	pBackBuffer = nullptr;
 
 }
 
 Graphics::~Graphics() {
+	//assigning a nullptr to comPtr is equal to releasing it
 	device = nullptr;
 	context = nullptr;
 	swapChain = nullptr;
-}
-
-void Graphics::DoFrame() {
-	//actions during 1 frame
+	target = nullptr;
 }
 
 void Graphics::setWndHandle(HWND hWnd) {
@@ -66,8 +80,111 @@ wrl::ComPtr<ID3D11DeviceContext> Graphics::Context() {
 	return context;
 }
 
+void Graphics::ClearBuffer(float r, float g, float b) {
+	const float color[] = { r,g,b,1.0f };
+	context.Get()->ClearRenderTargetView(target.Get(), color);
+}
+
+//drawing test
+void Graphics::DrawTest() {
+
+	HRESULT hr;
+
+	//vertex struct
+	struct Vertex {
+		struct {
+			float x, y;
+		} Pos;
+
+	};
+
+	//geometry data
+	const Vertex vertices[] = {
+		{0.0f,0.5f},
+		{0.5f,-0.5f},
+		{-0.5f,-0.5}
+	};
+
+	//subresource data
+	D3D11_SUBRESOURCE_DATA pData = {};
+	pData.pSysMem = vertices;
+	pData.SysMemPitch = 0u;
+	pData.SysMemSlicePitch = 0u;
+	
+	//buffer description for vertices
+	D3D11_BUFFER_DESC bd = {};
+	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.CPUAccessFlags = 0u;
+	bd.MiscFlags = 0u;
+	bd.ByteWidth = sizeof( vertices );
+	bd.StructureByteStride = sizeof( Vertex );
+
+	//pointer to vertexbuffer
+	wrl::ComPtr<ID3D11Buffer> pVertexBuffer;
+
+	if FAILED(hr = device->CreateBuffer(&bd,&pData,&pVertexBuffer)) throw CUSTOM_EXC(hr);
+	
+	const UINT stride = sizeof(Vertex);
+	const UINT offset = 0u;
+	//set vertex buffer
+	context->IASetVertexBuffers(0u,1u,pVertexBuffer.GetAddressOf(),&stride,&offset);
+	
+	//set vertex shader
+	wrl::ComPtr<ID3D11VertexShader> pVertexShader;
+	wrl::ComPtr<ID3DBlob> pBlob;
+	if FAILED(hr = D3DReadFileToBlob(L"VertexShader.cso", &pBlob))throw CUSTOM_EXC(hr);
+	//create shader object
+	if FAILED(hr = device->CreateVertexShader(pBlob->GetBufferPointer(),pBlob->GetBufferSize(),nullptr,&pVertexShader))throw CUSTOM_EXC(hr);
+	//bind shader to pipeline
+	context->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+
+	//set input layout
+	wrl::ComPtr<ID3D11InputLayout> pInLayout;
+	const D3D11_INPUT_ELEMENT_DESC ied[] = {
+		{"Position",0,DXGI_FORMAT_R32G32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
+	};
+	device->CreateInputLayout(ied, 1u, pBlob->GetBufferPointer(), pBlob->GetBufferSize(), &pInLayout);
+
+	context->IASetInputLayout(pInLayout.Get());
+
+	//set pixel shader
+	wrl::ComPtr<ID3D11PixelShader> pPixelShader;
+	//use blob from previous
+	if FAILED(hr = D3DReadFileToBlob(L"PixelShader.cso",&pBlob)) throw CUSTOM_EXC(hr);
+	//create shader object
+	if FAILED(device->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader))throw CUSTOM_EXC(hr);
+	//bind shader to pipeline
+	context->PSSetShader(pPixelShader.Get(), nullptr, 0);
+
+
+
+
+	//set primitve type
+	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	//specify target view
+	context->OMSetRenderTargets(1u, target.GetAddressOf(), nullptr);
+
+	//specify viewport
+	D3D11_VIEWPORT vp = {};
+	vp.Height = 600;
+	vp.Width = 600;
+	vp.MinDepth = 0;
+	vp.MaxDepth = 1;
+	vp.TopLeftY = 0;
+	vp.TopLeftX = 0;
+	context->RSSetViewports(1u, &vp);
+
+	//draw
+	context->Draw((UINT) std::size(vertices), 0u);
+}
 
 
 void Graphics::EndFrame() {
-	swapChain->Present(2u, 0u);
+	ClearBuffer(0.1f, 0.5f, 0.9f);
+	DrawTest();
+	swapChain->Present(1u, 0u);
 }
+
+

@@ -22,6 +22,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		std::stringstream stream;
 		stream << "(" << pt.x << "," << pt.y << ")";
 		SetWindowText(hWnd, stream.str().c_str());
+		
 		break;
 	}
 
@@ -30,7 +31,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 
 //register and create a window
-Window::Window(int width, int height, const char* name) noexcept : hInstance(GetModuleHandle(nullptr)) {
+Window::Window(int width, int height, const char* name): hInstance(GetModuleHandle(nullptr)) {
 
 	WNDCLASSEX wc = { 0 };
 	const char* wndName = "myMum";
@@ -47,7 +48,6 @@ Window::Window(int width, int height, const char* name) noexcept : hInstance(Get
 	wc.lpszClassName = getClassName(); //class name; typedef const char* LPCSTR == long pointer to c-string
 	wc.hIconSm = nullptr; //small icon(?); nullptr for default
 	RegisterClassEx(&wc);
-
 	hWnd = CreateWindowA(
 		getClassName(),
 		name,

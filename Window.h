@@ -5,7 +5,7 @@
 
 struct Window {
 	
-	Window(int width, int height, const char* name) noexcept ;
+	Window(int width, int height, const char* name);
 	~Window();
 
 	HINSTANCE getInstance();
@@ -15,7 +15,7 @@ struct Window {
 	Graphics& Gfx();
 
 private:
-	
+
 	std::unique_ptr<Graphics> pGfx;
 	static constexpr const char* className = "Window32";
 	HINSTANCE hInstance;
