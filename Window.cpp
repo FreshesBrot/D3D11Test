@@ -1,38 +1,39 @@
 #include "Window.h"
 #include <sstream>
 
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
-	//control window behaviour via switch
 	switch (msg) {
 	case WM_CLOSE: //WM_CLOSE; message that is called on X-ing the window
-		PostQuitMessage(69); //posts WM_QUIT to the message queue
+		PostQuitMessage(0); //posts WM_QUIT to the message queue
 		break;
 	case WM_KEYDOWN: //WN_KEYDOWN; message, when a key is pressed; key value stored in wParam (capital = non capital)
-		if (wParam == 'F')
-			SetWindowText(hWnd, "Pay Respects"); //sets the windows title
+		Window::getKeyboard().Press((char)wParam);
+		if (Window::getKeyboard().isPressed('T'))
+		SetWindowText(hWnd, "DDD");
 		break;
 	case WM_KEYUP: //WM_KEYUP; message called when a key is released; key value stored in wParam (capital = non capital)
-		if (wParam == 'F')
-			SetWindowText(hWnd, "Window32");
+		Window::getKeyboard().Release((char)wParam);
 		break;
 	case WM_LBUTTONDOWN: //WM_LBUTTONDOWN; message that is called when left mouse button is clicked
 		const POINTS pt = MAKEPOINTS(lParam); //mouse location stored in lParam; MAKEPOINTS macro gives a POINTS obj. with x,y coords
 		std::stringstream stream;
 		stream << "(" << pt.x << "," << pt.y << ")";
 		SetWindowText(hWnd, stream.str().c_str());
-		
+
 		break;
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
+
 }
 
 
-//register and create a window
-Window::Window(int width, int height, const char* name): hInstance(GetModuleHandle(nullptr)) {
+Keyboard Window::keyboard;
 
+//register and create a window
+Window::Window(int width, int height, const char* name) : hInstance(GetModuleHandle(nullptr)) {
+	
 	WNDCLASSEX wc = { 0 };
 	const char* wndName = "myMum";
 	wc.cbSize = sizeof(wc); //bytesize of window; always sizeof(wc)
@@ -89,3 +90,8 @@ const char* Window::getClassName() {
 Graphics& Window::Gfx() {
 	return *pGfx;
 }
+
+Keyboard Window::getKeyboard() {
+	return keyboard;
+}
+

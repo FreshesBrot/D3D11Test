@@ -11,7 +11,7 @@
 
 //setup adapteres
 
-
+//device initilization
 Graphics::Graphics(HWND hWnd) {
 
 	HRESULT hr;
@@ -68,10 +68,6 @@ Graphics::~Graphics() {
 	target = nullptr;
 }
 
-void Graphics::setWndHandle(HWND hWnd) {
-	this->hWnd = hWnd;
-}
-
 wrl::ComPtr<ID3D11Device> Graphics::Device() {
 	return device;
 }
@@ -81,11 +77,29 @@ wrl::ComPtr<ID3D11DeviceContext> Graphics::Context() {
 }
 
 void Graphics::ClearBuffer(float r, float g, float b) {
+	if (r > 1.0f) r = 1.0f;
+	if (g > 1.0f) g = 1.0f;
+	if (b > 1.0f) b = 1.0f;
+
 	const float color[] = { r,g,b,1.0f };
 	context.Get()->ClearRenderTargetView(target.Get(), color);
 }
 
+void Graphics::ClearBuffer() {
+	const float color[] = { bufferColors.r,bufferColors.g,bufferColors.b,1.0f };
+	context.Get()->ClearRenderTargetView(target.Get(), color);
+}
+
+void Graphics::setBufferColors(float r, float g, float b) {
+	if (r > 1.0f) r = 1.0f;
+	if (g > 1.0f) g = 1.0f;
+	if (b > 1.0f) b = 1.0f;
+
+	bufferColors = { r,g,b };
+}
+
 //drawing test
+//initializing graphics pipeline 
 void Graphics::DrawTest() {
 
 	HRESULT hr;
@@ -181,9 +195,8 @@ void Graphics::DrawTest() {
 }
 
 
+
 void Graphics::EndFrame() {
-	ClearBuffer(0.1f, 0.5f, 0.9f);
-	DrawTest();
 	swapChain->Present(1u, 0u);
 }
 

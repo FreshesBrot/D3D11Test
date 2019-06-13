@@ -125,6 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="App.cpp" />
     <ClCompile Include="CustomException.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="h3wd.cpp" />
@@ -133,6 +134,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="App.h" />
     <ClInclude Include="CustomException.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Keyboard.h" />

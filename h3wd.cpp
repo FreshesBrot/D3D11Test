@@ -1,26 +1,29 @@
 #include <Windows.h>
 #include <iostream>
 #include <sstream>
-#include "Window.h"
+#include "App.h"
 #include "CustomException.h"
+
 
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
 	try {
-		Window w(600, 600, "MAMA MIA");
+
+		App app;
 
 		//message pump
 		MSG msg;
 		BOOL gResult;
+		
 		while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0) {
 			TranslateMessage(&msg); //"translates" messages
 			DispatchMessage(&msg); //gives messages to the DefWindowProc
 			
-			//draw call to gfx unit
-			w.Gfx().EndFrame();
+			//application loop
+			app.DoFrame();
+		
 		} //GetMessage (see msdn)
 
-		UnregisterClass(w.getClassName(), hInstance);
 		if (gResult == -1) return -1;
 		else return msg.wParam;
 
