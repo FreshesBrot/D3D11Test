@@ -1,6 +1,8 @@
 #include "Window.h"
 #include <sstream>
-
+#define MouseL Mouse::Button::L
+#define MouseR Mouse::Button::R
+#define MouseW Mouse::Button::W
 
 Window::Window(int width, int height, const char* name) : hInstance(GetModuleHandle(nullptr)), keyboard(), mouse() {
 	
@@ -71,6 +73,11 @@ Graphics& Window::Gfx() {
 	return *pGfx;
 }
 
+void Window::Update() {
+	keyboard.Update();
+	mouse.Update();
+}
+
 std::optional<int> Window::ProcessMessages() {
 	MSG msg;
 	
@@ -123,6 +130,7 @@ LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPAR
 LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 	switch (msg) {
+	//handle keyboard input
 	case WM_CLOSE: //WM_CLOSE; message that is called on X-ing the window
 		PostQuitMessage(10); //posts WM_QUIT to the message queue
 		break;
@@ -132,13 +140,42 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_KEYUP: //WM_KEYUP; message called when a key is released; key value stored in wParam (capital = non capital)
 		keyboard.Release((char)wParam);
 		break;
-	case WM_LBUTTONDOWN: //WM_LBUTTONDOWN; message that is called when left mouse button is clicked
-		const POINTS pt = MAKEPOINTS(lParam); //mouse location stored in lParam; MAKEPOINTS macro gives a POINTS obj. with x,y coords
+
+	//handle mouse input
+	case WM_MOUSEMOVE:	//called when the mouse moves inside the client region
+		POINTS pt = MAKEPOINTS(lParam);
 		mouse.UpdatePosition(pt);
-		std::ostringstream oss;
-		oss << "(" << mouse.xPos() << "," << mouse.yPos() << ")";
-		std::string s = oss.str();
-		SetWindowText(hWnd, s.c_str());
+		break;
+	case WM_LBUTTONDOWN: //WM_LBUTTONDOWN; message that is called when left mouse button is clicked
+		mouse.ButtonDown(MouseL);
+		break;
+	case WM_LBUTTONUP: //called when the left button is released
+		mouse.ButtonRelease(MouseL);
+		break;
+	case WM_LBUTTONDBLCLK:
+		mouse.ButtonDblClk(MouseL);
+		break;
+	case WM_RBUTTONDOWN:
+		mouse.ButtonDown(MouseR);
+		break;
+	case WM_RBUTTONUP:
+		mouse.ButtonRelease(MouseR);
+		break;
+	case WM_RBUTTONDBLCLK:
+		mouse.ButtonDblClk(MouseR);
+		break;
+	case WM_MBUTTONDOWN:
+		mouse.ButtonDown(MouseW);
+		break;
+	case WM_MBUTTONUP:
+		mouse.ButtonRelease(MouseW);
+		break;
+	case WM_MBUTTONDBLCLK:
+		mouse.ButtonDblClk(MouseW);
+		break;
+	case WM_MOUSEWHEEL:
+		int delta = GET_WHEEL_DELTA_WPARAM(wParam);
+		mouse.MouseScroll(delta);
 		break;
 	}
 

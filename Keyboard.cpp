@@ -7,7 +7,6 @@ Keyboard::Keyboard() {
 
 Keyboard::~Keyboard() {}
 
-
 bool Keyboard::isPressed(char c) {
 	return states[(int)c] == HOLD;
 }

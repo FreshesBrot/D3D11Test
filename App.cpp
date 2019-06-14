@@ -22,24 +22,25 @@ int App::Start() {
 
 void App::DoFrame() {
 	//clear the back buffer and set new color
-	w.Gfx().setBufferColors(0.1f, 0.2f, 0.5f);
+	
+	w.Gfx().setBufferColors(0.1f, 0.5f, 0.9f);
 	w.Gfx().ClearBuffer();
 
 	//if t is pressed, execute drawtest
 	if(w.keyboard.isPressed('T'))
 	w.Gfx().DrawTest();
+
+	SetWindowText(w.WindowHandle(), "Window32");
 	
-	std::string s;
-	if (w.keyboard.isPressed('T'))
-		s = "Held";
-	else if (w.keyboard.isLoose('T'))
-		s = "Loose";
-
-	SetWindowText(w.WindowHandle(), s.c_str());
-
+	if (w.mouse.OnButtonDown(Mouse::Button::L)) {
+		std::ostringstream oss;
+		oss << "(" << w.mouse.xPos() << "," << w.mouse.yPos() << ")";
+		std::string s = oss.str();
+		SetWindowText(w.WindowHandle(), s.c_str());
+	}
+	
 	//update keyboard and mouse
-	w.keyboard.Update();
-	//w.mouse.Update()
+	w.Update();
 
 	//present backbuffer
 	w.Gfx().EndFrame();
