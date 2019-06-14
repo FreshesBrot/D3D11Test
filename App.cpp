@@ -14,10 +14,10 @@ void App::DoFrame() {
 
 	//if t is pressed, execute drawtest
 	bool b;
-	if(b=w.getKeyboard().isPressed('T'))
+	if(b=w.keyboard.isPressed('T'))
 	w.Gfx().DrawTest();
 	
-	if (w.getKeyboard().OnRelease('t'))
+	if (w.keyboard.OnRelease('t'))
 		SetWindowText(w.WindowHandle(), "Draw Successfull");
 
 
