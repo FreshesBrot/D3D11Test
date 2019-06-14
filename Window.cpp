@@ -1,7 +1,7 @@
 #include "Window.h"
 #include <sstream>
 
-//register and create a window
+
 Window::Window(int width, int height, const char* name) : hInstance(GetModuleHandle(nullptr)), keyboard(), mouse() {
 	
 	//RECT adjusts height and width for the client region only
@@ -49,8 +49,9 @@ Window::Window(int width, int height, const char* name) : hInstance(GetModuleHan
 
 }
 
-//unregister (delete) window
+
 Window::~Window() {
+	//unregister (delete) window
 	UnregisterClass(getClassName(), getInstance());
 }
 

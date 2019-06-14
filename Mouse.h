@@ -23,6 +23,8 @@ public:
 
 private:
 
+
+
 	//mouse position coordinates
 	int x,y;
 

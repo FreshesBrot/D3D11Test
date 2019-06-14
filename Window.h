@@ -9,16 +9,20 @@
 #include <iostream>
 
 struct Window {
-	
+
+	//registers and creates a window
 	Window(int width, int height, const char* name);
 	~Window();
+
 
 	HINSTANCE getInstance();
 	HWND WindowHandle();
 	const char* getClassName();
+
 	//return the graphics device interface
 	Graphics& Gfx();
 
+	//return mouse and keyboard device interface
 	Keyboard keyboard;
 	Mouse mouse;
 

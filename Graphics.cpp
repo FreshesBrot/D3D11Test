@@ -11,8 +11,9 @@
 
 //setup adapteres
 
-//device initilization
-Graphics::Graphics(HWND hWnd) {
+Graphics::Graphics(HWND hWnd) : bufferColors({0,0,0}){
+
+	//device initilization
 
 	HRESULT hr;
 
@@ -68,18 +69,14 @@ Graphics::~Graphics() {
 	target = nullptr;
 }
 
-wrl::ComPtr<ID3D11Device> Graphics::Device() {
-	return device;
-}
 
-wrl::ComPtr<ID3D11DeviceContext> Graphics::Context() {
-	return context;
-}
-
+#pragma region buffers
 void Graphics::ClearBuffer(float r, float g, float b) {
 	if (r > 1.0f) r = 1.0f;
 	if (g > 1.0f) g = 1.0f;
 	if (b > 1.0f) b = 1.0f;
+	
+	bufferColors = { r,g,b };
 
 	const float color[] = { r,g,b,1.0f };
 	context.Get()->ClearRenderTargetView(target.Get(), color);
@@ -98,9 +95,11 @@ void Graphics::setBufferColors(float r, float g, float b) {
 	bufferColors = { r,g,b };
 }
 
-//drawing test
-//initializing graphics pipeline 
+#pragma endregion
+
 void Graphics::DrawTest() {
+
+	//initializing the entire graphics pipeline 
 
 	HRESULT hr;
 
@@ -193,8 +192,6 @@ void Graphics::DrawTest() {
 	//draw
 	context->Draw((UINT) std::size(vertices), 0u);
 }
-
-
 
 void Graphics::EndFrame() {
 	swapChain->Present(1u, 0u);

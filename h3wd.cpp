@@ -4,7 +4,7 @@
 #include "App.h"
 #include "CustomException.h"
 
-
+//overhead for everything 
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
 	try {

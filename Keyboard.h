@@ -35,6 +35,7 @@ public:
 
 private:
 
+	//represents the state of the keyboard
 	std::vector<State> states;
 	std::queue<Event>  queue;
 

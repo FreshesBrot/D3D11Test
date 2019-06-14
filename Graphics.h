@@ -7,15 +7,18 @@ namespace wrl = Microsoft::WRL;
 struct Graphics {
 public:
 
+	//creates the D3D11 Device , Context and SwapChain
 	Graphics(HWND hWnd);
 	~Graphics();
 	
-	wrl::ComPtr<ID3D11Device> Device();
-	wrl::ComPtr<ID3D11DeviceContext> Context();
 	void EndFrame();
+	//clears the buffer with specified colors
 	void ClearBuffer(float r, float g, float b);
+	//clears the buffer with colors specified by setBufferColors
 	void ClearBuffer();
+	//sets the colors for the clearBuffer() call
 	void setBufferColors(float r, float g, float b);
+	//draw test
 	void DrawTest();
 
 private:
