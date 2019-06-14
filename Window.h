@@ -5,6 +5,8 @@
 #include "Mouse.h"
 #include <sstream>
 #include <memory>
+#include <optional>
+#include <iostream>
 
 struct Window {
 	
@@ -19,6 +21,9 @@ struct Window {
 
 	Keyboard keyboard;
 	Mouse mouse;
+
+	//process messages
+	static std::optional<int> ProcessMessages();
 
 private:
 

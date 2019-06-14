@@ -70,8 +70,27 @@ Graphics& Window::Gfx() {
 	return *pGfx;
 }
 
+std::optional<int> Window::ProcessMessages() {
+	MSG msg;
+	
+	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+		//check if last peeked message is a quit message
+		if (msg.message == WM_QUIT)
+			return msg.wParam;
+	
+		//if not, dispatch message
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
 
-//message relay functions
+	//return nothing (emtpy optional) when there is no message
+	return {};
+	
+}
+
+#pragma region wndproc
+
+//sets custom parameter to the hWnd to access window instance
 LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	if (msg == WM_NCCREATE) {
 
@@ -91,6 +110,7 @@ LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPAR
 	return DefWindowProcA(hWnd, msg, wParam, lParam);
 }
 
+//relay to the window instance wndproc
 LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	//extract the pointer to the window instance from user_data
 	Window* const pWnd = reinterpret_cast<Window*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
@@ -98,6 +118,7 @@ LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPAR
 	return pWnd->HandleMessage(hWnd, msg, wParam, lParam);
 }
 
+//instanced wndproc
 LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 	switch (msg) {
@@ -105,13 +126,18 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(10); //posts WM_QUIT to the message queue
 		break;
 	case WM_KEYDOWN: //WN_KEYDOWN; message, when a key is pressed; key value stored in wParam (capital = non capital)
-		SetWindowText(hWnd, "GG");
+		keyboard.Press((char)wParam);
 		break;
 	case WM_KEYUP: //WM_KEYUP; message called when a key is released; key value stored in wParam (capital = non capital)
-		SetWindowText(hWnd, "MAMA");
+		keyboard.Release((char)wParam);
 		break;
 	case WM_LBUTTONDOWN: //WM_LBUTTONDOWN; message that is called when left mouse button is clicked
 		const POINTS pt = MAKEPOINTS(lParam); //mouse location stored in lParam; MAKEPOINTS macro gives a POINTS obj. with x,y coords
+		mouse.UpdatePosition(pt);
+		std::ostringstream oss;
+		oss << "(" << mouse.xPos() << "," << mouse.yPos() << ")";
+		std::string s = oss.str();
+		SetWindowText(hWnd, s.c_str());
 		break;
 	}
 
@@ -119,4 +145,4 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 }
 
-
+#pragma endregion

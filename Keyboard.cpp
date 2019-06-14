@@ -1,33 +1,40 @@
 #include "Keyboard.h"
 
 Keyboard::Keyboard() {
-	
-	queue.resize(256);
-	
+	//initialize state vector
+	states.resize(256);
 }
 
 Keyboard::~Keyboard() {}
 
+
 bool Keyboard::isPressed(char c) {
-	return queue[(int)c] == HOLD;
+	return states[(int)c] == HOLD;
 }
 
 bool Keyboard::OnRelease(char c) {
-	return queue[(int)c] == RELEASE;
+	return states[(int)c] == RELEASE;
 }
 
 bool Keyboard::isLoose(char c) {
-	return queue[(int)c] == LOOSE;
+	return states[(int)c] == LOOSE;
 }
 
-void Keyboard::Loose(char c) {
-	queue[(int)c] = LOOSE;
-}
+//event queue functions
 
 void Keyboard::Press(char c) {
-	queue[(int)c] = HOLD;
+	if (states[(int)c] != HOLD)
+	queue.push({ HOLD,c });
 }
 
 void Keyboard::Release(char c) {
-	queue[(int)c] = RELEASE;
+	queue.push({ RELEASE,c });
+	queue.push({ LOOSE,c });
+}
+
+void Keyboard::Update() {
+	if (queue.empty()) return;
+	Event e = queue.front();
+	queue.pop();
+	states[(int)e.keyCode] = e.state;
 }

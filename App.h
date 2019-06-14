@@ -7,6 +7,7 @@ public:
 	App();
 	~App();
 	
+	int Start();
 	void DoFrame();
 
 private:
