@@ -27,7 +27,7 @@ void App::DoFrame() {
 
 	//if t is pressed, execute drawtest
 	if(w.keyboard.isPressed('T'))
-	w.Gfx().DrawTest();
+	w.Gfx().Draw();
 	
 	std::string s;
 	if (w.keyboard.isPressed('T'))

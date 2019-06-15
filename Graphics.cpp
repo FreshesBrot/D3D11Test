@@ -101,6 +101,8 @@ Graphics::Graphics(HWND hWnd) : bufferColors({0,0,0}){
 	))
 	pBackBuffer = nullptr;
 
+	//sets up the rest of the pipeline
+	setUpPipeline();
 }
 
 Graphics::~Graphics() {
@@ -136,28 +138,16 @@ void Graphics::setBufferColors(float r, float g, float b) {
 
 	bufferColors = { r,g,b };
 }
-
 #pragma endregion
 
-void Graphics::DrawTest() {
-
+void Graphics::setUpPipeline() {
 	//initializing the entire graphics pipeline 
 
 	HRESULT hr;
 
-	//vertex struct
-	struct Vertex {
-		struct {
-			float x, y;
-		} Pos;
-		struct {
-			float r, g, b;
-		} Color;
-
-	};
 
 	//geometry data
-	const Vertex vertices[] = {
+	Vertex vertices[] = {
 		{0.0f,0.5f,1.0f,0.0f,0.0f},
 		{0.5f,-0.5f,0.0f,1.0f,0.0f},
 		{-0.5f,-0.5,0.0f,0.0f,1.0f},
@@ -168,37 +158,39 @@ void Graphics::DrawTest() {
 
 	};
 
+	//create indexbuffer
+	int indices[] = {
+		0,1,2,
+		3,4,5
+	};
+
 	//subresource data
 	D3D11_SUBRESOURCE_DATA pData = {};
 	pData.pSysMem = vertices;
 	pData.SysMemPitch = 0u;
 	pData.SysMemSlicePitch = 0u;
-	
+
 	//buffer description for vertices
 	D3D11_BUFFER_DESC bd = {};
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd.Usage = D3D11_USAGE_DEFAULT;
 	bd.CPUAccessFlags = 0u;
 	bd.MiscFlags = 0u;
-	bd.ByteWidth = sizeof( vertices );
-	bd.StructureByteStride = sizeof( Vertex );
+	bd.ByteWidth = sizeof(vertices);
+	bd.StructureByteStride = sizeof(Vertex);
 
 	//pointer to vertexbuffer
 	wrl::ComPtr<ID3D11Buffer> pVertexBuffer;
 
 	GFX_FAILED(device->CreateBuffer(&bd, &pData, &pVertexBuffer));
-	
+
 	const UINT stride = sizeof(Vertex);
 	const UINT offset = 0u;
 	//set vertex buffer
-	context->IASetVertexBuffers(0u,1u,pVertexBuffer.GetAddressOf(),&stride,&offset);
-	
+	context->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
 
-	//create indexbuffer
-	int indices[] = {
-		0,1,2,
-		3,4,5
-	};
+
+
 
 	//index buffer description
 	D3D11_BUFFER_DESC bd2 = {};
@@ -219,7 +211,7 @@ void Graphics::DrawTest() {
 	wrl::ComPtr<ID3D11Buffer> pIndexBuffer;
 	GFX_FAILED(device->CreateBuffer(&bd2, &pData2, &pIndexBuffer));
 
-	context->IASetIndexBuffer(pIndexBuffer.Get(),DXGI_FORMAT_R32_UINT,0u);
+	context->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
 
 	//set vertex shader
 	wrl::ComPtr<ID3D11VertexShader> pVertexShader;
@@ -236,7 +228,7 @@ void Graphics::DrawTest() {
 		{"Position",0,DXGI_FORMAT_R32G32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
 		{"Color",0,DXGI_FORMAT_R32G32B32_FLOAT,0,8u,D3D11_INPUT_PER_VERTEX_DATA,0}
 	};
-	
+
 	GFX_FAILED(device->CreateInputLayout(ied, 2u, pBlob->GetBufferPointer(), pBlob->GetBufferSize(), &pInLayout));
 
 	context->IASetInputLayout(pInLayout.Get());
@@ -268,10 +260,16 @@ void Graphics::DrawTest() {
 	vp.TopLeftY = 0;
 	vp.TopLeftX = 0;
 	context->RSSetViewports(1u, &vp);
+	
+	indexElements = sizeof(indices);
+}
+
+void Graphics::Draw() {
 
 	//draw
-	context->DrawIndexed(sizeof(indices),0u,0u);
+	context->DrawIndexed(indexElements,0u,0u);
 }
+
 
 void Graphics::EndFrame() {
 	HRESULT hr;
