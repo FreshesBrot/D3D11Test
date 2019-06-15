@@ -25,8 +25,6 @@ struct Window {
 	//return mouse and keyboard device interface
 	Keyboard keyboard;
 	Mouse mouse;
-	//updates the keyboard and mouse queues
-	void Update();
 
 	//process messages
 	static std::optional<int> ProcessMessages();
