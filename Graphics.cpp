@@ -8,7 +8,7 @@
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
 
-
+#pragma region GFXEXC
 //graphics exception definition
 Graphics::GraphicsException::GraphicsException(int line, const char* file, HRESULT hr) {
 	iLine = line; iFile = file; errorCode = hr;
@@ -44,6 +44,8 @@ const char* Graphics::GraphicsException::Translate(HRESULT hr) const noexcept {
 	codeBuffer = oss.str();
 	return codeBuffer.c_str();
 }
+
+#pragma endregion
 
 //throws exception if failed
 #define GFX_FAILED(hrcall) if ( FAILED( hr = hrcall ) ) throw Graphics::GraphicsException(__LINE__,__FILE__,hr);
@@ -158,7 +160,12 @@ void Graphics::DrawTest() {
 	const Vertex vertices[] = {
 		{0.0f,0.5f,1.0f,0.0f,0.0f},
 		{0.5f,-0.5f,0.0f,1.0f,0.0f},
-		{-0.5f,-0.5,0.0f,0.0f,1.0f}
+		{-0.5f,-0.5,0.0f,0.0f,1.0f},
+
+		{-0.5f,0.5f,7.0f,0.0f,0.2f},
+		{0.5f,0.5f,0.5f,1.0f,0.0f},
+		{0.0f,-0.5f,0.0f,0.3f,0.8f}
+
 	};
 
 	//subresource data
@@ -186,6 +193,34 @@ void Graphics::DrawTest() {
 	//set vertex buffer
 	context->IASetVertexBuffers(0u,1u,pVertexBuffer.GetAddressOf(),&stride,&offset);
 	
+
+	//create indexbuffer
+	int indices[] = {
+		0,1,2,
+		3,4,5
+	};
+
+	//index buffer description
+	D3D11_BUFFER_DESC bd2 = {};
+	bd2.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	bd2.Usage = D3D11_USAGE_DEFAULT;
+	bd2.CPUAccessFlags = 0u;
+	bd2.MiscFlags = 0u;
+	bd2.ByteWidth = sizeof(indices);
+	bd2.StructureByteStride = sizeof(int);
+
+	//index resource data
+	D3D11_SUBRESOURCE_DATA pData2 = {};
+	pData2.pSysMem = indices;
+	pData2.SysMemPitch = 0u;
+	pData2.SysMemSlicePitch = 0u;
+
+	//create buffer
+	wrl::ComPtr<ID3D11Buffer> pIndexBuffer;
+	GFX_FAILED(device->CreateBuffer(&bd2, &pData2, &pIndexBuffer));
+
+	context->IASetIndexBuffer(pIndexBuffer.Get(),DXGI_FORMAT_R32_UINT,0u);
+
 	//set vertex shader
 	wrl::ComPtr<ID3D11VertexShader> pVertexShader;
 	wrl::ComPtr<ID3DBlob> pBlob;
@@ -235,7 +270,7 @@ void Graphics::DrawTest() {
 	context->RSSetViewports(1u, &vp);
 
 	//draw
-	context->Draw((UINT) std::size(vertices), 0u);
+	context->DrawIndexed(sizeof(indices),0u,0u);
 }
 
 void Graphics::EndFrame() {
