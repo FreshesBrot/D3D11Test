@@ -39,6 +39,9 @@
     <ClCompile Include="App.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="dxerr.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -59,6 +62,9 @@
     <ClInclude Include="App.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="dxerr.h">
+      <Filter>Quelldateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -67,5 +73,16 @@
     <FxCompile Include="PixelShader.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DXGetErrorString.inl">
+      <Filter>Quelldateien</Filter>
+    </None>
+    <None Include="DXGetErrorDescription.inl">
+      <Filter>Quelldateien</Filter>
+    </None>
+    <None Include="DXTrace.inl">
+      <Filter>Quelldateien</Filter>
+    </None>
   </ItemGroup>
 </Project>

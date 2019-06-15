@@ -3,11 +3,51 @@
 #include "CustomException.h"
 #include <d3d11.h>
 #include <d3dcompiler.h>
+#include "dxerr.h"
+#include <sstream>
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
 
-//throw some exceptions
-#define CUSTOM_EXC(hr)(CustomException(__LINE__,__FILE__,hr));
+
+//graphics exception definition
+Graphics::GraphicsException::GraphicsException(int line, const char* file, HRESULT hr) {
+	iLine = line; iFile = file; errorCode = hr;
+}
+
+const char* Graphics::GraphicsException::what() const noexcept {
+	std::ostringstream oss;
+	oss <<"[CODE]: "<< (int) errorCode << "\n" <<
+		"[LINE]: " << iLine << "\n" <<
+		"[FILE]: " << iFile << "\n" <<
+		Translate(errorCode);
+	msgBuffer = oss.str();
+	return msgBuffer.c_str();
+}
+
+const char* Graphics::GraphicsException::getType() const noexcept {
+	return "GRAPHICS EXCEPTION";
+}
+
+Graphics::DeviceRemovedException::DeviceRemovedException(int line, const char* file, HRESULT hr) {
+	iLine = line; iFile = file; errorCode = hr;
+}
+
+const char* Graphics::DeviceRemovedException::getType() const noexcept {
+	return "DEVICE REMOVED EXCEPTION";
+}
+
+const char* Graphics::GraphicsException::Translate(HRESULT hr) const noexcept {
+	char buffer[512];
+	DXGetErrorDescription(hr, buffer, sizeof(buffer));
+	std::ostringstream oss;
+	oss << "[ERROR] " << DXGetErrorString(hr) << "\n[DESCRIPTION] " << buffer;
+	codeBuffer = oss.str();
+	return codeBuffer.c_str();
+}
+
+//throws exception if failed
+#define GFX_FAILED(hrcall) if ( FAILED( hr = hrcall ) ) throw Graphics::GraphicsException(__LINE__,__FILE__,hr);
+#define GFX_DEVICE_REMOVED(hr) Graphics::DeviceRemovedException(__LINE__,__FILE__,(hr));
 
 //setup adapteres
 
@@ -36,7 +76,7 @@ Graphics::Graphics(HWND hWnd) : bufferColors({0,0,0}){
 	sd.Flags = 0;
 
 	//setting up
-	if FAILED( hr = D3D11CreateDeviceAndSwapChain(
+	GFX_FAILED(D3D11CreateDeviceAndSwapChain(
 		nullptr,
 		D3D_DRIVER_TYPE_HARDWARE,
 		nullptr,
@@ -49,14 +89,14 @@ Graphics::Graphics(HWND hWnd) : bufferColors({0,0,0}){
 		&device,
 		nullptr,
 		&context
-	)) throw CUSTOM_EXC(hr);
-
+	));
+		
 	//access to render target view
 	wrl::ComPtr<ID3D11Resource> pBackBuffer;
-	if FAILED(hr = swapChain.Get()->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer)) throw CUSTOM_EXC(hr);
-	if FAILED(hr = device.Get()->CreateRenderTargetView(
+	GFX_FAILED(swapChain.Get()->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer));
+	GFX_FAILED(device.Get()->CreateRenderTargetView(
 		pBackBuffer.Get(), nullptr, &target
-	)) throw CUSTOM_EXC(hr);
+	))
 	pBackBuffer = nullptr;
 
 }
@@ -108,14 +148,17 @@ void Graphics::DrawTest() {
 		struct {
 			float x, y;
 		} Pos;
+		struct {
+			float r, g, b;
+		} Color;
 
 	};
 
 	//geometry data
 	const Vertex vertices[] = {
-		{0.0f,0.5f},
-		{0.5f,-0.5f},
-		{-0.5f,-0.5}
+		{0.0f,0.5f,1.0f,0.0f,0.0f},
+		{0.5f,-0.5f,0.0f,1.0f,0.0f},
+		{-0.5f,-0.5,0.0f,0.0f,1.0f}
 	};
 
 	//subresource data
@@ -136,7 +179,7 @@ void Graphics::DrawTest() {
 	//pointer to vertexbuffer
 	wrl::ComPtr<ID3D11Buffer> pVertexBuffer;
 
-	if FAILED(hr = device->CreateBuffer(&bd,&pData,&pVertexBuffer)) throw CUSTOM_EXC(hr);
+	GFX_FAILED(device->CreateBuffer(&bd, &pData, &pVertexBuffer));
 	
 	const UINT stride = sizeof(Vertex);
 	const UINT offset = 0u;
@@ -146,9 +189,9 @@ void Graphics::DrawTest() {
 	//set vertex shader
 	wrl::ComPtr<ID3D11VertexShader> pVertexShader;
 	wrl::ComPtr<ID3DBlob> pBlob;
-	if FAILED(hr = D3DReadFileToBlob(L"VertexShader.cso", &pBlob))throw CUSTOM_EXC(hr);
+	GFX_FAILED(D3DReadFileToBlob(L"VertexShader.cso", &pBlob));
 	//create shader object
-	if FAILED(hr = device->CreateVertexShader(pBlob->GetBufferPointer(),pBlob->GetBufferSize(),nullptr,&pVertexShader))throw CUSTOM_EXC(hr);
+	GFX_FAILED(device->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader));
 	//bind shader to pipeline
 	context->VSSetShader(pVertexShader.Get(), nullptr, 0u);
 
@@ -156,17 +199,19 @@ void Graphics::DrawTest() {
 	wrl::ComPtr<ID3D11InputLayout> pInLayout;
 	const D3D11_INPUT_ELEMENT_DESC ied[] = {
 		{"Position",0,DXGI_FORMAT_R32G32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
+		{"Color",0,DXGI_FORMAT_R32G32B32_FLOAT,0,8u,D3D11_INPUT_PER_VERTEX_DATA,0}
 	};
-	device->CreateInputLayout(ied, 1u, pBlob->GetBufferPointer(), pBlob->GetBufferSize(), &pInLayout);
+	
+	GFX_FAILED(device->CreateInputLayout(ied, 2u, pBlob->GetBufferPointer(), pBlob->GetBufferSize(), &pInLayout));
 
 	context->IASetInputLayout(pInLayout.Get());
 
 	//set pixel shader
 	wrl::ComPtr<ID3D11PixelShader> pPixelShader;
 	//use blob from previous
-	if FAILED(hr = D3DReadFileToBlob(L"PixelShader.cso",&pBlob)) throw CUSTOM_EXC(hr);
+	GFX_FAILED(D3DReadFileToBlob(L"PixelShader.cso", &pBlob));
 	//create shader object
-	if FAILED(device->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader))throw CUSTOM_EXC(hr);
+	GFX_FAILED(device->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader));
 	//bind shader to pipeline
 	context->PSSetShader(pPixelShader.Get(), nullptr, 0);
 
@@ -194,7 +239,12 @@ void Graphics::DrawTest() {
 }
 
 void Graphics::EndFrame() {
-	swapChain->Present(1u, 0u);
+	HRESULT hr;
+	if FAILED(hr = swapChain->Present(1u, 0u)) {
+		if (hr == DXGI_ERROR_DEVICE_REMOVED)
+			throw GFX_DEVICE_REMOVED(device->GetDeviceRemovedReason());
+		GFX_FAILED(hr);
+	}
 }
 
 

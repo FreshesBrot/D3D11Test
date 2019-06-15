@@ -1,11 +1,32 @@
 #pragma once
 #include <d3d11.h>
+#include "CustomException.h"
 #include <wrl.h>
 
 namespace wrl = Microsoft::WRL;
 
-struct Graphics {
+class Graphics {
 public:
+	//setup custom graphics exception
+	class GraphicsException : public CustomException {
+
+		using CustomException::CustomException;
+	public:
+		GraphicsException(int line, const char* file, HRESULT hr);
+
+		const char* what() const noexcept override;
+		const char* getType() const noexcept override;
+		const char* Translate(HRESULT hr) const noexcept override;
+
+	};
+
+	//special case exception
+	class DeviceRemovedException : public GraphicsException {
+	public:
+		DeviceRemovedException(int line, const char* file, HRESULT hr);
+		const char* getType() const noexcept override;
+	};
+
 
 	//creates the D3D11 Device , Context and SwapChain
 	Graphics(HWND hWnd);

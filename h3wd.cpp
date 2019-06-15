@@ -11,10 +11,13 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		
 		App().Start();
 
+	} catch (Graphics::GraphicsException e) {
+		MessageBox(nullptr, e.what(), e.getType(), MB_OK | MB_ICONEXCLAMATION);
+	} catch (Graphics::DeviceRemovedException e) {
+		MessageBox(nullptr, e.what(), e.getType(), MB_OK | MB_ICONEXCLAMATION);
 	} catch (CustomException e) {
 		MessageBox(nullptr,e.what(),e.getType(),MB_OK | MB_ICONEXCLAMATION );
-	}
-	catch (std::exception& e) {
+	} catch (std::exception& e) {
 		MessageBox(nullptr, e.what(), "Exception occured", MB_OK | MB_ICONEXCLAMATION);
 	}
 
