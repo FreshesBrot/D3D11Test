@@ -26,8 +26,9 @@ void App::DoFrame() {
 	w.Gfx().ClearBuffer();
 
 	//if t is pressed, execute drawtest
-	if(w.keyboard.isPressed('T'))
-	w.Gfx().Draw();
+	if (w.keyboard.isPressed('T')) {
+		w.Gfx().Draw(w.mouse.xPos(),w.mouse.yPos());
+	}
 	
 	std::string s;
 	if (w.keyboard.isPressed('T'))
@@ -38,8 +39,7 @@ void App::DoFrame() {
 	SetWindowText(w.WindowHandle(), s.c_str());
 
 	//update keyboard and mouse
-	w.keyboard.Update();
-	//w.mouse.Update()
+	w.Update();
 
 	//present backbuffer
 	w.Gfx().EndFrame();

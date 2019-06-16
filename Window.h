@@ -25,6 +25,11 @@ struct Window {
 	//return mouse and keyboard device interface
 	Keyboard keyboard;
 	Mouse mouse;
+	//update mouse and keyboard states
+	void Update() {
+		keyboard.Update();
+		mouse.Update();
+	};
 
 	//process messages
 	static std::optional<int> ProcessMessages();

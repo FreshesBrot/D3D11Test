@@ -123,22 +123,43 @@ LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPAR
 LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 	switch (msg) {
+	//close handle
 	case WM_CLOSE: //WM_CLOSE; message that is called on X-ing the window
 		PostQuitMessage(10); //posts WM_QUIT to the message queue
 		break;
+	//keyboard handle
 	case WM_KEYDOWN: //WN_KEYDOWN; message, when a key is pressed; key value stored in wParam (capital = non capital)
 		keyboard.Press((char)wParam);
 		break;
 	case WM_KEYUP: //WM_KEYUP; message called when a key is released; key value stored in wParam (capital = non capital)
 		keyboard.Release((char)wParam);
 		break;
-	case WM_LBUTTONDOWN: //WM_LBUTTONDOWN; message that is called when left mouse button is clicked
-		const POINTS pt = MAKEPOINTS(lParam); //mouse location stored in lParam; MAKEPOINTS macro gives a POINTS obj. with x,y coords
+	//mouse handle
+	case WM_MOUSEMOVE:
+		POINTS pt = MAKEPOINTS(lParam);
 		mouse.UpdatePosition(pt);
-		std::ostringstream oss;
-		oss << "(" << mouse.xPos() << "," << mouse.yPos() << ")";
-		std::string s = oss.str();
-		SetWindowText(hWnd, s.c_str());
+		break;
+	case WM_LBUTTONDOWN: 
+		mouse.ButtonDown(MouseL);
+		break;
+	case WM_LBUTTONUP:
+		mouse.ButtonRelease(MouseL);
+		break;
+	case WM_RBUTTONDOWN:
+		mouse.ButtonDown(MouseR);
+		break;
+	case WM_RBUTTONUP:
+		mouse.ButtonRelease(MouseR);
+		break;
+	case WM_MBUTTONDOWN:
+		mouse.ButtonDown(MouseM);
+		break;
+	case WM_MBUTTONUP:
+		mouse.ButtonRelease(MouseM);
+		break;
+	case WM_MOUSEHWHEEL:
+		int wheelDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+		mouse.Scroll(wheelDelta);
 		break;
 	}
 

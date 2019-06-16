@@ -3,8 +3,10 @@
 #include "CustomException.h"
 #include <vector>
 #include <wrl.h>
+#include <DirectXMath.h>
 
 namespace wrl = Microsoft::WRL;
+namespace dx = DirectX;
 
 class Graphics {
 public:
@@ -45,7 +47,9 @@ public:
 	//sets the colors for the clearBuffer() call
 	void setBufferColors(float r, float g, float b);
 	//draws whatever is setup by the setup function (for now)
-	void Draw();
+	void Draw(float x,float y);
+
+	dx::XMMATRIX translate(float xPos,float yPos);
 
 private:
 	
@@ -75,6 +79,6 @@ private:
 	wrl::ComPtr<IDXGISwapChain> swapChain = nullptr;
 	wrl::ComPtr<ID3D11RenderTargetView> target = nullptr;
 
-
+	
 };
 
