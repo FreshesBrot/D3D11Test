@@ -47,16 +47,21 @@ public:
 	//sets the colors for the clearBuffer() call
 	void setBufferColors(float r, float g, float b);
 	//draws whatever is setup by the setup function (for now)
-	void Draw(float x,float y);
+	void Draw(float x,float y, float z, float Xangle, float Yangle);
 
-	dx::XMMATRIX translate(float xPos,float yPos);
+	//translation matrix
+	dx::XMMATRIX translate(float xPos,float yPos,float zPos);
+
+	//rotation matrix
+	dx::XMMATRIX rotateY(float angle);
+	dx::XMMATRIX rotateX(float angle);
 
 private:
 	
 	//vertex struct for management
 	struct Vertex {
 		struct {
-			float x, y;
+			float x, y ,z;
 		} Pos;
 		struct {
 			float r, g, b;

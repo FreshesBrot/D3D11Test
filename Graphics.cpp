@@ -151,21 +151,27 @@ void Graphics::setUpPipeline() {
 
 	//geometry data
 	const Vertex vertices[] = {
-		{0.0f,0.5f,1.0f,0.0f,0.0f},
-		{0.5f,-0.5f,0.0f,1.0f,0.0f},
-		{-0.5f,-0.5,0.0f,0.0f,1.0f},
-
-		{-0.5f,0.5f,7.0f,0.0f,0.2f},
-		{0.5f,0.5f,0.5f,1.0f,0.0f},
-		{0.0f,-0.5f,0.0f,0.3f,0.8f}
-
+		//x,y,z,r,g,b
+		{-1.0f,-1.0f,-1.0f,0.0f,0.0f,0.0f},
+		{1.0f,-1.0f,-1.0f,1.0f,0.0f,0.0f}, 
+		{-1.0f,1.0f,-1.0f,0.0f,1.0f,0.0f}, 
+		{1.0f,1.0f,-1.0f,0.0f,0.0f,1.0f}, 
+		{-1.0f,-1.0f,1.0f,1.0f,1.0f,0.0f},
+		{1.0f,-1.0f,1.0f,1.0f,0.0f,1.0f}, 
+		{-1.0f,1.0f,1.0f,0.0f,1.0f,1.0f}, 
+		{1.0f,1.0f,1.0f,1.0f,1.0f,1.0f}, 
 	};
 
 	//index data
 	const int indices[] = {
-		0,1,2,
-		3,4,5
+		0,2,1, 2,3,1,
+		1,3,5,	3,7,5,
+		2,6,3,	3,6,7,
+		4,5,7,	4,7,6,
+		0,4,2,	2,4,6,
+		0,1,4, 1,5,4
 	};
+
 
 	indexElements = sizeof(indices) / sizeof(int);
 
@@ -236,8 +242,8 @@ void Graphics::setUpPipeline() {
 	//create and set input layout
 	wrl::ComPtr<ID3D11InputLayout> pInLayout;
 	const D3D11_INPUT_ELEMENT_DESC ied[] = {
-		{"Position",0,DXGI_FORMAT_R32G32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
-		{"Color",0,DXGI_FORMAT_R32G32B32_FLOAT,0,8u,D3D11_INPUT_PER_VERTEX_DATA,0}
+		{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
+		{"Color",0,DXGI_FORMAT_R32G32B32_FLOAT,0,12u,D3D11_INPUT_PER_VERTEX_DATA,0}
 	};
 	
 	GFX_FAILED(device->CreateInputLayout(ied, 2u, pBlob->GetBufferPointer(), pBlob->GetBufferSize(), &pInLayout));
@@ -262,7 +268,7 @@ void Graphics::setUpPipeline() {
 
 }
 
-void Graphics::Draw(float x,float y) {
+void Graphics::Draw(float x,float y,float z, float Yangle, float Xangle) {
 	HRESULT hr;
 	
 	//set and create constant buffer for shader side
@@ -279,7 +285,7 @@ void Graphics::Draw(float x,float y) {
 	cbd.MiscFlags = 0u;
 
 	const ConstBuffer cb = {
-		translate(x,y)
+		rotateX(Xangle) * rotateY(Yangle) * translate(x,y,z) * dx::XMMatrixPerspectiveLH(1.0f,1.0,0.5f,10.0f)
 	};
 
 	D3D11_SUBRESOURCE_DATA csd = {};
@@ -295,15 +301,21 @@ void Graphics::Draw(float x,float y) {
 	context->DrawIndexed(indexElements,0u,0u);
 }
 
-dx::XMMATRIX Graphics::translate(float xPos, float yPos) {
+dx::XMMATRIX Graphics::translate(float xPos, float yPos,float zPos) {
 
-	//calculate coords in NDC
-	float newX = 0, newY = 0;
-	newX = xPos / (600 / 2) - 1;
-	newY = -(yPos / (600 / 2) - 1);
+	float newX = 0, newY = 0, newZ = 0;
+	newX = xPos / 300 -1 ;
+	newY = -(yPos / 300) + 1 ;
+	
+	return dx::XMMatrixTranslation(newX, newY, zPos);
+}
 
-	//overwrite transform matrix
-	return dx::XMMatrixTranslation(newX, newY, 0.0f);
+dx::XMMATRIX Graphics::rotateY(float angle) {
+	return dx::XMMatrixRotationY(angle);
+}
+
+dx::XMMATRIX Graphics::rotateX(float angle) {
+	return dx::XMMatrixRotationX(angle);
 }
 
 

@@ -27,9 +27,9 @@ void App::DoFrame() {
 
 	//if t is pressed, execute drawtest
 	if (w.keyboard.isPressed('T')) {
-		w.Gfx().Draw(w.mouse.xPos(),w.mouse.yPos());
+		
 	}
-	
+	w.Gfx().Draw(float(w.mouse.xPos()), float(w.mouse.yPos()), 4.0f , float(w.mouse.xPos()) / 200, float(w.mouse.yPos()) / -200);
 	std::string s;
 	if (w.keyboard.isPressed('T'))
 		s = "Held";
