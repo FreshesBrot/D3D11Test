@@ -16,21 +16,30 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{48e7d257-92c5-418e-916f-e089325afd2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GraphicsEngine">
+      <UniqueIdentifier>{d206e04b-aacf-4f2f-8567-071e6e4d4e1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserInterface">
+      <UniqueIdentifier>{1c571f51-1c92-4ab5-aab6-d1ab7500e007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserInterface\Header">
+      <UniqueIdentifier>{98aca407-fa80-463a-89a0-175797682f0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserInterface\Source">
+      <UniqueIdentifier>{63a03da1-5fd2-4d57-bb56-9f53de0e67e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\dxerr">
+      <UniqueIdentifier>{68fa15a3-c681-4481-b783-ac5c035a975c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\Header">
+      <UniqueIdentifier>{6dbdce56-0f10-451a-ad79-fbb96128ca66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\Source">
+      <UniqueIdentifier>{29f0aa90-0e71-4491-9026-dbebd2d232dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="h3wd.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Mouse.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Keyboard.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="CustomException.cpp">
@@ -39,34 +48,46 @@
     <ClCompile Include="App.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>UserInterface\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>UserInterface\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>UserInterface\Source</Filter>
+    </ClCompile>
     <ClCompile Include="dxerr.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>GraphicsEngine\dxerr</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>GraphicsEngine\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Window.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Mouse.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Keyboard.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="CustomException.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="App.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>UserInterface\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>UserInterface\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>UserInterface\Header</Filter>
+    </ClInclude>
     <ClInclude Include="dxerr.h">
-      <Filter>Quelldateien</Filter>
+      <Filter>GraphicsEngine\dxerr</Filter>
     </ClInclude>
     <ClInclude Include="Vertex.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>GraphicsEngine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>GraphicsEngine\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -78,14 +99,14 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DXGetErrorString.inl">
-      <Filter>Quelldateien</Filter>
-    </None>
     <None Include="DXGetErrorDescription.inl">
-      <Filter>Quelldateien</Filter>
+      <Filter>GraphicsEngine\dxerr</Filter>
+    </None>
+    <None Include="DXGetErrorString.inl">
+      <Filter>GraphicsEngine\dxerr</Filter>
     </None>
     <None Include="DXTrace.inl">
-      <Filter>Quelldateien</Filter>
+      <Filter>GraphicsEngine\dxerr</Filter>
     </None>
   </ItemGroup>
 </Project>
