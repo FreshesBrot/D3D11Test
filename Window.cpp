@@ -157,7 +157,7 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_MBUTTONUP:
 		mouse.ButtonRelease(MouseM);
 		break;
-	case WM_MOUSEHWHEEL:
+	case WM_MOUSEWHEEL:
 		int wheelDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 		mouse.Scroll(wheelDelta);
 		break;

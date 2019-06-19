@@ -1,6 +1,6 @@
 #include "App.h"
 
-App::App() : w(600,600,"MAMA"){ }
+App::App() : w(600,600,"CubeBox"){ }
 
 App::~App() { }
 
@@ -19,24 +19,20 @@ int App::Start() {
 
 }
 
-
+float z = 4.0f;
 void App::DoFrame() {
 	//clear the back buffer and set new color
 	w.Gfx().setBufferColors(0.1f, 0.2f, 0.5f);
 	w.Gfx().ClearBuffer();
 
-	//if t is pressed, execute drawtest
-	if (w.keyboard.isPressed('T')) {
-		
+	if (w.mouse.OnScrollDown()) {
+		if (z < 10.0f) z++;
 	}
-	w.Gfx().Draw(float(w.mouse.xPos()), float(w.mouse.yPos()), 4.0f , float(w.mouse.xPos()) / 200, float(w.mouse.yPos()) / -200);
-	std::string s;
-	if (w.keyboard.isPressed('T'))
-		s = "Held";
-	else if (w.keyboard.isLoose('T'))
-		s = "Loose";
+	if (w.mouse.OnScrollUp()) {
+		if (z > 1.0f) z--;
+	}
 
-	SetWindowText(w.WindowHandle(), s.c_str());
+	w.Gfx().Draw(float(w.mouse.xPos()), float(w.mouse.yPos()), z , float(w.mouse.xPos()) / 200, float(w.mouse.yPos()) / -200);
 
 	//update keyboard and mouse
 	w.Update();

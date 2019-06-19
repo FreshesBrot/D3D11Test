@@ -2,7 +2,7 @@
 
 
 Mouse::Mouse() : x(0),y(0),wheelDelta(0) {
-	states.resize(2);
+	states.resize(3);
 }
 
 void Mouse::UpdatePosition(POINTS p) {

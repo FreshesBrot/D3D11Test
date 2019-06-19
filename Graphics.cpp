@@ -163,17 +163,17 @@ void Graphics::setUpPipeline() {
 	};
 
 	//index data
-	const int indices[] = {
+	//you can pass a vector!
+	const std::vector<int> indices({
 		0,2,1, 2,3,1,
 		1,3,5,	3,7,5,
 		2,6,3,	3,6,7,
 		4,5,7,	4,7,6,
 		0,4,2,	2,4,6,
 		0,1,4, 1,5,4
-	};
+		});
 
-
-	indexElements = sizeof(indices) / sizeof(int);
+	indexElements = indices.size();
 
 	//vertex resource data
 	D3D11_SUBRESOURCE_DATA pData = {};
@@ -200,7 +200,7 @@ void Graphics::setUpPipeline() {
 
 	//index resource data
 	D3D11_SUBRESOURCE_DATA pData2 = {};
-	pData2.pSysMem = indices;
+	pData2.pSysMem = indices.data();
 	pData2.SysMemPitch = 0u;
 	pData2.SysMemSlicePitch = 0u;
 
@@ -210,7 +210,7 @@ void Graphics::setUpPipeline() {
 	bd2.Usage = D3D11_USAGE_DEFAULT;
 	bd2.CPUAccessFlags = 0u;
 	bd2.MiscFlags = 0u;
-	bd2.ByteWidth = sizeof(indices);
+	bd2.ByteWidth = indices.size()*sizeof(int);
 	bd2.StructureByteStride = sizeof(int);
 
 	//create and set index buffer
@@ -239,7 +239,7 @@ void Graphics::setUpPipeline() {
 	context->VSSetShader(pVertexShader.Get(), nullptr, 0u);
 
 
-	//create and set input layout
+	//create and set input layout for vertex struct
 	wrl::ComPtr<ID3D11InputLayout> pInLayout;
 	const D3D11_INPUT_ELEMENT_DESC ied[] = {
 		{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},

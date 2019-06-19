@@ -4,6 +4,7 @@
 #include <vector>
 #include <wrl.h>
 #include <DirectXMath.h>
+#include "Vertex.h"
 
 namespace wrl = Microsoft::WRL;
 namespace dx = DirectX;
@@ -57,17 +58,6 @@ public:
 	dx::XMMATRIX rotateX(float angle);
 
 private:
-	
-	//vertex struct for management
-	struct Vertex {
-		struct {
-			float x, y ,z;
-		} Pos;
-		struct {
-			float r, g, b;
-		} Color;
-
-	};
 
 	//color buffer
 	struct {
