@@ -19,9 +19,6 @@ struct Window {
 	HWND WindowHandle();
 	const char* getClassName();
 
-	//return the graphics device interface
-	Graphics& Gfx();
-
 	//return mouse and keyboard device interface
 	Keyboard keyboard;
 	Mouse mouse;
@@ -36,7 +33,6 @@ struct Window {
 
 private:
 
-	std::unique_ptr<Graphics> pGfx;
 	static constexpr const char* className = "Window32";
 	HINSTANCE hInstance;
 	HWND hWnd;

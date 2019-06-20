@@ -1,5 +1,6 @@
 #pragma once
 #include "Window.h"
+#include "GraphicsInterface.h"
 
 class App {
 public:
@@ -14,7 +15,10 @@ public:
 
 private:
 
+
 	Window w;
+	GraphicsInterface GI;
+	
 
 };
 

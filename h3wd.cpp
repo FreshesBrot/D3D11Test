@@ -2,7 +2,6 @@
 #include <iostream>
 #include <sstream>
 #include "App.h"
-#include "CustomException.h"
 
 //overhead for everything 
 
@@ -11,9 +10,9 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		
 		App().Start();
 
-	} catch (Graphics::GraphicsException e) {
+	} catch (GraphicsException e) {
 		MessageBox(nullptr, e.what(), e.getType(), MB_OK | MB_ICONEXCLAMATION);
-	} catch (Graphics::DeviceRemovedException e) {
+	} catch (DeviceRemovedException e) {
 		MessageBox(nullptr, e.what(), e.getType(), MB_OK | MB_ICONEXCLAMATION);
 	} catch (CustomException e) {
 		MessageBox(nullptr,e.what(),e.getType(),MB_OK | MB_ICONEXCLAMATION );

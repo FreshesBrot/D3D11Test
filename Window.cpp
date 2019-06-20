@@ -43,9 +43,6 @@ Window::Window(int width, int height, const char* name) : hInstance(GetModuleHan
 		);
 
 	ShowWindow(hWnd, SW_SHOW);
-	
-	//create graphics object
-	pGfx = std::make_unique<Graphics>(hWnd);
 
 }
 
@@ -65,10 +62,6 @@ HWND Window::WindowHandle() {
 
 const char* Window::getClassName() {
 	return className;
-}
-
-Graphics& Window::Gfx() {
-	return *pGfx;
 }
 
 std::optional<int> Window::ProcessMessages() {

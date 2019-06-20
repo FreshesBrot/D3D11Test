@@ -136,22 +136,40 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="ConstBuffer.cpp" />
     <ClCompile Include="CustomException.cpp" />
     <ClCompile Include="dxerr.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="GraphicsInterface.cpp" />
+    <ClCompile Include="GFXExc.cpp" />
     <ClCompile Include="h3wd.cpp" />
+    <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="UpdateController.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
+    <ClCompile Include="VertexShader.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="Bindable.h" />
+    <ClInclude Include="ConstBuffer.h" />
     <ClInclude Include="CustomException.h" />
     <ClInclude Include="dxerr.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="GraphicsInterface.h" />
+    <ClInclude Include="GFXExc.h" />
+    <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="PixelShader.h" />
+    <ClInclude Include="UpdateController.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="VertexShader.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

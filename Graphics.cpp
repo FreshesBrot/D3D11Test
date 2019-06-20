@@ -1,61 +1,17 @@
 #include "Graphics.h"
 #include "Redef.h"
-#include "CustomException.h"
 #include <d3d11.h>
 #include <d3dcompiler.h>
-#include "dxerr.h"
-#include <sstream>
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
 
-
-
-#pragma region GFXEXC
-//graphics exception definition
-Graphics::GraphicsException::GraphicsException(int line, const char* file, HRESULT hr) {
-	iLine = line; iFile = file; errorCode = hr;
-}
-
-const char* Graphics::GraphicsException::what() const noexcept {
-	std::ostringstream oss;
-	oss <<"[CODE]: "<< (int) errorCode << "\n" <<
-		"[LINE]: " << iLine << "\n" <<
-		"[FILE]: " << iFile << "\n" <<
-		Translate(errorCode);
-	msgBuffer = oss.str();
-	return msgBuffer.c_str();
-}
-
-const char* Graphics::GraphicsException::getType() const noexcept {
-	return "GRAPHICS EXCEPTION";
-}
-
-Graphics::DeviceRemovedException::DeviceRemovedException(int line, const char* file, HRESULT hr) {
-	iLine = line; iFile = file; errorCode = hr;
-}
-
-const char* Graphics::DeviceRemovedException::getType() const noexcept {
-	return "DEVICE REMOVED EXCEPTION";
-}
-
-const char* Graphics::GraphicsException::Translate(HRESULT hr) const noexcept {
-	char buffer[512];
-	DXGetErrorDescription(hr, buffer, sizeof(buffer));
-	std::ostringstream oss;
-	oss << "[ERROR] " << DXGetErrorString(hr) << "\n[DESCRIPTION] " << buffer;
-	codeBuffer = oss.str();
-	return codeBuffer.c_str();
-}
-
-#pragma endregion
-
 //throws exception if failed
-#define GFX_FAILED(hrcall) if ( FAILED( hr = hrcall ) ) throw Graphics::GraphicsException(__LINE__,__FILE__,hr);
-#define GFX_DEVICE_REMOVED(hr) Graphics::DeviceRemovedException(__LINE__,__FILE__,(hr));
+#define GFX_FAILED(hrcall) if ( FAILED( hr = hrcall ) ) throw GraphicsException(__LINE__,__FILE__,hr);
+#define GFX_DEVICE_REMOVED(hr) DeviceRemovedException(__LINE__,__FILE__,(hr));
 
 //setup adapteres
 
-Graphics::Graphics(HWND hWnd) : bufferColors({0,0,0}){
+Graphics::Graphics(HWND hWnd) {
 
 	//device initilization
 
@@ -117,31 +73,15 @@ Graphics::~Graphics() {
 }
 
 
-#pragma region buffers
 void Graphics::ClearBuffer(float r, float g, float b) {
 	if (r > 1.0f) r = 1.0f;
 	if (g > 1.0f) g = 1.0f;
 	if (b > 1.0f) b = 1.0f;
-	
-	bufferColors = { r,g,b };
 
 	const float color[] = { r,g,b,1.0f };
 	context.Get()->ClearRenderTargetView(target.Get(), color);
 }
 
-void Graphics::ClearBuffer() {
-	const float color[] = { bufferColors.r,bufferColors.g,bufferColors.b,1.0f };
-	context.Get()->ClearRenderTargetView(target.Get(), color);
-}
-
-void Graphics::setBufferColors(float r, float g, float b) {
-	if (r > 1.0f) r = 1.0f;
-	if (g > 1.0f) g = 1.0f;
-	if (b > 1.0f) b = 1.0f;
-
-	bufferColors = { r,g,b };
-}
-#pragma endregion
 
 void Graphics::setUpPipeline() {
 	//initializing the entire graphics pipeline 
@@ -318,6 +258,8 @@ dx::XMMATRIX Graphics::rotateX(float angle) {
 	return dx::XMMatrixRotationX(angle);
 }
 
+
+Graphics::Graphics() { }
 
 void Graphics::EndFrame() {
 	HRESULT hr;
