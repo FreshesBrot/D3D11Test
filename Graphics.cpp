@@ -1,13 +1,6 @@
 #include "Graphics.h"
 #include "Redef.h"
-#include <d3d11.h>
-#include <d3dcompiler.h>
-#pragma comment(lib,"d3d11.lib")
-#pragma comment(lib,"D3DCompiler.lib")
 
-//throws exception if failed
-#define GFX_FAILED(hrcall) if ( FAILED( hr = hrcall ) ) throw GraphicsException(__LINE__,__FILE__,hr);
-#define GFX_DEVICE_REMOVED(hr) DeviceRemovedException(__LINE__,__FILE__,(hr));
 
 //setup adapteres
 
@@ -56,8 +49,26 @@ Graphics::Graphics(HWND hWnd) {
 	GFX_FAILED(swapChain.Get()->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer));
 	GFX_FAILED(device.Get()->CreateRenderTargetView(
 		pBackBuffer.Get(), nullptr, &target
-	))
+	));
 	pBackBuffer = nullptr;
+
+
+
+	//set primitve type
+	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	//specify target view
+	context->OMSetRenderTargets(1u, target.GetAddressOf(), nullptr);
+
+	//specify viewport
+	D3D11_VIEWPORT vp = {};
+	vp.Height = 600;
+	vp.Width = 600;
+	vp.MinDepth = 0;
+	vp.MaxDepth = 1;
+	vp.TopLeftY = 0;
+	vp.TopLeftX = 0;
+	context->RSSetViewports(1u, &vp);
 
 	//sets up the rest of the pipeline
 	setUpPipeline();
@@ -189,23 +200,6 @@ void Graphics::setUpPipeline() {
 	GFX_FAILED(device->CreateInputLayout(ied, 2u, pBlob->GetBufferPointer(), pBlob->GetBufferSize(), &pInLayout));
 	context->IASetInputLayout(pInLayout.Get());
 
-
-	//set primitve type
-	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	//specify target view
-	context->OMSetRenderTargets(1u, target.GetAddressOf(), nullptr);
-
-	//specify viewport
-	D3D11_VIEWPORT vp = {};
-	vp.Height = 600;
-	vp.Width = 600;
-	vp.MinDepth = 0;
-	vp.MaxDepth = 1;
-	vp.TopLeftY = 0;
-	vp.TopLeftX = 0;
-	context->RSSetViewports(1u, &vp);
-
 }
 
 void Graphics::Draw(float x,float y,float z, float Yangle, float Xangle) {
@@ -265,7 +259,7 @@ void Graphics::EndFrame() {
 	HRESULT hr;
 	if FAILED(hr = swapChain->Present(1u, 0u)) {
 		if (hr == DXGI_ERROR_DEVICE_REMOVED)
-			throw GFX_DEVICE_REMOVED(device->GetDeviceRemovedReason());
+			GFX_DEVICE_REMOVED(device->GetDeviceRemovedReason());
 		GFX_FAILED(hr);
 	}
 }

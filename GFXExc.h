@@ -3,6 +3,9 @@
 #include "dxerr.h"
 #include <sstream>
 
+#define GFX_FAILED(hrcall) if (FAILED(hr=(hrcall))) throw GraphicsException(__LINE__,__FILE__,hr)
+#define GFX_DEVICE_REMOVED(hrcall) if (FAILED(hr=(hrcall))) throw DeviceRemovedException(__LINE__,__FILE__,hr)
+
 	//graphics exception
 	class GraphicsException : public CustomException {
 

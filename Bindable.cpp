@@ -8,8 +8,14 @@ Bindable::Bindable(Graphics gfx){
 	this->gfx = gfx;
 }
 
+Bindable::Bindable() { }
+
 void Bindable::setUpdateController(UpdateController controller) {
 	UC = controller;
+}
+
+void Bindable::UpdateTransformMatrix(dx::XMMATRIX m_transform) {
+
 }
 
 
@@ -30,3 +36,4 @@ wrl::ComPtr<ID3DBlob> Bindable::pVshaderBlob;
 wrl::ComPtr<ID3D11Buffer> Bindable::m_Transform;
 
 UpdateController Bindable::UC;
+bool Bindable::PSset = false, Bindable::VSset = false, Bindable::mTransformSet = false, Bindable::GFXSet = false;

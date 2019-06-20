@@ -1,6 +1,5 @@
 #include "GFXExc.h"
 
-
 GraphicsException::GraphicsException(int line, const char* file, HRESULT hr) {
 	iLine = line; iFile = file; errorCode = hr;
 }

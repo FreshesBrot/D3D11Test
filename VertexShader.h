@@ -7,12 +7,14 @@ class VertexShader : public Bindable {
 
 public:
 
+
+	VertexShader(const wchar_t* fileName);
 	~VertexShader();
 
 	void Bind() override;
 	void Update() override;
 
 private:
-
+	const wchar_t* fileName;
 };
 

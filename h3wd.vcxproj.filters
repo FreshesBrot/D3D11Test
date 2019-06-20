@@ -38,6 +38,15 @@
     <Filter Include="Rest\Source">
       <UniqueIdentifier>{f5af1200-251e-4b59-97d9-00a2ba21dd09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{dab7af07-5710-4f2c-b23b-e27ecaac6f30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Header">
+      <UniqueIdentifier>{e2a49e22-8d80-48f1-91cd-14f0f1bc8bd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Source">
+      <UniqueIdentifier>{93b0696b-3047-44f0-b569-ca00167db4a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -88,7 +97,15 @@
     <ClCompile Include="UpdateController.cpp">
       <Filter>GraphicsEngine\Source</Filter>
     </ClCompile>
-    <ClCompile Include="GFXExc.cpp" />
+    <ClCompile Include="GFXExc.cpp">
+      <Filter>GraphicsEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -139,7 +156,15 @@
     <ClInclude Include="UpdateController.h">
       <Filter>GraphicsEngine\Header</Filter>
     </ClInclude>
-    <ClInclude Include="GFXExc.h" />
+    <ClInclude Include="GFXExc.h">
+      <Filter>GraphicsEngine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Objects\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Objects\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

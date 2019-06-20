@@ -4,6 +4,11 @@ GraphicsInterface::GraphicsInterface(HWND hWnd) : gfx(hWnd), controller() {
 	colors = { 0,0,0 };
 
 	Bindable::setUpdateController(controller);
+
+	//bind all components to the graphics pipeline
+	bindables.push_back(new VertexShader(L"VertexShader.cso"));
+	bindables.push_back(new PixelShader(L"PixelShader.cso"));
+	
 }
 
 GraphicsInterface::~GraphicsInterface() {
@@ -28,8 +33,12 @@ Graphics GraphicsInterface::getGfx() {
 	return gfx;
 }
 
-void GraphicsInterface::addBindable(Bindable *b) {
+void GraphicsInterface::addBindable(Bindable* b) {
 	bindables.push_back(b);
+}
+
+void GraphicsInterface::addObject(Object* o){
+	objects.push_back(o);
 }
 
 void GraphicsInterface::ClearBackBuffer() {
@@ -37,4 +46,5 @@ void GraphicsInterface::ClearBackBuffer() {
 
 	gfx.ClearBuffer(r,g,b);
 }
+
 

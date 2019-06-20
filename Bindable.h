@@ -2,21 +2,24 @@
 #include "Graphics.h"
 #include "UpdateController.h"
 
+//this class represents an object that can be bound to the graphics pipeline
 class Bindable {
 public:
 
 	~Bindable();
+	Bindable();
 	Bindable(Graphics gfx);
 	
 	//bind will setup the specified bindable object bind it to the graphics pipeline
 	virtual void Bind() = 0;
-	//unbinds the component from the pipeline
-	virtual void Unbind() = 0;
 
 	//update updates any changed resources, depending on the update controller state
 	virtual void Update() = 0;
 	
 	static void setUpdateController(UpdateController controller);
+	
+	//updates the transform matrix per object
+	static void UpdateTransformMatrix(dx::XMMATRIX m_transform);
 
 protected:
 
@@ -34,8 +37,8 @@ protected:
 	static wrl::ComPtr<ID3D11Buffer> m_Transform;
 
 
-	//flags wether PS, VS and m_Transform are already set
-	bool PSset = false, VSset = false,mTransformSet = false, GFXSet = false;
+	//flags wether PS, VS, GFX object and m_Transform are already set
+	static bool PSset, VSset,mTransformSet, GFXSet;
 
 private:	
 
