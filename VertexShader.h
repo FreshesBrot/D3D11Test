@@ -1,6 +1,7 @@
 #pragma once
 #include "Bindable.h"
 
+//this class represents the bindable vertexshader
 class VertexShader : public Bindable {
 	using Bindable::Bind;
 	using Bindable::Update;

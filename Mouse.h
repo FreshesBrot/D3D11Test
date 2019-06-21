@@ -8,6 +8,8 @@
 #define MouseR Mouse::Button::R
 #define MouseM Mouse::Button::M
 
+
+//this class represents the mouse and its functionality
 class Mouse {
 public:
 
@@ -45,6 +47,7 @@ private:
 		HOLD,RELEASE,LOOSE,SCROLLUP,SCROLLDOWN
 	};
 
+	//mouse event
 	struct Event {
 		Button button;
 		State state;

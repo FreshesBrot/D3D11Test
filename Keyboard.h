@@ -2,24 +2,12 @@
 #include <vector>
 #include <queue>
 
+//this class represents the keyboard and its functionality
 class Keyboard {
 public:
 
 	Keyboard();
 	~Keyboard();
-
-	enum State {
-		LOOSE,HOLD,RELEASE
-	};
-
-	struct Event {
-		State state;
-		char keyCode;
-		Event(State state, char c) {
-			this->state = state;
-			keyCode = c;
-		}
-	};
 
 	//keyboard interface to ask for keystates
 	bool isPressed(char c);
@@ -34,6 +22,21 @@ public:
 	void Update();
 
 private:
+
+	//key states
+	enum State {
+		LOOSE, HOLD, RELEASE
+	};
+
+	//key event
+	struct Event {
+		State state;
+		char keyCode;
+		Event(State state, char c) {
+			this->state = state;
+			keyCode = c;
+		}
+	};
 
 	//represents the state of the keyboard
 	std::vector<State> states;

@@ -6,7 +6,8 @@
 #define GFX_FAILED(hrcall) if (FAILED(hr=(hrcall))) throw GraphicsException(__LINE__,__FILE__,hr)
 #define GFX_DEVICE_REMOVED(hrcall) if (FAILED(hr=(hrcall))) throw DeviceRemovedException(__LINE__,__FILE__,hr)
 
-	//graphics exception
+
+	//this class represents a D3D11 graphics exception
 	class GraphicsException : public CustomException {
 
 		using CustomException::CustomException;
@@ -19,7 +20,8 @@
 
 	};
 
-	//special case exception
+
+	//this class represents the special case of device removed exceptions
 	class DeviceRemovedException : public GraphicsException {
 	public:
 		DeviceRemovedException(int line, const char* file, HRESULT hr);

@@ -9,7 +9,7 @@
 #include "IndexBuffer.h"
 #include "ConstBuffer.h"
 
-
+//this class represents the interface for the user for drawcalls and pipeline adjustments
 class GraphicsInterface {
 public:
 
@@ -18,10 +18,11 @@ public:
 
 	//clears the backbuffer and presents it to the rendertarget
 	void Draw(float x, float y, float z, float Xangle, float Yangle);
-	void setBufferColors(float r, float g, float b);
+	
+	//draws all objects in the object vector
+	void Draw();
 
-	//updates all bindables
-	void Update();
+	void setBufferColors(float r, float g, float b);
 
 	//returns the pointer to the graphics object
 	Graphics getGfx();

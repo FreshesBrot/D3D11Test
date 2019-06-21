@@ -14,6 +14,7 @@
 namespace wrl = Microsoft::WRL;
 namespace dx = DirectX;
 
+//this class represents the basic graphics device
 class Graphics {
 	
 	//make bindable a friend class for private access
@@ -43,6 +44,9 @@ public:
 	dx::XMMATRIX rotateY(float angle);
 	dx::XMMATRIX rotateX(float angle);
 
+	//draw call for indexed drawing; must specify number of indices, index offset and base vertex location
+	void DrawIndexed(int numIndices, int indexOffset, int baseVertexLocation);
+
 private:
 
 	//sets up graphics pipeline
@@ -55,6 +59,5 @@ private:
 	wrl::ComPtr<IDXGISwapChain> swapChain = nullptr;
 	wrl::ComPtr<ID3D11RenderTargetView> target = nullptr;
 
-	
 };
 

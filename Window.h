@@ -8,6 +8,7 @@
 #include <optional>
 #include <iostream>
 
+//this class represents the window that the render engine draws into
 struct Window {
 
 	//registers and creates a window

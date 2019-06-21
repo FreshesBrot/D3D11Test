@@ -252,6 +252,10 @@ dx::XMMATRIX Graphics::rotateX(float angle) {
 	return dx::XMMatrixRotationX(angle);
 }
 
+void Graphics::DrawIndexed(int numIndices, int indexOffset, int baseVertexLocation) {
+	context->DrawIndexed(numIndices, indexOffset, baseVertexLocation);
+}
+
 
 Graphics::Graphics() { }
 

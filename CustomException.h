@@ -3,6 +3,7 @@
 #include <string>
 #include "Redef.h"
 
+//this class represents a custom exception
 class CustomException : public std::exception {
 public:
 

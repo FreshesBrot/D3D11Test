@@ -2,6 +2,7 @@
 #include "Window.h"
 #include "GraphicsInterface.h"
 
+//this class represents the entire application as a top level interface
 class App {
 public:
 	
@@ -10,7 +11,7 @@ public:
 	
 	//starts the application and sustains the application loop
 	int Start();
-	//this function will do everything once per frame
+	//does the entire app logic once per frame
 	void DoFrame();
 
 private:

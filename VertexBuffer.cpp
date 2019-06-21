@@ -30,4 +30,7 @@ void VertexBuffer::Bind() {
 
 }
 
-void VertexBuffer::Update() { }
+void VertexBuffer::Update() {
+	vertices = UC.getNewVertices();
+	Bind();
+}

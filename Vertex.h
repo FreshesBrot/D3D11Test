@@ -1,5 +1,6 @@
 #pragma once
-//vertex struct for management
+
+//this class represents a vertex 
 struct Vertex {
 	struct {
 		float x, y, z;
