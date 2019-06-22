@@ -1,7 +1,7 @@
 #pragma once
 #include "Graphics.h"
 #include "Bindable.h"
-#include "Object.h"
+#include "Cube.h"
 
 #include "VertexShader.h"
 #include "PixelShader.h"
@@ -16,7 +16,7 @@ public:
 	GraphicsInterface(HWND hWnd);
 	~GraphicsInterface();
 
-	//clears the backbuffer and presents it to the rendertarget
+	//clears the backbuffer and presents it to the rendertarget (deprecated)
 	void Draw(float x, float y, float z, float Xangle, float Yangle);
 	
 	//draws all objects in the object vector
@@ -27,15 +27,22 @@ public:
 	//returns the pointer to the graphics object
 	Graphics getGfx();
 
-	//adds a bindable object to the interface
-	void addBindable(Bindable* b);
-
 	//adds an object to the draw pipe
 	void addObject(Object* o);
 
+	//returns the object by index
+	Object* getObjectAt(int index);
+
 private:
 
-	//returns the count of all indices
+	//rolls through all bindables and calls update
+	void Update();
+
+	//returns all indices
+	std::vector<int> collectIndices();
+
+	//returns all vertices
+	std::vector<Vertex> collectVertices();
 
 
 	//resets color values for the backbuffer
@@ -49,7 +56,6 @@ private:
 
 	//object vector
 	std::vector<Object*> objects;
-	
 
 	//bindable vector
 	std::vector<Bindable*> bindables;
@@ -58,6 +64,10 @@ private:
 	Graphics gfx;
 
 	//update controller
-	UpdateController controller;
+	UpdateController UC;
+
+	//class that holds the matrix buffer
+	MatrixBuffer m_buffer;
+
 };
 

@@ -7,8 +7,8 @@
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
 	try {
-		
-		App().Start();
+		App app;
+		app.Start();
 
 	} catch (GraphicsException e) {
 		MessageBox(nullptr, e.what(), e.getType(), MB_OK | MB_ICONEXCLAMATION);

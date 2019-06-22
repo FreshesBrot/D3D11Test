@@ -17,12 +17,13 @@ public:
 	//overwrites the indexbuffer
 	void Update() override;
 
-
+	//id of the bindable
+	const static UINT ID = 2;
 
 private:
 
+	//index data
 	std::vector<int> indices;
-	wrl::ComPtr<ID3D11Buffer> pIndexBuffer;
 
 };
 

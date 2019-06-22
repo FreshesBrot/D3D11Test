@@ -21,9 +21,10 @@ void VertexShader::Bind() {
 	GFX_FAILED(D3DReadFileToBlob(fileName,&pVshaderBlob));
 	GFX_FAILED(getDevice()->CreateVertexShader(
 		pVshaderBlob->GetBufferPointer(),
-		pVshaderBlob->GetBufferSize(), nullptr,
+		pVshaderBlob->GetBufferSize(),nullptr,
 		&pVshader
 		));
+
 	getContext()->VSSetShader(pVshader.Get(),nullptr,0u);
 
 }

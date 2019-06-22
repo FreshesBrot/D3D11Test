@@ -82,17 +82,11 @@
     <ClCompile Include="IndexBuffer.cpp">
       <Filter>GraphicsEngine\Source</Filter>
     </ClCompile>
-    <ClCompile Include="ConstBuffer.cpp">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClCompile>
     <ClCompile Include="App.cpp">
       <Filter>Rest\Source</Filter>
     </ClCompile>
     <ClCompile Include="CustomException.cpp">
       <Filter>Rest\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="h3wd.cpp">
-      <Filter>Rest\Header</Filter>
     </ClCompile>
     <ClCompile Include="UpdateController.cpp">
       <Filter>GraphicsEngine\Source</Filter>
@@ -105,6 +99,12 @@
     </ClCompile>
     <ClCompile Include="Cube.cpp">
       <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="h3wd.cpp">
+      <Filter>Rest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstBuffer.cpp">
+      <Filter>GraphicsEngine\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

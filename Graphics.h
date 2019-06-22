@@ -35,7 +35,7 @@ public:
 	void ClearBuffer(float r, float g, float b);
 
 	//draws whatever is setup by the setup function (for now)
-	void Draw(float x,float y, float z, float Xangle, float Yangle);
+	void Draw(float x,float y, float z, float Xangle, float Yangle,int numInd);
 
 	//translation matrix
 	dx::XMMATRIX translate(float xPos,float yPos,float zPos);

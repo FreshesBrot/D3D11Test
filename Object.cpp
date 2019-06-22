@@ -3,7 +3,7 @@
 dx::XMMATRIX Object::m_projection = dx::XMMatrixPerspectiveLH(1.0f,1.0f,0.5f,10.0f);
 
 Object::Object() {
-	position = { 0,0,0 };
+	position = { 0,0,5 };
 	rotation = { 0,0,0 };
 	scaling = { 1,1,1 };
 }

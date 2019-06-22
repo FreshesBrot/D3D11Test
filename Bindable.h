@@ -8,18 +8,18 @@ public:
 
 	~Bindable();
 	Bindable();
-	Bindable(Graphics gfx);
 	
-	//bind will setup the specified bindable object bind it to the graphics pipeline
+	//bind will setup the specified bindable object and bind it to the graphics pipeline
 	virtual void Bind() = 0;
 
 	//update updates any changed resources, depending on the update controller state
 	virtual void Update() = 0;
 	
+	//sets the shared updatecontroller for the graphicsinterface and the bindable interface
 	static void setUpdateController(UpdateController controller);
 	
-	//updates the transform matrix per object
-	static void UpdateTransformMatrix(dx::XMMATRIX m_transform);
+	//sets the graphics device
+	static void setGraphicsDevice(Graphics graphics);
 
 protected:
 
@@ -34,7 +34,7 @@ protected:
 	static wrl::ComPtr<ID3D11PixelShader> pPshader;
 	static wrl::ComPtr<ID3D11VertexShader> pVshader;
 	static wrl::ComPtr<ID3DBlob> pVshaderBlob;
-	static wrl::ComPtr<ID3D11Buffer> m_Transform;
+	static wrl::ComPtr<ID3D11Buffer> pTransform;
 
 
 	//flags wether PS, VS, GFX object and m_Transform are already set

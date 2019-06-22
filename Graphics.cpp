@@ -2,7 +2,8 @@
 #include "Redef.h"
 
 
-//setup adapteres
+
+Graphics::Graphics() { }
 
 Graphics::Graphics(HWND hWnd) {
 
@@ -71,7 +72,7 @@ Graphics::Graphics(HWND hWnd) {
 	context->RSSetViewports(1u, &vp);
 
 	//sets up the rest of the pipeline
-	setUpPipeline();
+	//setUpPipeline();
 
 }
 
@@ -202,7 +203,7 @@ void Graphics::setUpPipeline() {
 
 }
 
-void Graphics::Draw(float x,float y,float z, float Yangle, float Xangle) {
+void Graphics::Draw(float x,float y,float z, float Yangle, float Xangle,int numInd) {
 	HRESULT hr;
 	
 	//set and create constant buffer for shader side
@@ -232,7 +233,7 @@ void Graphics::Draw(float x,float y,float z, float Yangle, float Xangle) {
 	context->VSSetConstantBuffers(0u, 1u, pConstBuffer.GetAddressOf());
 	
 	//draw
-	context->DrawIndexed(indexElements,0u,0u);
+	context->DrawIndexed(numInd,0u,0u);
 }
 
 dx::XMMATRIX Graphics::translate(float xPos, float yPos,float zPos) {
@@ -255,9 +256,6 @@ dx::XMMATRIX Graphics::rotateX(float angle) {
 void Graphics::DrawIndexed(int numIndices, int indexOffset, int baseVertexLocation) {
 	context->DrawIndexed(numIndices, indexOffset, baseVertexLocation);
 }
-
-
-Graphics::Graphics() { }
 
 void Graphics::EndFrame() {
 	HRESULT hr;

@@ -14,13 +14,15 @@ public:
 	//binds the vertex buffer to the pipeline
 	void Bind() override;
 
+	//updates the vertex buffer
 	void Update() override;
 
+	//id of the bindable
+	const static UINT ID = 3;
 
 private:
 
 	std::vector<Vertex> vertices;
-	wrl::ComPtr<ID3D11Buffer> pVertexBuffer;
 
 };
 

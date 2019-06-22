@@ -1,23 +1,18 @@
 #include "Bindable.h"
 
-Bindable::~Bindable() {}
-
-
-Bindable::Bindable(Graphics gfx){
-	if (GFXSet) return;
-	this->gfx = gfx;
-}
-
 Bindable::Bindable() { }
+
+Bindable::~Bindable() {}
 
 void Bindable::setUpdateController(UpdateController controller) {
 	UC = controller;
 }
 
-void Bindable::UpdateTransformMatrix(dx::XMMATRIX m_transform) {
-
+void Bindable::setGraphicsDevice(Graphics graphics) {
+	if (GFXSet) return;
+	GFXSet = true;
+	gfx = graphics;
 }
-
 
 ID3D11Device* Bindable::getDevice() {
 	return gfx.device.Get();
@@ -33,7 +28,7 @@ Graphics Bindable::gfx;
 wrl::ComPtr<ID3D11PixelShader> Bindable::pPshader;
 wrl::ComPtr<ID3D11VertexShader> Bindable::pVshader;
 wrl::ComPtr<ID3DBlob> Bindable::pVshaderBlob;
-wrl::ComPtr<ID3D11Buffer> Bindable::m_Transform;
+wrl::ComPtr<ID3D11Buffer> Bindable::pTransform;
 
 UpdateController Bindable::UC;
 bool Bindable::PSset = false, Bindable::VSset = false, Bindable::mTransformSet = false, Bindable::GFXSet = false;
