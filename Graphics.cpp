@@ -182,7 +182,7 @@ void Graphics::setUpPipeline() {
 	context->PSSetShader(pPixelShader.Get(), nullptr, 0);
 
 
-	//create set vertex shader
+	//create and set vertex shader
 	wrl::ComPtr<ID3D11VertexShader> pVertexShader;
 	GFX_FAILED(D3DReadFileToBlob(L"VertexShader.cso", &pBlob));
 	//create shader object

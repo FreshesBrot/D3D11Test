@@ -1,26 +1,28 @@
 #pragma once
 #include "Bindable.h"
 
-//this class represents the bindable vertexshader
+//this class represents the bindable vertex shader
 class VertexShader : public Bindable {
 	using Bindable::Bind;
 	using Bindable::Update;
+	using Bindable::Unbind;
 
 public:
 
-
+	//takes the name of the shader file and stores it
 	VertexShader(const wchar_t* fileName);
 	~VertexShader();
 
-	//binds the vertex shader to the pipeline
+	//binds the Vertex shader to the pipeline and stores the shader file blob for later use
 	void Bind() override;
-	//changes the set vertex shader
+	//unused
 	void Update() override;
 
-	//id of the bindable
-	const static UINT ID = 1;
+	//undbind and delete the object
+	void Unbind() override;
 
 private:
+	//file name of the shader
 	const wchar_t* fileName;
-};
 
+};

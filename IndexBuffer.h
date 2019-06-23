@@ -1,28 +1,30 @@
 #pragma once
 #include "Bindable.h"
 
-//this class represents the bindable indexbuffer
+//this class represents the bindable index buffer
 class IndexBuffer : public Bindable {
 	using Bindable::Bind;
 	using Bindable::Update;
+	using Bindable::Unbind;
 
 public:
 
-	IndexBuffer(std::vector<int> Indcs);
+	//takes a set of indices and stores them
+	IndexBuffer(std::vector<int> Ind);
 	~IndexBuffer();
 
 	//binds the index buffer to the pipeline
 	void Bind() override;
-
-	//overwrites the indexbuffer
+	//updated the index buffer and rebinds it
 	void Update() override;
-
-	//id of the bindable
-	const static UINT ID = 2;
+	//unbind and delete the object
+	void Unbind() override;
 
 private:
 
-	//index data
+	//pointer to the buffer
+	wrl::ComPtr<ID3D11Buffer> pIndexBuffer;
+	//set of all indices
 	std::vector<int> indices;
 
 };

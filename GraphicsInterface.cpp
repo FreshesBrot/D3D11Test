@@ -1,36 +1,20 @@
 #include "GraphicsInterface.h"
 
 GraphicsInterface::GraphicsInterface(HWND hWnd) : 
-	gfx(hWnd), UC(), 
-	m_buffer(dx::XMMATRIX()),
-	objects(),bindables()
-{
+	gfx(hWnd), UC(), PI(), objects(),allIndices(),allVertices() {
 	
+	//set the graphics object for the bindables
+	Bindable::setGraphicsObject(gfx);
+	Bindable::setUpdateController(UC);
+
 	colors = { 0,0,0 };
 
-	Bindable::setUpdateController(UC);
-	Bindable::setGraphicsDevice(gfx);
-
-	//bind all components to the graphics pipeline
-	bindables.push_back(new VertexShader(L"VertexShader.cso"));
-	bindables.push_back(new PixelShader(L"PixelShader.cso"));
-	bindables.push_back(new IndexBuffer(collectIndices()));
-	bindables.push_back(new VertexBuffer(collectVertices()));
-
-	//bind every resource
-	for (Bindable* bind : bindables)
-		bind->Bind();
-
-	//bind the transform buffer
-	m_buffer.Bind();
+	//bind the components of the pipeline interface
+	PI.BindComponents();
 
 }
 
 GraphicsInterface::~GraphicsInterface() {
-	
-	for (Bindable* bind: bindables) {
-		delete bind;
-	}
 	
 	for (Object* obj : objects) {
 		delete obj;
@@ -43,6 +27,7 @@ void GraphicsInterface::Draw(float x, float y, float z, float Xangle, float Yang
 
 	gfx.Draw(x,y,z,Xangle,Yangle,36);
 	gfx.EndFrame();
+
 }
 
 void GraphicsInterface::Draw() {
@@ -51,20 +36,6 @@ void GraphicsInterface::Draw() {
 
 	int indexOffset = 0, vertexOffset = 0;
 
-	for (Object* obj : objects) {
-		//update the transformation matrix constant buffer per object
-		UC.set(obj->getTransformMatrix());
-		m_buffer.Update();
-		
-		//draw ONLY the current object from the vector
-		int amtIndices = obj->getIndices().size(),amtVertices = obj->getVertices().size();
-		
-		gfx.DrawIndexed(amtIndices, indexOffset, vertexOffset);
-		indexOffset += amtIndices; vertexOffset += amtVertices;
-	}
-
-	//present the backbuffer
-	gfx.EndFrame();
 
 }
 
@@ -76,65 +47,47 @@ Graphics GraphicsInterface::getGfx() {
 	return gfx;
 }
 
-void GraphicsInterface::addObject(Object* o){
+void GraphicsInterface::addObject(Object* o) {
+	//push the new object
 	objects.push_back(o);
-	//set the new indices and vertices
-	UC.set(collectVertices());
-	UC.set(collectIndices());
-	//signal that the states have changed
-	UC.setState(VertexBuffer::ID, true);
-	UC.setState(IndexBuffer::ID, true);
-	//call update on all bindables
-	Update();
+
+	//insert new indices and vertices
+	std::vector<int> objInd = o->getIndices();
+	allIndices.insert(allIndices.end(),objInd.begin(),objInd.end());
+
+	std::vector<Vertex> objVrt = o->getVertices();
+	allVertices.insert(allVertices.end(), objVrt.begin(), objVrt.end());
+
+	//update the update controller
+	UC.set(allIndices); UC.set(allVertices);
+
+	//call update on geometry buffers
+	PI.UpdateGeometry();
+
+}
+
+void GraphicsInterface::addObjectGhost(Object* o) {
+	//push the new object
+	objects.push_back(o);
+
+	//insert new indices and vertices
+	std::vector<int> objInd = o->getIndices();
+	allIndices.insert(allIndices.end(), objInd.begin(), objInd.end());
+
+	std::vector<Vertex> objVrt = o->getVertices();
+	allVertices.insert(allVertices.end(), objVrt.begin(), objVrt.end());
+	
+}
+
+void GraphicsInterface::UpdateGeometry() {
+	//update the update controller
+	UC.set(allIndices); UC.set(allVertices);
+
+	PI.UpdateGeometry();
 }
 
 Object* GraphicsInterface::getObjectAt(int index) {
 	return objects[index];
-}
-
-void GraphicsInterface::Update() {
-	for (int i = 0; i < bindables.size(); i++)
-		bindables[i]->Update();
-}
-
-std::vector<int> GraphicsInterface::collectIndices() {
-	if (objects.empty()) return std::vector<int>();
-	std::vector<int> allIndices;
-	int sum = 0;
-	//get the total amount of indices to reserve
-	for (Object* obj : objects) {
-		sum += obj->getIndices().size();
-	}
-	//reserve the required space
-	allIndices.reserve(sum);
-
-	//insert everything into allIndices
-	for (Object* obj : objects) {
-		std::vector<int> indices = obj->getIndices();
-		allIndices.insert(allIndices.end(),indices.begin(),indices.end());
-	}
-
-	return allIndices;
-}
-
-std::vector<Vertex> GraphicsInterface::collectVertices() {
-	if (objects.empty()) return std::vector<Vertex>();
-	std::vector<Vertex> allVertices;
-	int sum = 0;
-	//get the total amount of Vertices to reserve
-	for (Object* obj : objects) {
-		sum += obj->getVertices().size();
-	}
-	//reserve the required space
-	allVertices.reserve(sum);
-
-	//insert everything into allVertices
-	for (Object* obj : objects) {
-		std::vector<Vertex> vertices = obj->getVertices();
-		allVertices.insert(allVertices.end(), vertices.begin(), vertices.end());
-	}
-
-	return allVertices;
 }
 
 void GraphicsInterface::ClearBackBuffer() {

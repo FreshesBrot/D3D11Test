@@ -2,47 +2,40 @@
 #include "Graphics.h"
 #include "UpdateController.h"
 
-//this class represents an object that can be bound to the graphics pipeline
+//this class represents the general functionality of all objects that are bound to the graphics pipeline
 class Bindable {
 public:
 
-	~Bindable();
-	Bindable();
-	
-	//bind will setup the specified bindable object and bind it to the graphics pipeline
+	//undbinds and deletes the object
+	virtual void Unbind() = 0;
+
+	//bind the component to the pipeline
 	virtual void Bind() = 0;
 
-	//update updates any changed resources, depending on the update controller state
+	//update the bound component
 	virtual void Update() = 0;
-	
-	//sets the shared updatecontroller for the graphicsinterface and the bindable interface
-	static void setUpdateController(UpdateController controller);
-	
-	//sets the graphics device
-	static void setGraphicsDevice(Graphics graphics);
+
+	//sets the graphics object
+	static void setGraphicsObject(Graphics gfx);
+
+	//sets the update controller
+	static void setUpdateController(UpdateController UC);
 
 protected:
+	//retrieves the pointer to the D3D device
+	ID3D11Device* getDevice();
 
-	//update controller
+	//retrieves the pointer to the D3D device context
+	ID3D11DeviceContext* getContext();
+
+	//shader blob (for the vertexbuffer)
+	static wrl::ComPtr<ID3DBlob> pShaderBlob;
+
+	//shared update controller
 	static UpdateController UC;
 
-	//returns device and device context
-	static ID3D11Device* getDevice();
-	static ID3D11DeviceContext* getContext();
-
-	//static members for shared access
-	static wrl::ComPtr<ID3D11PixelShader> pPshader;
-	static wrl::ComPtr<ID3D11VertexShader> pVshader;
-	static wrl::ComPtr<ID3DBlob> pVshaderBlob;
-	static wrl::ComPtr<ID3D11Buffer> pTransform;
-
-
-	//flags wether PS, VS, GFX object and m_Transform are already set
-	static bool PSset, VSset,mTransformSet, GFXSet;
-
-private:	
-
-	//graphics object
+private:
+	//the shared graphics object
 	static Graphics gfx;
 
 };

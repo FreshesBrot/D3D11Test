@@ -149,6 +149,7 @@
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="PipelineInterface.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="UpdateController.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="PipelineInterface.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="UpdateController.h" />
     <ClInclude Include="Vertex.h" />

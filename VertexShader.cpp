@@ -1,34 +1,30 @@
 #include "VertexShader.h"
 
-
-VertexShader::VertexShader(const wchar_t* fileName) { 
+VertexShader::VertexShader(const wchar_t* fileName) {
 	this->fileName = fileName;
 }
 
 VertexShader::~VertexShader() {
-	VSset = false;
-	pVshader = nullptr;
-	pVshaderBlob = nullptr;
+	pShaderBlob = nullptr;
 }
 
 void VertexShader::Bind() {
-	if (VSset) return;
-	VSset = true;
-
 	HRESULT hr;
 
-	//create and bind vertex shader to pipeline
-	GFX_FAILED(D3DReadFileToBlob(fileName,&pVshaderBlob));
+	wrl::ComPtr<ID3D11VertexShader> pVertexShader;
+	//create shader object
+	GFX_FAILED(D3DReadFileToBlob(fileName,&pShaderBlob));
 	GFX_FAILED(getDevice()->CreateVertexShader(
-		pVshaderBlob->GetBufferPointer(),
-		pVshaderBlob->GetBufferSize(),nullptr,
-		&pVshader
+		pShaderBlob->GetBufferPointer(),pShaderBlob->GetBufferSize(),
+		nullptr,&pVertexShader
 		));
-
-	getContext()->VSSetShader(pVshader.Get(),nullptr,0u);
+	//bind shader object
+	getContext()->VSSetShader(pVertexShader.Get(), nullptr, 0u);
 
 }
 
-void VertexShader::Update() {
+void VertexShader::Update() { }
 
+void VertexShader::Unbind() {
+	this->~VertexShader();
 }

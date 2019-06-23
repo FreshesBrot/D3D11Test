@@ -10,7 +10,7 @@ App::~App() { }
 int App::Start() {
 	
 	GI.setBufferColors(0.1f, 0.2f, 0.9f);
-	GI.addObject(new Cube());
+	//GI.addObject(new Cube());
 
 	while (true) {
 		//check if processmessages returns any value
@@ -34,7 +34,6 @@ void App::DoFrame() {
 		if (z > 1.0f) z--;
 	}
 
-	GI.getObjectAt(0)->setTransform(float(w.mouse.xPos()), float(w.mouse.yPos()), z);
 
 	GI.Draw(20,20,z,0,0);
 	

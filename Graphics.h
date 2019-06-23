@@ -16,10 +16,7 @@ namespace dx = DirectX;
 
 //this class represents the basic graphics device
 class Graphics {
-	
-	//make bindable a friend class for private access
 	friend class Bindable;
-
 public:
 
 

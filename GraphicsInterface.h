@@ -1,13 +1,8 @@
 #pragma once
 #include "Graphics.h"
-#include "Bindable.h"
 #include "Cube.h"
-
-#include "VertexShader.h"
-#include "PixelShader.h"
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
-#include "ConstBuffer.h"
+#include "UpdateController.h"
+#include "PipelineInterface.h"
 
 //this class represents the interface for the user for drawcalls and pipeline adjustments
 class GraphicsInterface {
@@ -27,23 +22,18 @@ public:
 	//returns the pointer to the graphics object
 	Graphics getGfx();
 
-	//adds an object to the draw pipe
+	//adds an object to the draw pipeline and updates geometry buffers
 	void addObject(Object* o);
+	//adds an objects but doesnt update geometry pipeline
+	void addObjectGhost(Object* o);
+
+	//updates geometry pipeline (for after addObjectGhost)
+	void UpdateGeometry();
 
 	//returns the object by index
 	Object* getObjectAt(int index);
 
 private:
-
-	//rolls through all bindables and calls update
-	void Update();
-
-	//returns all indices
-	std::vector<int> collectIndices();
-
-	//returns all vertices
-	std::vector<Vertex> collectVertices();
-
 
 	//resets color values for the backbuffer
 	void ClearBackBuffer();
@@ -54,20 +44,26 @@ private:
 	} colors;
 
 
-	//object vector
-	std::vector<Object*> objects;
 
-	//bindable vector
-	std::vector<Bindable*> bindables;
+	//combines all object indices and stores them
+	std::vector<int> allIndices;
+
+	//returns all vertices
+	std::vector<Vertex> allVertices;
+
+
 
 	//graphics object
 	Graphics gfx;
 
 	//update controller
 	UpdateController UC;
+	
+	//object vector
+	std::vector<Object*> objects;
 
-	//class that holds the matrix buffer
-	MatrixBuffer m_buffer;
+	//pipeline interface
+	PipelineInterface PI;
 
 };
 
