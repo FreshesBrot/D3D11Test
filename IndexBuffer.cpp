@@ -39,7 +39,7 @@ void IndexBuffer::Bind() {
 }
 
 void IndexBuffer::Update() {
-	indices = UC.getNewIndices();
+	indices = UC->getNewIndices();
 	Bind();
 }
 

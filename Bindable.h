@@ -16,10 +16,10 @@ public:
 	virtual void Update() = 0;
 
 	//sets the graphics object
-	static void setGraphicsObject(Graphics gfx);
+	static void setGraphicsObject(Graphics* gfx);
 
 	//sets the update controller
-	static void setUpdateController(UpdateController UC);
+	static void setUpdateController(UpdateController* UC);
 
 protected:
 	//retrieves the pointer to the D3D device
@@ -32,11 +32,11 @@ protected:
 	static wrl::ComPtr<ID3DBlob> pShaderBlob;
 
 	//shared update controller
-	static UpdateController UC;
+	static UpdateController* UC;
 
 private:
 	//the shared graphics object
-	static Graphics gfx;
+	static Graphics* gfx;
 
 };
 

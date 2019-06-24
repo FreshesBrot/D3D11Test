@@ -10,7 +10,7 @@ App::~App() { }
 int App::Start() {
 	
 	GI.setBufferColors(0.1f, 0.2f, 0.9f);
-	//GI.addObject(new Cube());
+	GI.addObject(new Cube());
 
 	while (true) {
 		//check if processmessages returns any value

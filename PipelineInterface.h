@@ -30,7 +30,7 @@ private:
 	
 	//the list of all bindables
 	//first five are allways in the same order:
-	//0: VertexShader - 1: PixelShader - 2: VertexBuffer - 3: IndexBuffer - 4: MatrixBuffer
+	//0: VertexShader - 1: PixelShader - 2: VertexBuffer 3: IndexBuffer - 4: MatrixBuffer  
 	std::vector<Bindable*> bindables;
 
 };

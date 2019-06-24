@@ -9,6 +9,8 @@ PipelineInterface::PipelineInterface() : bindables(){
 	bindables.push_back(new VertexBuffer(std::vector<Vertex>()));
 	bindables.push_back(new IndexBuffer(std::vector<int>()));
 	bindables.push_back(new MatrixBuffer());
+	
+
 
 }
 

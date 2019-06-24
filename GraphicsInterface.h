@@ -20,7 +20,7 @@ public:
 	void setBufferColors(float r, float g, float b);
 
 	//returns the pointer to the graphics object
-	Graphics getGfx();
+	Graphics* getGfx();
 
 	//adds an object to the draw pipeline and updates geometry buffers
 	void addObject(Object* o);
@@ -54,10 +54,10 @@ private:
 
 
 	//graphics object
-	Graphics gfx;
+	Graphics* gfx;
 
 	//update controller
-	UpdateController UC;
+	UpdateController* UC;
 	
 	//object vector
 	std::vector<Object*> objects;

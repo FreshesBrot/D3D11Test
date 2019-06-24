@@ -1,8 +1,12 @@
 #include "GraphicsInterface.h"
 
 GraphicsInterface::GraphicsInterface(HWND hWnd) : 
-	gfx(hWnd), UC(), PI(), objects(),allIndices(),allVertices() {
+	PI(), objects(),allIndices(),allVertices() {
 	
+	//allocate heap memory for update controller and graphics device
+	gfx = new Graphics(hWnd);
+	UC = new UpdateController();
+
 	//set the graphics object for the bindables
 	Bindable::setGraphicsObject(gfx);
 	Bindable::setUpdateController(UC);
@@ -19,14 +23,16 @@ GraphicsInterface::~GraphicsInterface() {
 	for (Object* obj : objects) {
 		delete obj;
 	}
-
+	
+	delete gfx;
+	delete UC;
 }
 
 void GraphicsInterface::Draw(float x, float y, float z, float Xangle, float Yangle) {
 	ClearBackBuffer();
 
-	gfx.Draw(x,y,z,Xangle,Yangle,36);
-	gfx.EndFrame();
+	gfx->Draw(x,y,z,Xangle,Yangle,36);
+	gfx->EndFrame();
 
 }
 
@@ -43,7 +49,7 @@ void GraphicsInterface::setBufferColors(float r, float g, float b) {
 	colors = {r,g,b};
 }
 
-Graphics GraphicsInterface::getGfx() {
+Graphics* GraphicsInterface::getGfx() {
 	return gfx;
 }
 
@@ -59,7 +65,7 @@ void GraphicsInterface::addObject(Object* o) {
 	allVertices.insert(allVertices.end(), objVrt.begin(), objVrt.end());
 
 	//update the update controller
-	UC.set(allIndices); UC.set(allVertices);
+	UC->set(allIndices); UC->set(allVertices);
 
 	//call update on geometry buffers
 	PI.UpdateGeometry();
@@ -81,7 +87,7 @@ void GraphicsInterface::addObjectGhost(Object* o) {
 
 void GraphicsInterface::UpdateGeometry() {
 	//update the update controller
-	UC.set(allIndices); UC.set(allVertices);
+	UC->set(allIndices); UC->set(allVertices);
 
 	PI.UpdateGeometry();
 }
@@ -93,7 +99,7 @@ Object* GraphicsInterface::getObjectAt(int index) {
 void GraphicsInterface::ClearBackBuffer() {
 	float r = colors.r, g = colors.g, b = colors.b;
 
-	gfx.ClearBuffer(r,g,b);
+	gfx->ClearBuffer(r,g,b);
 }
 
 

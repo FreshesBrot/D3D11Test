@@ -54,7 +54,7 @@ void VertexBuffer::Bind() {
 }
 
 void VertexBuffer::Update() {
-	vertices = UC.getNewVertices();
+	vertices = UC->getNewVertices();
 	Bind();
 }
 

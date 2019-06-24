@@ -43,7 +43,7 @@ void MatrixBuffer::Bind() {
 void MatrixBuffer::Update() {
 	HRESULT hr;
 
-	dx::XMMATRIX transformationMatrix = UC.getTransform();
+	dx::XMMATRIX transformationMatrix = UC->getTransform();
 	
 	D3D11_MAPPED_SUBRESOURCE pMsr;
 	//fills the address with zeros
