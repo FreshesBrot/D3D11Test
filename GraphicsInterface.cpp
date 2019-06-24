@@ -28,21 +28,27 @@ GraphicsInterface::~GraphicsInterface() {
 	delete UC;
 }
 
-void GraphicsInterface::Draw(float x, float y, float z, float Xangle, float Yangle) {
-	ClearBackBuffer();
-
-	gfx->Draw(x,y,z,Xangle,Yangle,36);
-	gfx->EndFrame();
-
-}
-
 void GraphicsInterface::Draw() {
 	//clear the backbuffer
 	ClearBackBuffer();
 
 	int indexOffset = 0, vertexOffset = 0;
 
+	for (Object* obj : objects) {
+		//update the transform for the object
+		UC->set(obj->getTransformMatrix());
+		PI.UpdateTransformBuffer();
+		//draw the object
+		//store of indices and vertices
+		int ind = obj->getIndices().size(), vrt = obj->getVertices().size();
+		gfx->DrawIndexed(ind, indexOffset, vertexOffset);
+		//update offsets
+		indexOffset += ind;
+		vertexOffset += vrt;
+	}
 
+	//end the frame 
+	gfx->EndFrame();
 }
 
 void GraphicsInterface::setBufferColors(float r, float g, float b) {

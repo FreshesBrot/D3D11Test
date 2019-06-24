@@ -47,19 +47,10 @@ Graphics::Graphics(HWND hWnd) {
 		
 	//access to render target view
 	wrl::ComPtr<ID3D11Resource> pBackBuffer;
-	GFX_FAILED(swapChain.Get()->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer));
-	GFX_FAILED(device.Get()->CreateRenderTargetView(
+	GFX_FAILED(swapChain->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer));
+	GFX_FAILED(device->CreateRenderTargetView(
 		pBackBuffer.Get(), nullptr, &target
 	));
-	pBackBuffer = nullptr;
-
-
-
-	//set primitve type
-	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	//specify target view
-	context->OMSetRenderTargets(1u, target.GetAddressOf(), nullptr);
 
 	//specify viewport
 	D3D11_VIEWPORT vp = {};
@@ -71,8 +62,51 @@ Graphics::Graphics(HWND hWnd) {
 	vp.TopLeftX = 0;
 	context->RSSetViewports(1u, &vp);
 
-	//sets up the rest of the pipeline
-	//setUpPipeline();
+	//set up the Z-Buffer
+
+	//create the depth stencil state and description
+	wrl::ComPtr<ID3D11DepthStencilState> pDSstate;
+	D3D11_DEPTH_STENCIL_DESC DSdesc = {};
+	DSdesc.DepthEnable = TRUE;
+	DSdesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	DSdesc.DepthFunc = D3D11_COMPARISON_LESS;
+	GFX_FAILED(device->CreateDepthStencilState(&DSdesc,&pDSstate));
+	//bind to the output merger
+	context->OMSetDepthStencilState(pDSstate.Get(), 0u);
+
+	
+	//create the texture 
+	wrl::ComPtr<ID3D11Texture2D> pDepthStencil;
+	//texture description
+	D3D11_TEXTURE2D_DESC Tdesc;
+	Tdesc.Width = 600u;
+	Tdesc.Height = 600u;
+	Tdesc.MipLevels = 1u;
+	Tdesc.ArraySize = 1u;
+	Tdesc.Format = DXGI_FORMAT_D32_FLOAT;
+	//used for anti-aliasing
+	Tdesc.SampleDesc.Count = 1u;
+	Tdesc.SampleDesc.Quality = 0u;
+
+	Tdesc.Usage = D3D11_USAGE_DEFAULT;
+	Tdesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	Tdesc.CPUAccessFlags = 0u;
+	Tdesc.MiscFlags = 0u;
+	
+
+	GFX_FAILED(device->CreateTexture2D(&Tdesc,nullptr,&pDepthStencil));
+
+	//create the view of the depth stencil
+	//view description
+	D3D11_DEPTH_STENCIL_VIEW_DESC DSVdesc = {};
+	DSVdesc.Format = DXGI_FORMAT_D32_FLOAT;
+	DSVdesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	DSVdesc.Texture2D.MipSlice = 0u;
+
+	GFX_FAILED(device->CreateDepthStencilView(pDepthStencil.Get(),&DSVdesc,&depthStencil));
+
+	//bind the render target and the depth stencil to the Output Merger
+	context->OMSetRenderTargets(1u, target.GetAddressOf(), depthStencil.Get());
 
 }
 
@@ -82,6 +116,7 @@ Graphics::~Graphics() {
 	context = nullptr;
 	swapChain = nullptr;
 	target = nullptr;
+	depthStencil = nullptr;
 }
 
 
@@ -90,167 +125,11 @@ void Graphics::ClearBuffer(float r, float g, float b) {
 	if (g > 1.0f) g = 1.0f;
 	if (b > 1.0f) b = 1.0f;
 
+	//clear backbuffer
 	const float color[] = { r,g,b,1.0f };
-	context.Get()->ClearRenderTargetView(target.Get(), color);
-}
-
-
-void Graphics::setUpPipeline() {
-	//initializing the entire graphics pipeline 
-
-	HRESULT hr;
-
-
-	//geometry data
-	const Vertex vertices[] = {
-		//x,y,z,r,g,b
-		{-1.0f,-1.0f,-1.0f,0.0f,0.0f,0.0f},
-		{1.0f,-1.0f,-1.0f,1.0f,0.0f,0.0f}, 
-		{-1.0f,1.0f,-1.0f,0.0f,1.0f,0.0f}, 
-		{1.0f,1.0f,-1.0f,0.0f,0.0f,1.0f}, 
-		{-1.0f,-1.0f,1.0f,1.0f,1.0f,0.0f},
-		{1.0f,-1.0f,1.0f,1.0f,0.0f,1.0f}, 
-		{-1.0f,1.0f,1.0f,0.0f,1.0f,1.0f}, 
-		{1.0f,1.0f,1.0f,1.0f,1.0f,1.0f}, 
-	};
-
-	//index data
-	//you can pass a vector!
-	const std::vector<int> indices({
-		0,2,1, 2,3,1,
-		1,3,5,	3,7,5,
-		2,6,3,	3,6,7,
-		4,5,7,	4,7,6,
-		0,4,2,	2,4,6,
-		0,1,4, 1,5,4
-		});
-
-	indexElements = indices.size();
-
-	//vertex resource data
-	D3D11_SUBRESOURCE_DATA pData = {};
-	pData.pSysMem = vertices;
-	pData.SysMemPitch = 0u;
-	pData.SysMemSlicePitch = 0u;
-
-	//vertex buffer description
-	D3D11_BUFFER_DESC bd = {};
-	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.CPUAccessFlags = 0u;
-	bd.MiscFlags = 0u;
-	bd.ByteWidth = sizeof(vertices);
-	bd.StructureByteStride = sizeof(Vertex);
-
-	//create and set vertex buffer
-	wrl::ComPtr<ID3D11Buffer> pVertexBuffer;
-	GFX_FAILED(device->CreateBuffer(&bd, &pData, &pVertexBuffer));
-	const UINT stride = sizeof(Vertex);
-	const UINT offset = 0u;
-	context->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
-
-
-	//index resource data
-	D3D11_SUBRESOURCE_DATA pData2 = {};
-	pData2.pSysMem = indices.data();
-	pData2.SysMemPitch = 0u;
-	pData2.SysMemSlicePitch = 0u;
-
-	//index buffer description
-	D3D11_BUFFER_DESC bd2 = {};
-	bd2.BindFlags = D3D11_BIND_INDEX_BUFFER;
-	bd2.Usage = D3D11_USAGE_DEFAULT;
-	bd2.CPUAccessFlags = 0u;
-	bd2.MiscFlags = 0u;
-	bd2.ByteWidth = indices.size()*sizeof(int);
-	bd2.StructureByteStride = sizeof(int);
-
-	//create and set index buffer
-	wrl::ComPtr<ID3D11Buffer> pIndexBuffer;
-	GFX_FAILED(device->CreateBuffer(&bd2, &pData2, &pIndexBuffer));
-	context->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
-
-
-	//create and set pixel shader
-	wrl::ComPtr<ID3DBlob> pBlob;
-	wrl::ComPtr<ID3D11PixelShader> pPixelShader;
-	//use blob from previous
-	GFX_FAILED(D3DReadFileToBlob(L"PixelShader.cso", &pBlob));
-	//create shader object
-	GFX_FAILED(device->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader));
-	//bind shader to pipeline
-	context->PSSetShader(pPixelShader.Get(), nullptr, 0);
-
-
-	//create and set vertex shader
-	wrl::ComPtr<ID3D11VertexShader> pVertexShader;
-	GFX_FAILED(D3DReadFileToBlob(L"VertexShader.cso", &pBlob));
-	//create shader object
-	GFX_FAILED(device->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader));
-	//bind shader to pipeline
-	context->VSSetShader(pVertexShader.Get(), nullptr, 0u);
-
-
-	//create and set input layout for vertex struct
-	wrl::ComPtr<ID3D11InputLayout> pInLayout;
-	const D3D11_INPUT_ELEMENT_DESC ied[] = {
-		{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
-		{"Color",0,DXGI_FORMAT_R32G32B32_FLOAT,0,12u,D3D11_INPUT_PER_VERTEX_DATA,0}
-	};
-	
-	GFX_FAILED(device->CreateInputLayout(ied, 2u, pBlob->GetBufferPointer(), pBlob->GetBufferSize(), &pInLayout));
-	context->IASetInputLayout(pInLayout.Get());
-
-}
-
-void Graphics::Draw(float x,float y,float z, float Yangle, float Xangle,int numInd) {
-	HRESULT hr;
-	
-	//set and create constant buffer for shader side
-	struct ConstBuffer {
-		dx::XMMATRIX m_translate;
-	};
-
-	CD3D11_BUFFER_DESC cbd = {};
-	cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	cbd.Usage = D3D11_USAGE_DYNAMIC;
-	cbd.ByteWidth = sizeof(dx::XMMATRIX);
-	cbd.StructureByteStride = 0u;
-	cbd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	cbd.MiscFlags = 0u;
-
-	const ConstBuffer cb = {
-		rotateX(Xangle) * rotateY(Yangle) * translate(x,y,z) * dx::XMMatrixPerspectiveLH(1.0f,1.0,0.5f,10.0f)
-	};
-
-	D3D11_SUBRESOURCE_DATA csd = {};
-	csd.pSysMem = &cb;
-	csd.SysMemPitch = 0u;
-	csd.SysMemSlicePitch = 0u;
-
-	wrl::ComPtr<ID3D11Buffer> pConstBuffer;
-	GFX_FAILED(device->CreateBuffer(&cbd, &csd, &pConstBuffer));
-	context->VSSetConstantBuffers(0u, 1u, pConstBuffer.GetAddressOf());
-	
-	//draw
-	context->DrawIndexed(numInd,0u,0u);
-}
-
-dx::XMMATRIX Graphics::translate(float xPos, float yPos,float zPos) {
-
-	float newX = 0, newY = 0, newZ = 0;
-	newX = xPos / 300 -1 ;
-	newY = -(yPos / 300) + 1 ;
-	
-	return dx::XMMatrixTranslation(newX, newY, zPos);
-}
-
-dx::XMMATRIX Graphics::rotateY(float angle) {
-	return dx::XMMatrixRotationY(angle);
-}
-
-dx::XMMATRIX Graphics::rotateX(float angle) {
-	return dx::XMMatrixRotationX(angle);
+	context->ClearRenderTargetView(target.Get(), color);
+	//clear depth stencil
+	context->ClearDepthStencilView(depthStencil.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
 }
 
 void Graphics::DrawIndexed(int numIndices, int indexOffset, int baseVertexLocation) {
