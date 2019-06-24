@@ -48,3 +48,25 @@ void Object::setScale(float xScale, float yScale, float zScale) {
 	scaling.z = zScale;
 }
 #pragma endregion
+
+#pragma region SHORTCUTS
+dx::XMMATRIX Object::trans(float xOffset, float yOffset, float zOffset) {
+	return dx::XMMatrixTranslation(xOffset, yOffset, zOffset);
+}
+
+dx::XMMATRIX Object::rotateX(float angle) {
+	return dx::XMMatrixRotationX(angle);
+}
+
+dx::XMMATRIX Object::rotateY(float angle) {
+	return dx::XMMatrixRotationY(angle);
+}
+
+dx::XMMATRIX Object::rotateZ(float angle) {
+	return dx::XMMatrixRotationZ(angle);
+}
+
+dx::XMMATRIX Object::scal(float xScale, float yScale, float zScale) {
+	return dx::XMMatrixScaling(xScale, yScale, zScale);
+}
+#pragma endregion

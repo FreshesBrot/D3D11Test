@@ -14,7 +14,7 @@ public:
 	virtual std::vector<int> getIndices() = 0;
 	virtual std::vector<Vertex> getVertices() = 0;
 
-	//returns the transformationmatrix for the object (already in NDC)
+	//returns the transformationmatrix for the object (already projected into NDC)
 	virtual dx::XMMATRIX getTransformMatrix() = 0;
 
 #pragma region TRANSFORMS
@@ -54,5 +54,15 @@ protected:
 	struct {
 		float x, y, z;
 	} rotation;
+
+	//shortcuts
+	dx::XMMATRIX trans(float xOffset, float yOffset, float zOffset);
+
+	dx::XMMATRIX rotateX(float angle);
+	dx::XMMATRIX rotateY(float angle);
+	dx::XMMATRIX rotateZ(float angle);
+
+	dx::XMMATRIX scal(float xScale, float yScale, float zScale);
+
 
 };

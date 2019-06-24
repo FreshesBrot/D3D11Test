@@ -34,10 +34,10 @@ void VertexBuffer::Bind() {
 	pBd.StructureByteStride = sizeof(Vertex);
 
 	//create and bind buffer
-	GFX_FAILED(getDevice()->CreateBuffer(&pBd,&pData,&pVertexBuffer));
+	GFX_FAILED(getDevice()->CreateBuffer(&pBd, &pData, &pVertexBuffer));
 	const UINT stride = sizeof(Vertex);
 	const UINT offset = 0u;
-	getContext()->IASetVertexBuffers(0u,1u,pVertexBuffer.GetAddressOf(),&stride,&offset);
+	getContext()->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
 
 	//create and set input layout
 	wrl::ComPtr<ID3D11InputLayout> pIL;
@@ -45,10 +45,14 @@ void VertexBuffer::Bind() {
 		{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
 		{"Color",0,DXGI_FORMAT_R32G32B32_FLOAT,0,12u,D3D11_INPUT_PER_VERTEX_DATA,0}
 	};
-	GFX_FAILED(getDevice()->CreateInputLayout(ied,2u,
-		pShaderBlob->GetBufferPointer(),pShaderBlob->GetBufferSize(),
+	GFX_FAILED(getDevice()->CreateInputLayout(ied, 2u,
+		pShaderBlob->GetBufferPointer(), pShaderBlob->GetBufferSize(),
 		&pIL
 	));
+
+	//set primitve type
+	getContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
 	getContext()->IASetInputLayout(pIL.Get());
 
 }

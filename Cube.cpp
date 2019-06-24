@@ -22,6 +22,13 @@ Cube::Cube() :
 	}) 
 {}
 
+dx::XMMATRIX Cube::getTransformMatrix() {
+	return (rotateX(rotation.x) * rotateY(rotation.y) * rotateZ(rotation.z) 
+		* scal(scaling.x, scaling.y, scaling.z) * 
+		trans(position.x, position.y, position.z)) 
+		* m_projection;
+}
+
 std::vector<int> Cube::getIndices() {
 	return indices;
 }
@@ -30,31 +37,4 @@ std::vector<Vertex> Cube::getVertices() {
 	return vertices;
 }
 
-dx::XMMATRIX Cube::getTransformMatrix() {
-	return (rotateX(rotation.x)*rotateY(rotation.y)*rotateZ(rotation.z)*
-			scal(scaling.x,scaling.y,scaling.z)*
-			trans(position.x,position.y,position.z) * m_projection
-		);
-}
 
-#pragma region SHORTCUTS
-dx::XMMATRIX Cube::trans(float xOffset, float yOffset, float zOffset) {
-	return dx::XMMatrixTranslation(xOffset,yOffset,zOffset);
-}
-
-dx::XMMATRIX Cube::rotateX(float angle) {
-	return dx::XMMatrixRotationX(angle);
-}
-
-dx::XMMATRIX Cube::rotateY(float angle) {
-	return dx::XMMatrixRotationY(angle);
-}
-
-dx::XMMATRIX Cube::rotateZ(float angle) {
-	return dx::XMMatrixRotationZ(angle);
-}
-
-dx::XMMATRIX Cube::scal(float xScale, float yScale, float zScale) {
-	return dx::XMMatrixScaling(xScale,yScale,zScale);
-}
-#pragma endregion

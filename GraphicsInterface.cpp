@@ -1,8 +1,8 @@
 #include "GraphicsInterface.h"
 
-GraphicsInterface::GraphicsInterface(HWND hWnd) : 
-	PI(), objects(),allIndices(),allVertices() {
-	
+GraphicsInterface::GraphicsInterface(HWND hWnd) :
+	PI(), objects(), allIndices(), allVertices() {
+
 	//allocate heap memory for update controller and graphics device
 	gfx = new Graphics(hWnd);
 	UC = new UpdateController();
@@ -19,21 +19,13 @@ GraphicsInterface::GraphicsInterface(HWND hWnd) :
 }
 
 GraphicsInterface::~GraphicsInterface() {
-	
+
 	for (Object* obj : objects) {
 		delete obj;
 	}
-	
+
 	delete gfx;
 	delete UC;
-}
-
-void GraphicsInterface::Draw(float x, float y, float z, float Xangle, float Yangle) {
-	ClearBackBuffer();
-
-	gfx->Draw(x,y,z,Xangle,Yangle,36);
-	gfx->EndFrame();
-
 }
 
 void GraphicsInterface::Draw() {
@@ -42,11 +34,25 @@ void GraphicsInterface::Draw() {
 
 	int indexOffset = 0, vertexOffset = 0;
 
+	for (Object* obj : objects) {
+		//update the transform for the object
+		UC->set(obj->getTransformMatrix());
+		PI.UpdateTransformBuffer();
+		//draw the object
+		//store of indices and vertices
+		int ind = obj->getIndices().size(), vrt = obj->getVertices().size();
+		gfx->DrawIndexed(ind, indexOffset, vertexOffset);
+		//update offsets
+		indexOffset += ind;
+		vertexOffset += vrt;
+	}
 
+	//end the frame 
+	gfx->EndFrame();
 }
 
 void GraphicsInterface::setBufferColors(float r, float g, float b) {
-	colors = {r,g,b};
+	colors = { r,g,b };
 }
 
 Graphics* GraphicsInterface::getGfx() {
@@ -59,7 +65,7 @@ void GraphicsInterface::addObject(Object* o) {
 
 	//insert new indices and vertices
 	std::vector<int> objInd = o->getIndices();
-	allIndices.insert(allIndices.end(),objInd.begin(),objInd.end());
+	allIndices.insert(allIndices.end(), objInd.begin(), objInd.end());
 
 	std::vector<Vertex> objVrt = o->getVertices();
 	allVertices.insert(allVertices.end(), objVrt.begin(), objVrt.end());
@@ -82,7 +88,7 @@ void GraphicsInterface::addObjectGhost(Object* o) {
 
 	std::vector<Vertex> objVrt = o->getVertices();
 	allVertices.insert(allVertices.end(), objVrt.begin(), objVrt.end());
-	
+
 }
 
 void GraphicsInterface::UpdateGeometry() {
@@ -99,7 +105,7 @@ Object* GraphicsInterface::getObjectAt(int index) {
 void GraphicsInterface::ClearBackBuffer() {
 	float r = colors.r, g = colors.g, b = colors.b;
 
-	gfx->ClearBuffer(r,g,b);
+	gfx->ClearBuffer(r, g, b);
 }
 
 
