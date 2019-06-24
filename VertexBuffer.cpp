@@ -49,10 +49,6 @@ void VertexBuffer::Bind() {
 		pShaderBlob->GetBufferPointer(),pShaderBlob->GetBufferSize(),
 		&pIL
 	));
-
-	//set primitve type
-	getContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
 	getContext()->IASetInputLayout(pIL.Get());
 
 }

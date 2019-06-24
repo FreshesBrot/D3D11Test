@@ -11,7 +11,10 @@ public:
 	GraphicsInterface(HWND hWnd);
 	~GraphicsInterface();
 
-	//draws all objects in the object vector; also clears the backbuffer and depth stencil
+	//clears the backbuffer and presents it to the rendertarget (deprecated)
+	void Draw(float x, float y, float z, float Xangle, float Yangle);
+	
+	//draws all objects in the object vector
 	void Draw();
 
 	void setBufferColors(float r, float g, float b);

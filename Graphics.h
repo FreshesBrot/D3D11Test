@@ -20,31 +20,41 @@ class Graphics {
 public:
 
 
-	//creates the D3D11 Device , Context, SwapChain, RenderTargetView and DepthStencilView
+	//creates the D3D11 Device , Context and SwapChain
 	Graphics(HWND hWnd);
 	~Graphics();
 	
-	//standard constructor
+	//stander constructor; uninteresting
 	Graphics();
-	
-	//presents the backbuffer to the render target, thus ending a frame
-	void EndFrame();
 
-	//clears the buffer with specified colors and clears the depth buffer
+	void EndFrame();
+	//clears the buffer with specified colors
 	void ClearBuffer(float r, float g, float b);
+
+	//draws whatever is setup by the setup function (for now)
+	void Draw(float x,float y, float z, float Xangle, float Yangle,int numInd);
+
+	//translation matrix
+	dx::XMMATRIX translate(float xPos,float yPos,float zPos);
+
+	//rotation matrix
+	dx::XMMATRIX rotateY(float angle);
+	dx::XMMATRIX rotateX(float angle);
 
 	//draw call for indexed drawing; must specify number of indices, index offset and base vertex location
 	void DrawIndexed(int numIndices, int indexOffset, int baseVertexLocation);
 
 private:
 
-	//handle to the window that is drawn to
+	//sets up graphics pipeline
+	void setUpPipeline();
+	int indexElements = 0;
+
 	HWND hWnd;
-	//pointer storage
 	wrl::ComPtr<ID3D11Device> device = nullptr;
 	wrl::ComPtr<ID3D11DeviceContext> context = nullptr;
 	wrl::ComPtr<IDXGISwapChain> swapChain = nullptr;
 	wrl::ComPtr<ID3D11RenderTargetView> target = nullptr;
-	wrl::ComPtr<ID3D11DepthStencilView> depthStencil = nullptr;
+
 };
 
