@@ -1,6 +1,6 @@
 #include "Object.h"
 
-dx::XMMATRIX Object::m_projection = dx::XMMatrixPerspectiveLH(1.0f,1.0f,0.5f,20.0f);
+dx::XMMATRIX Object::m_projection = dx::XMMatrixPerspectiveFovLH(1.0f,1.0f,0.5f,100.0f);
 
 Object::Object() {
 	position = { 0,0,5 };

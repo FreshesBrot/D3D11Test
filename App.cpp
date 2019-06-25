@@ -35,18 +35,12 @@ void App::DoFrame() {
 		z--;
 	}
 
-	
+	float move = 0.1f;
 
 	if (w.keyboard.isPressed('W'))
-		GI.getCamera()->translate(0, 0, 0.1);
+		GI.getCamera()->translate(0.0f, move, 0.0f);
 	if (w.keyboard.isPressed('S'))
-		GI.getCamera()->translate(0, 0, -0.1);
-	if (w.keyboard.isPressed('D'))
-		GI.getCamera()->translate(0.1, 0,0);
-
-	if (w.keyboard.isPressed('A'))
-		GI.getCamera()->translate(-0.1, 0, 0);
-
+		GI.getCamera()->translate(0.0f, -move, 0.0f);
 
 
 	Object* o0 = GI.getObjectAt(0);
