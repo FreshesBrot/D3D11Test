@@ -110,10 +110,6 @@ Object* GraphicsInterface::getObjectAt(int index) {
 	return objects[index];
 }
 
-Camera* GraphicsInterface::getCamera() {
-	return &camera;
-}
-
 void GraphicsInterface::ClearBackBuffer() {
 	float r = colors.r, g = colors.g, b = colors.b;
 

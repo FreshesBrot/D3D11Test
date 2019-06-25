@@ -1,7 +1,7 @@
 #include "Camera.h"
 
 Camera::Camera() {
-	position = {0,0,-0.5f};
+	position = {0,0,0};
 }
 
 std::vector<int> Camera::getIndices() {
@@ -13,7 +13,7 @@ std::vector<Vertex> Camera::getVertices() {
 }
 
 dx::XMMATRIX Camera::getTransformMatrix() {
-	dx::XMVECTOR v_position = dx::XMVectorSet(position.x, position.y, position.z, 0.0f);
+	dx::XMVECTOR v_position = dx::XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
 	dx::XMVECTOR v_at = dx::XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
 	dx::XMVECTOR v_up = dx::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	

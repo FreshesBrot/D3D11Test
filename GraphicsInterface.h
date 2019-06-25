@@ -31,9 +31,6 @@ public:
 	//returns the object by index
 	Object* getObjectAt(int index);
 
-	//returns the camera object
-	Camera* getCamera();
-
 private:
 
 	//resets color values for the backbuffer
