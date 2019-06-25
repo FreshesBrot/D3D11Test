@@ -109,6 +109,9 @@
     <ClCompile Include="VertexShader.cpp">
       <Filter>GraphicsEngine\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -170,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="VertexShader.h">
       <Filter>GraphicsEngine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Objects\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

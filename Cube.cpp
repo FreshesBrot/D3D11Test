@@ -23,10 +23,9 @@ Cube::Cube() :
 {}
 
 dx::XMMATRIX Cube::getTransformMatrix() {
-	return (rotateX(rotation.x) * rotateY(rotation.y) * rotateZ(rotation.z) 
-		* scal(scaling.x, scaling.y, scaling.z) * 
-		trans(position.x, position.y, position.z)) 
-		* m_projection;
+	return (rotateX(rotation.x) * rotateY(rotation.y) * rotateZ(rotation.z)
+		* scal(scaling.x, scaling.y, scaling.z) *
+		trans(position.x, position.y, position.z));
 }
 
 std::vector<int> Cube::getIndices() {

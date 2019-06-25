@@ -29,16 +29,31 @@ float z = 4.0f;
 void App::DoFrame() {
 
 	if (w.mouse.OnScrollDown()) {
-		if (z < 10.0f) z++;
+		z++;
 	}
 	if (w.mouse.OnScrollUp()) {
-		if (z > 1.0f) z--;
+		z--;
 	}
 
-	GI.getObjectAt(0)->setTransform(float(w.mouse.xPos()) / 300 - 1, -(float(w.mouse.yPos()) / 300) + 1, z);
-	GI.getObjectAt(0)->rotate(0.01f, 0.01f, 0);
+	
 
-	GI.getObjectAt(1)->setRotation(float(w.mouse.xPos()) / 200, float(w.mouse.yPos()) / 200, 0);
+	if (w.keyboard.isPressed('W'))
+		GI.getCamera()->translate(0, 0, 0.1);
+	if (w.keyboard.isPressed('S'))
+		GI.getCamera()->translate(0, 0, -0.1);
+	if (w.keyboard.isPressed('D'))
+		GI.getCamera()->translate(0.1, 0,0);
+
+	if (w.keyboard.isPressed('A'))
+		GI.getCamera()->translate(-0.1, 0, 0);
+
+
+
+	Object* o0 = GI.getObjectAt(0);
+	Object* o1 = GI.getObjectAt(1);
+
+	Position p0 = o0->getPosition();
+	o0->setTransform(p0.x, p0.y, z);
 
 	GI.Draw();
 

@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ConstBuffer.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="CustomException.cpp" />
@@ -159,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Bindable.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="ConstBuffer.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CustomException.h" />

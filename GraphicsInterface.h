@@ -1,6 +1,7 @@
 #pragma once
 #include "Graphics.h"
 #include "Cube.h"
+#include "Camera.h"
 #include "UpdateController.h"
 #include "PipelineInterface.h"
 
@@ -30,6 +31,9 @@ public:
 	//returns the object by index
 	Object* getObjectAt(int index);
 
+	//returns the camera object
+	Camera* getCamera();
+
 private:
 
 	//resets color values for the backbuffer
@@ -48,7 +52,8 @@ private:
 	//returns all vertices
 	std::vector<Vertex> allVertices;
 
-
+	//the camera object for the Scene
+	Camera camera;
 
 	//graphics object
 	Graphics* gfx;

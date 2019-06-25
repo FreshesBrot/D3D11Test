@@ -2,6 +2,20 @@
 #include "Graphics.h"
 
 
+
+//object transform descpriptions
+struct Position {
+	float x, y, z;
+};
+
+struct Rotation {
+	float x, y, z;
+};
+
+struct Scale {
+	float x, y, z;
+};
+
 //this class represents a general object and its possible operations
 class Object {
 public:
@@ -14,7 +28,7 @@ public:
 	virtual std::vector<int> getIndices() = 0;
 	virtual std::vector<Vertex> getVertices() = 0;
 
-	//returns the transformationmatrix for the object (already projected into NDC)
+	//returns the model transformation matrix for the object (non-projected)
 	virtual dx::XMMATRIX getTransformMatrix() = 0;
 
 #pragma region TRANSFORMS
@@ -35,25 +49,23 @@ public:
 	
 	//sets the scale of the object
 	void setScale(float xScale, float yScale, float zScale);
+
+	//returns a struct with the objects position data
+	Position getPosition();
+	Rotation getRotation();
+	Scale getScale();
+
 #pragma endregion
+
+	//world projection matrix
+	static dx::XMMATRIX m_projection;
 
 protected:
 
-	//world projection matrix; shared for all objects
-	static dx::XMMATRIX m_projection;
-
 	//the objects transform data
-	struct {
-		float x, y, z;
-	} position;
-
-	struct {
-		float x, y, z;
-	} scaling;
-
-	struct {
-		float x, y, z;
-	} rotation;
+	Position position;
+	Rotation rotation;
+	Scale scaling;
 
 	//shortcuts
 	dx::XMMATRIX trans(float xOffset, float yOffset, float zOffset);

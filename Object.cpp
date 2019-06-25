@@ -1,6 +1,6 @@
 #include "Object.h"
 
-dx::XMMATRIX Object::m_projection = dx::XMMatrixPerspectiveLH(1.0f,1.0f,0.5f,10.0f);
+dx::XMMATRIX Object::m_projection = dx::XMMatrixPerspectiveLH(1.0f,1.0f,0.5f,20.0f);
 
 Object::Object() {
 	position = { 0,0,5 };
@@ -46,6 +46,16 @@ void Object::setScale(float xScale, float yScale, float zScale) {
 	scaling.x = xScale;
 	scaling.y = yScale;
 	scaling.z = zScale;
+}
+
+Position Object::getPosition() {
+	return position;
+}
+Rotation Object::getRotation() {
+	return rotation;
+}
+Scale Object::getScale() {
+	return scaling;
 }
 #pragma endregion
 

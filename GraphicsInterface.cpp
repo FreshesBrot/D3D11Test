@@ -1,7 +1,7 @@
 #include "GraphicsInterface.h"
 
 GraphicsInterface::GraphicsInterface(HWND hWnd) :
-	PI(), objects(), allIndices(), allVertices() {
+	PI(), objects(), allIndices(), allVertices(), camera() {
 
 	//allocate heap memory for update controller and graphics device
 	gfx = new Graphics(hWnd);
@@ -35,8 +35,16 @@ void GraphicsInterface::Draw() {
 	int indexOffset = 0, vertexOffset = 0;
 
 	for (Object* obj : objects) {
-		//update the transform for the object
-		UC->set(obj->getTransformMatrix());
+		//calculate model transformation matrix
+		dx::XMMATRIX modelTransform = obj->getTransformMatrix();
+		//calculate model view transformation matrix
+		dx::XMMATRIX modelViewTransform =  camera.getTransformMatrix() * modelTransform;
+		//project the vertices on NDC
+		dx::XMMATRIX projectedMVT = modelViewTransform * Object::m_projection;
+		//update the controller with modelview matrix
+		
+		dx::XMMATRIX test =  obj->getTransformMatrix() * camera.getTransformMatrix() * Object::m_projection;
+		UC->set(test);
 		PI.UpdateTransformBuffer();
 		//draw the object
 		//store of indices and vertices
@@ -100,6 +108,10 @@ void GraphicsInterface::UpdateGeometry() {
 
 Object* GraphicsInterface::getObjectAt(int index) {
 	return objects[index];
+}
+
+Camera* GraphicsInterface::getCamera() {
+	return &camera;
 }
 
 void GraphicsInterface::ClearBackBuffer() {
