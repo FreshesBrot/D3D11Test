@@ -100,18 +100,18 @@
     <ClCompile Include="PipelineInterface.cpp">
       <Filter>GraphicsEngine\Source</Filter>
     </ClCompile>
-    <ClCompile Include="PixelShader.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="VertexBuffer.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexShader.cpp">
       <Filter>GraphicsEngine\Source</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Objects\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Pyramid.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderStateController.cpp" />
+    <ClCompile Include="VertexShader.cpp" />
+    <ClCompile Include="PixelShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -125,9 +125,6 @@
     </ClInclude>
     <ClInclude Include="dxerr.h">
       <Filter>GraphicsEngine\dxerr</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>GraphicsEngine\Header</Filter>
     </ClInclude>
     <ClInclude Include="Graphics.h">
       <Filter>GraphicsEngine\Header</Filter>
@@ -165,18 +162,21 @@
     <ClInclude Include="PipelineInterface.h">
       <Filter>GraphicsEngine\Header</Filter>
     </ClInclude>
-    <ClInclude Include="PixelShader.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
     <ClInclude Include="VertexBuffer.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexShader.h">
       <Filter>GraphicsEngine\Header</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Objects\Header</Filter>
     </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Objects\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyramid.h">
+      <Filter>Objects\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStateController.h" />
+    <ClInclude Include="VertexShader.h" />
+    <ClInclude Include="PixelShader.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

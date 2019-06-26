@@ -9,6 +9,11 @@ void Bindable::setUpdateController(UpdateController* UC) {
 	Bindable::UC = UC;
 }
 
+void Bindable::updateShaderBlob(ID3DBlob* pBlob) {
+	pShaderBlob = nullptr;
+	pShaderBlob = pBlob;
+}
+
 ID3D11Device* Bindable::getDevice() {
 	return gfx->device.Get();
 }

@@ -1,7 +1,6 @@
 #pragma once
 #include "Graphics.h"
-#include "VertexShader.h"
-#include "PixelShader.h"
+#include "ShaderStateController.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "ConstBuffer.h"

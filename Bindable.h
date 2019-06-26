@@ -21,12 +21,15 @@ public:
 	//sets the update controller
 	static void setUpdateController(UpdateController* UC);
 
+	//updates the shader blob
+	static void updateShaderBlob(ID3DBlob* pBlob);
+
 protected:
 	//retrieves the pointer to the D3D device
-	ID3D11Device* getDevice();
+	static ID3D11Device* getDevice();
 
 	//retrieves the pointer to the D3D device context
-	ID3D11DeviceContext* getContext();
+	static ID3D11DeviceContext* getContext();
 
 	//shader blob (for the vertexbuffer)
 	static wrl::ComPtr<ID3DBlob> pShaderBlob;

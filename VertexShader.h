@@ -1,28 +1,31 @@
 #pragma once
-#include "Bindable.h"
+#include "Graphics.h"
 
-//this class represents the bindable vertex shader
-class VertexShader : public Bindable {
-	using Bindable::Bind;
-	using Bindable::Update;
-	using Bindable::Unbind;
-
+//this class represents a single vertex shader
+class VertexShader {
 public:
 
-	//takes the name of the shader file and stores it
+	//sets the filename of the shader
 	VertexShader(const wchar_t* fileName);
 	~VertexShader();
 
-	//binds the Vertex shader to the pipeline and stores the shader file blob for later use
-	void Bind() override;
-	//unused
-	void Update() override;
+	//creates the shader object and stores the pointer
+	void Create(ID3D11Device* device);
 
-	//undbind and delete the object
-	void Unbind() override;
+
+	//returns the pointer to the shader object
+	ID3D11VertexShader* Get();
+	//returns the pointer to the input layout
+	ID3D11InputLayout* GetIL();
 
 private:
-	//file name of the shader
+
 	const wchar_t* fileName;
 
+	//pointer to the shader object
+	wrl::ComPtr<ID3D11VertexShader> pShader;
+	//pointer to the specific input layout
+	wrl::ComPtr<ID3D11InputLayout> pIL;
+
 };
+

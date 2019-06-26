@@ -8,5 +8,12 @@ struct Vertex {
 	struct {
 		float r, g, b;
 	} Color;
-
+	/*struct {
+		float x,y,z;
+	} normal;
+	*/
+	/*struct {
+		float u,v;
+	} texCoord;
+	*/
 };

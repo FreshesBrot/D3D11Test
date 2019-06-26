@@ -4,25 +4,21 @@ PixelShader::PixelShader(const wchar_t* fileName) {
 	this->fileName = fileName;
 }
 
-PixelShader::~PixelShader() { }
+PixelShader::~PixelShader() {
+	pShader = nullptr;
+}
 
-void PixelShader::Bind() {
+void PixelShader::Create(ID3D11Device* device) {
 	HRESULT hr;
 
 	wrl::ComPtr<ID3DBlob> pBlob;
-	wrl::ComPtr<ID3D11PixelShader> pShader;
-	//create shader object
-	GFX_FAILED(D3DReadFileToBlob(fileName,&pBlob));
-	GFX_FAILED(getDevice()->CreatePixelShader(
-		pBlob->GetBufferPointer(), pBlob->GetBufferSize(),
-		nullptr, &pShader
-		));
-	//bind shader
-	getContext()->PSSetShader(pShader.Get(),nullptr,0);
+	GFX_FAILED(D3DReadFileToBlob(fileName, &pBlob));
+
+	GFX_FAILED(device->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(),
+		nullptr, &pShader));
+
 }
 
-void PixelShader::Update() { }
-
-void PixelShader::Unbind() {
-	this->~PixelShader();
+ID3D11PixelShader* PixelShader::Get() {
+	return pShader.Get();
 }

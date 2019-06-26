@@ -57,6 +57,7 @@ Rotation Object::getRotation() {
 Scale Object::getScale() {
 	return scaling;
 }
+
 #pragma endregion
 
 #pragma region SHORTCUTS
@@ -64,16 +65,8 @@ dx::XMMATRIX Object::trans(float xOffset, float yOffset, float zOffset) {
 	return dx::XMMatrixTranslation(xOffset, yOffset, zOffset);
 }
 
-dx::XMMATRIX Object::rotateX(float angle) {
-	return dx::XMMatrixRotationX(angle);
-}
-
-dx::XMMATRIX Object::rotateY(float angle) {
-	return dx::XMMatrixRotationY(angle);
-}
-
-dx::XMMATRIX Object::rotateZ(float angle) {
-	return dx::XMMatrixRotationZ(angle);
+dx::XMMATRIX Object::rotateXYZ(float xAngle, float yAngle, float zAngle) {
+	return dx::XMMatrixRotationX(xAngle) * dx::XMMatrixRotationY(yAngle) * dx::XMMatrixRotationZ(zAngle);
 }
 
 dx::XMMATRIX Object::scal(float xScale, float yScale, float zScale) {

@@ -152,6 +152,8 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PipelineInterface.cpp" />
     <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="Pyramid.cpp" />
+    <ClCompile Include="ShaderStateController.cpp" />
     <ClCompile Include="UpdateController.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexShader.cpp" />
@@ -174,6 +176,8 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="PipelineInterface.h" />
     <ClInclude Include="PixelShader.h" />
+    <ClInclude Include="Pyramid.h" />
+    <ClInclude Include="ShaderStateController.h" />
     <ClInclude Include="UpdateController.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexBuffer.h" />

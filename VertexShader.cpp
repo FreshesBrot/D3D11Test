@@ -1,30 +1,40 @@
 #include "VertexShader.h"
 
+
 VertexShader::VertexShader(const wchar_t* fileName) {
 	this->fileName = fileName;
 }
 
 VertexShader::~VertexShader() {
-	pShaderBlob = nullptr;
+	pShader = nullptr;
+	pIL = nullptr;
 }
 
-void VertexShader::Bind() {
+void VertexShader::Create(ID3D11Device* device) {
 	HRESULT hr;
 
-	wrl::ComPtr<ID3D11VertexShader> pVertexShader;
-	//create shader object
-	GFX_FAILED(D3DReadFileToBlob(fileName,&pShaderBlob));
-	GFX_FAILED(getDevice()->CreateVertexShader(
-		pShaderBlob->GetBufferPointer(),pShaderBlob->GetBufferSize(),
-		nullptr,&pVertexShader
-		));
-	//bind shader object
-	getContext()->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+	wrl::ComPtr<ID3DBlob> pBlob;
+	GFX_FAILED(D3DReadFileToBlob(fileName, &pBlob));
+	device->CreateVertexShader(pBlob->GetBufferPointer(),pBlob->GetBufferSize(),
+		nullptr,&pShader);
+
+	//create and set input layout
+	const D3D11_INPUT_ELEMENT_DESC ied[] = {
+		{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
+		{"Color",0,DXGI_FORMAT_R32G32B32_FLOAT,0,12u,D3D11_INPUT_PER_VERTEX_DATA,0}
+	};
+
+	GFX_FAILED(device->CreateInputLayout(ied, 2u,
+		pBlob->GetBufferPointer(), pBlob->GetBufferSize(),
+		&pIL
+	));
 
 }
 
-void VertexShader::Update() { }
+ID3D11VertexShader* VertexShader::Get() {
+	return pShader.Get();
+}
 
-void VertexShader::Unbind() {
-	this->~VertexShader();
+ID3D11InputLayout* VertexShader::GetIL() {
+	return pIL.Get();
 }

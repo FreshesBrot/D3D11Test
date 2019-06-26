@@ -18,6 +18,10 @@ void UpdateController::set(std::vector<int> indices) {
 	newIndices = indices;
 }
 
+void UpdateController::setShaderState(int state) {
+	shaderState = state;
+}
+
 dx::XMMATRIX UpdateController::getTransform() {
 	return m_Transform;
 }
@@ -28,6 +32,10 @@ std::vector<Vertex> UpdateController::getNewVertices() {
 
 std::vector<int> UpdateController::getNewIndices() {
 	return newIndices;
+}
+
+int UpdateController::getShaderState() {
+	return shaderState;
 }
 
 bool UpdateController::hasChanged(int i) {

@@ -1,28 +1,26 @@
 #pragma once
-#include "Bindable.h"
+#include "Graphics.h"
 
-//this class represents the bindable pixel shader
-class PixelShader : public Bindable {
-	using Bindable::Bind;
-	using Bindable::Update;
-	using Bindable::Unbind;
-
+//this class represents a single pixel shader
+class PixelShader {
 public:
 
-	//takes the name of the shader file and stores it
+	//sets the filename of the shader
 	PixelShader(const wchar_t* fileName);
 	~PixelShader();
 
-	//binds the pixel shader to the pipeline
-	void Bind() override;
-	//unused
-	void Update();
-	//unbinds and deletes the object
-	void Unbind() override;
+	//creates the shader object and stores the pointer
+	void Create(ID3D11Device* device);
+
+	//returns the pointer to the shader object
+	ID3D11PixelShader* Get();
 
 private:
+	
 	//file name of the shader
 	const wchar_t* fileName;
 
+	//the pointer to the shader object
+	wrl::ComPtr<ID3D11PixelShader> pShader;
 };
 

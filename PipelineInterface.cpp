@@ -4,8 +4,8 @@ PipelineInterface::PipelineInterface() : bindables(){
 	
 	//push back all required bindables in set order
 	bindables.reserve(5);
-	bindables.push_back(new VertexShader(L"VertexShader.cso"));
-	bindables.push_back(new PixelShader(L"PixelShader.cso"));
+	//bindables.push_back(new VertexShader(L"VertexShader.cso"));
+	//bindables.push_back(new PixelShader(L"PixelShader.cso"));
 	bindables.push_back(new VertexBuffer(std::vector<Vertex>()));
 	bindables.push_back(new IndexBuffer(std::vector<int>()));
 	bindables.push_back(new MatrixBuffer());

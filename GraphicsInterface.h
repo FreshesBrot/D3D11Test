@@ -1,7 +1,6 @@
 #pragma once
 #include "Graphics.h"
-#include "Cube.h"
-#include "Camera.h"
+#include "Objects.h"
 #include "UpdateController.h"
 #include "PipelineInterface.h"
 

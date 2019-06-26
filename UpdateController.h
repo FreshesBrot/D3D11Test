@@ -2,6 +2,7 @@
 #include "Graphics.h"
 
 //this class serves as a change-state observer between the graphics interface and the bindable objects
+//all required changes are passed through this class which the bindable interface can access
 class UpdateController {
 public:
 	UpdateController();
@@ -12,11 +13,13 @@ public:
 	void set(dx::XMMATRIX transform);
 	void set(std::vector<Vertex> vertices);
 	void set(std::vector<int> indices);
-	
+	void setShaderState(int state);
+
 	//get the Objects
 	dx::XMMATRIX getTransform();
 	std::vector<Vertex> getNewVertices();
 	std::vector<int> getNewIndices();
+	int getShaderState();
 
 	//checks wether the specified object has changed
 	bool hasChanged(int i);
@@ -33,5 +36,6 @@ private:
 	dx::XMMATRIX m_Transform;
 	std::vector<Vertex> newVertices;
 	std::vector<int> newIndices;
+	int shaderState;
 };
 
