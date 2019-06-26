@@ -14,17 +14,19 @@ int ShaderStateController::addShaderFile(const wchar_t* VSfileName, const wchar_
 	std::unordered_map<const wchar_t*,int>::const_iterator it = shaderFileNames.find(VSfileName);
 	if (it == shaderFileNames.end()) {
 		//get value of filename key
-		shaderFileNames.emplace(VSfileName);
+		shaderFileNames.insert(std::make_pair(VSfileName,amtShaders++));
 		int i = shaderFileNames[VSfileName];
 
 		//create shader object and store in order of creation
 		VertexShader* vs = new VertexShader(VSfileName);
 		vs->Create(getDevice());
 		vertexShaders[i] = vs;
-		return i;
+		return 0;
 		PixelShader* ps = new PixelShader(PSfileName);
 		ps->Create(getDevice());
 		pixelShaders[i] = ps;
+
+		return i++;
 
 	}
 
