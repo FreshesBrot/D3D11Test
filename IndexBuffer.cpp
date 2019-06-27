@@ -11,9 +11,8 @@ IndexBuffer::~IndexBuffer() {
 void IndexBuffer::Bind() {
 	HRESULT hr;
 
-	//check if indices are emtpy
-	if (indices.empty())
-		indices.push_back(1);
+	//check if indices are emtpy; if so, return function
+	if (indices.empty()) return;
 
 	const std::vector<int> constIndex(indices);
 

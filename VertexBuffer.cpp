@@ -11,10 +11,8 @@ VertexBuffer::~VertexBuffer() {
 void VertexBuffer::Bind() {
 	HRESULT hr;
 
-	//check if vertices are empty
-	if (vertices.empty()) {
-		vertices.push_back({ 0,0,0,0,0,0 });
-	}
+	//check if vertices are empty; if so, return function
+	if (vertices.empty()) return;
 
 	const std::vector<Vertex> constVertex(vertices);
 

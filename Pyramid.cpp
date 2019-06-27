@@ -16,8 +16,12 @@ Pyramid::Pyramid() :
 		4,0,3
 	})
 {
+	//set shader file names
 	VSfileName = L"testVrt.cso";
 	PSfileName = L"testPxl.cso";
+
+	//set texture file name
+	TXTfileName = nullptr;
 }
 
 std::vector<int> Pyramid::getIndices() {
@@ -38,11 +42,8 @@ int Pyramid::getShaderID() {
 	return shaderID;
 }
 
-void Pyramid::setShaderID(int ID) {
-	if (!IDset) {
-		shaderID = ID;
-		IDset = true;
-	}
+int Pyramid::getTextureID(){
+	return textureID;
 }
 
 const wchar_t* Pyramid::getVSfileName() {
@@ -51,4 +52,8 @@ const wchar_t* Pyramid::getVSfileName() {
 
 const wchar_t* Pyramid::getPSfileName() {
 	return PSfileName;
+}
+
+const wchar_t* Pyramid::getTXTfileName() {
+	return TXTfileName;
 }

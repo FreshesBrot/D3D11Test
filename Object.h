@@ -31,13 +31,16 @@ public:
 	//returns the model transformation matrix for the object (non-projected)
 	virtual dx::XMMATRIX getTransformMatrix() = 0;
 
-	//retrieves the shader ID of the object
+	//retrieves and sets reource IDs of the object
 	virtual int getShaderID() = 0;
-	virtual void setShaderID(int ID) = 0;
+	void setShaderID(int ID);
+	virtual int getTextureID() = 0;
+	void setTextureID(int ID);
 
 	//retrieves the specific shader file Name
 	virtual const wchar_t* getVSfileName() = 0;
 	virtual const wchar_t* getPSfileName() = 0;
+	virtual const wchar_t* getTXTfileName() = 0;
 
 #pragma region TRANSFORMS
 	//applies a continuous transformation
@@ -63,10 +66,12 @@ public:
 	Rotation getRotation();
 	Scale getScale();
 
-#pragma endregion
-
 	//world projection matrix
 	static dx::XMMATRIX m_projection;
+
+#pragma endregion
+
+
 
 protected:
 
@@ -82,13 +87,13 @@ protected:
 	 
 	dx::XMMATRIX scal(float xScale, float yScale, float zScale);
 
-	//the shader file of the cube
+	//the file attributes of the object
 	const wchar_t* VSfileName;
 	const wchar_t* PSfileName;
+	const wchar_t* TXTfileName;
 	
-	//the shader ID of the object
+	//the Resource IDs of the object
 	int shaderID;
-	//check if ID set
-	bool IDset = false;
+	int textureID;
 
 };

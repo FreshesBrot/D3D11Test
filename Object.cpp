@@ -73,3 +73,11 @@ dx::XMMATRIX Object::scal(float xScale, float yScale, float zScale) {
 	return dx::XMMatrixScaling(xScale, yScale, zScale);
 }
 #pragma endregion
+
+void Object::setShaderID(int ID) {
+	shaderID = ID;
+}
+
+void Object::setTextureID(int ID) {
+	textureID = ID;
+}

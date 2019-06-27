@@ -9,6 +9,8 @@ ShaderStateController::~ShaderStateController() {
 }
 
 int ShaderStateController::addShaderFile(const wchar_t* VSfileName, const wchar_t* PSfileName) {
+	//if either file is a nullptr, return -1
+	if (VSfileName == nullptr || PSfileName == nullptr) return -1;
 
 	//check if the shader was added before (VS is the "main" shader file; PS depends on VS!)
 	std::unordered_map<const wchar_t*,int>::const_iterator it = shaderFileNames.find(VSfileName);
@@ -38,6 +40,9 @@ void ShaderStateController::Bind() {
 	//if there are no shaders, exit the function
 	if (amtShaders == 0) return;
 	
+	//if state is -1, the object has no ID -> cannot bind texture
+	if (shaderState == -1) return;
+
 	//look up position in vector of shaders by ID
 
 	PixelShader* PS = pixelShaders[shaderState];

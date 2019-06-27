@@ -3,42 +3,42 @@
 Cube::Cube() :
 	//defined in faces
 	vertices({
-	//x,y,z,r,g,b,xn,yn,zn,tx_u,tx_v
+	//x,y,z,r,g,b,(xn,yn,zn),tx_u,tx_v
 	//frontface
-		{-1.0f,-1.0f,-1.0f,1.0f,1.0f,1.0f},
-		{-1.0f,1.0f,-1.0f,1.0f,0.0f,0.0f},
-		{1.0f,1.0f,-1.0f,0.0f,1.0f,0.0f},
-		{1.0f,-1.0f,-1.0f,0.0f,0.0f,1.0f}, //3
+		{-1.0f,-1.0f,-1.0f,1.0f,1.0f,1.0f,0,1},
+		{-1.0f,1.0f,-1.0f,1.0f,0.0f,0.0f, 1,0},
+		{1.0f,1.0f,-1.0f,0.0f,1.0f,0.0f,  1,1},
+		{1.0f,-1.0f,-1.0f,0.0f,0.0f,1.0f, 0,1}, //3
 
 	//rightface
-		{1.0f,-1.0f,-1.0f,1.0f,1.0f,1.0f},
-		{1.0f,1.0f,-1.0f,1.0f,0.0f,0.0f},
-		{1.0f,1.0f,1.0f,0.0f,1.0f,0.0f},
-		{1.0f,-1.0f,1.0f,0.0f,0.0f,1.0f}, //7
+		{1.0f,-1.0f,-1.0f,1.0f,1.0f,1.0f,0,1},
+		{1.0f,1.0f,-1.0f,1.0f,0.0f,0.0f, 1,0},
+		{1.0f,1.0f,1.0f,0.0f,1.0f,0.0f,  1,1},
+		{1.0f,-1.0f,1.0f,0.0f,0.0f,1.0f, 0,1}, //7
 
 	//backface
-		{1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f},
-		{1.0f,1.0f,1.0f,1.0f,0.0f,0.0f},
-		{-1.0f,1.0f,1.0f,0.0f,1.0f,0.0f},
-		{-1.0f,-1.0f,1.0f,0.0f,0.0f,1.0f}, //11
+		{1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f ,0,1},
+		{1.0f,1.0f,1.0f,1.0f,0.0f,0.0f  ,1,0},
+		{-1.0f,1.0f,1.0f,0.0f,1.0f,0.0f ,1,1},
+		{-1.0f,-1.0f,1.0f,0.0f,0.0f,1.0f,0,1}, //11
 
 	//leftface
-		{-1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f},
-		{-1.0f,1.0f,1.0f,1.0f,0.0f,0.0f},
-		{-1.0f,1.0f,-1.0f,0.0f,1.0f,0.0f},
-		{-1.0f,-1.0f,-1.0f,0.0f,0.0f,1.0f}, //15
+		{-1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f ,0,1},
+		{-1.0f,1.0f,1.0f,1.0f,0.0f,0.0f  ,1,0},
+		{-1.0f,1.0f,-1.0f,0.0f,1.0f,0.0f ,1,1},
+		{-1.0f,-1.0f,-1.0f,0.0f,0.0f,1.0f,0,1}, //15
 
 	//topface
-		{-1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f},
-		{-1.0f,1.0f,1.0f,1.0f,0.0f,0.0f},
-		{1.0f,1.0f,1.0f,0.0f,1.0f,0.0f},
-		{1.0f,1.0f,-1.0f,0.0f,0.0f,1.0f}, //19
+		{-1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,0,1},
+		{-1.0f,1.0f,1.0f,1.0f,0.0f,0.0f ,1,0},
+		{1.0f,1.0f,1.0f,0.0f,1.0f,0.0f  ,1,1},
+		{1.0f,1.0f,-1.0f,0.0f,0.0f,1.0f ,0,1}, //19
 
 	//bottomface
-		{-1.0f,-1.0f,-1.0f,1.0f,1.0f,1.0f},
-		{-1.0f,-1.0f,1.0f,1.0f,0.0f,0.0f},
-		{1.0f,-1.0f,1.0f,0.0f,1.0f,0.0f},
-		{1.0f,-1.0f,-1.0f,0.0f,0.0f,1.0f}, //23
+		{-1.0f,-1.0f,-1.0f,1.0f,1.0f,1.0f,0,1},
+		{-1.0f,-1.0f,1.0f,1.0f,0.0f,0.0f ,1,0},
+		{1.0f,-1.0f,1.0f,0.0f,1.0f,0.0f  ,1,1},
+		{1.0f,-1.0f,-1.0f,0.0f,0.0f,1.0f ,0,1}, //23
 
 		}),
 
@@ -63,9 +63,11 @@ Cube::Cube() :
 
 	})
 {
-//set the file names for the shaders
+	//set the file names for the shaders
 	VSfileName = L"VertexShader.cso";
 	PSfileName = L"PixelShader.cso";
+	//set the file name for the texture
+	TXTfileName = L"Kappa.png";
 }
 
 dx::XMMATRIX Cube::getTransformMatrix() {
@@ -78,11 +80,8 @@ int Cube::getShaderID() {
 	return shaderID;
 }
 
-void Cube::setShaderID(int ID) {
-	if (!IDset) {
-		shaderID = ID;
-		IDset = true;
-	}
+int Cube::getTextureID() {
+	return textureID;
 }
 
 const wchar_t* Cube::getVSfileName() {
@@ -91,6 +90,10 @@ const wchar_t* Cube::getVSfileName() {
 
 const wchar_t* Cube::getPSfileName() {
 	return PSfileName;
+}
+
+const wchar_t* Cube::getTXTfileName() {
+	return TXTfileName;
 }
 
 std::vector<int> Cube::getIndices() {

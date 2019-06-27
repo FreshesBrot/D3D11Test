@@ -18,10 +18,11 @@ public:
 	dx::XMMATRIX getTransformMatrix() override;
 
 	//these functions are unused for the camera
-	int getShaderID() override { return 0; }
+	int getShaderID() override { return -1; }
+	int getTextureID() override { return -1; }
 	const wchar_t* getPSfileName() override { return nullptr; }
 	const wchar_t* getVSfileName() override { return nullptr; }
-	void setShaderID(int ID) override {}
+	const wchar_t* getTXTfileName() override { return nullptr; }
 
 private:
 

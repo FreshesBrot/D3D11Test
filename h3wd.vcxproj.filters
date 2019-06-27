@@ -5,9 +5,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{48e7d257-92c5-418e-916f-e089325afd2d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GraphicsEngine">
       <UniqueIdentifier>{d206e04b-aacf-4f2f-8567-071e6e4d4e1b}</UniqueIdentifier>
     </Filter>
@@ -46,6 +43,12 @@
     </Filter>
     <Filter Include="Objects\Source">
       <UniqueIdentifier>{93b0696b-3047-44f0-b569-ca00167db4a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\Shaders">
+      <UniqueIdentifier>{48e7d257-92c5-418e-916f-e089325afd2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\Resources">
+      <UniqueIdentifier>{40079cc4-8ff7-47a3-b566-f4dd125c90b9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -109,9 +112,20 @@
     <ClCompile Include="Pyramid.cpp">
       <Filter>Objects\Source</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderStateController.cpp" />
-    <ClCompile Include="VertexShader.cpp" />
-    <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>GraphicsEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderStateController.cpp">
+      <Filter>GraphicsEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>GraphicsEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureController.cpp" />
+    <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="WICTextureLoader.cpp">
+      <Filter>UserInterface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -174,22 +188,33 @@
     <ClInclude Include="Pyramid.h">
       <Filter>Objects\Header</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderStateController.h" />
-    <ClInclude Include="VertexShader.h" />
-    <ClInclude Include="PixelShader.h" />
+    <ClInclude Include="VertexShader.h">
+      <Filter>GraphicsEngine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStateController.h">
+      <Filter>GraphicsEngine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelShader.h">
+      <Filter>GraphicsEngine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureController.h" />
+    <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="WICTextureLoader.h">
+      <Filter>UserInterface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
-      <Filter>Shaders</Filter>
+      <Filter>GraphicsEngine\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="PixelShader.hlsl">
-      <Filter>Shaders</Filter>
+      <Filter>GraphicsEngine\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="testVrt.hlsl">
-      <Filter>Shaders</Filter>
+      <Filter>GraphicsEngine\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="testPxl.hlsl">
-      <Filter>Shaders</Filter>
+      <Filter>GraphicsEngine\Shaders</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,5 +227,10 @@
     <None Include="DXTrace.inl">
       <Filter>GraphicsEngine\dxerr</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\..\OneDrive\Desktop\Kappa.png">
+      <Filter>GraphicsEngine\Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -12,8 +12,8 @@ struct Vertex {
 		float x,y,z;
 	} normal;
 	*/
-	/*struct {
+	struct {
 		float u,v;
 	} texCoord;
-	*/
+	
 };

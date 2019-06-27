@@ -14,10 +14,11 @@ public:
 	dx::XMMATRIX getTransformMatrix() override;
 
 	int getShaderID() override;
-	void setShaderID(int ID) override;
+	int getTextureID() override;
 
 	const wchar_t* getVSfileName() override;
 	const wchar_t* getPSfileName() override;
+	const wchar_t* getTXTfileName() override;
 
 private:
 
