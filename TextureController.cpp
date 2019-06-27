@@ -1,6 +1,6 @@
 #include "TextureController.h"
 
-TextureController::TextureController() { }
+TextureController::TextureController() : textureState(-1) { }
 
 TextureController::~TextureController() {
 	fileNames.clear();
@@ -30,9 +30,7 @@ TextureController::addTextureFile(const wchar_t* fileName) {
 
 
 void TextureController::Bind() {
-	//if there are no textures, return the function
-
-	//if state is -1, the object has no ID -> cannot bind texture
+	//if state is -1, either its a new initialization or the object has no valid ID
 	if (textureState == -1) return;
 	
 	//retrieve texture object

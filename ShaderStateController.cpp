@@ -1,6 +1,6 @@
 #include "ShaderStateController.h"
 
-ShaderStateController::ShaderStateController() : shaderState(0){ }
+ShaderStateController::ShaderStateController() : shaderState(-1){ }
 
 ShaderStateController::~ShaderStateController() {
 	shaderFileNames.clear();
@@ -37,10 +37,7 @@ int ShaderStateController::addShaderFile(const wchar_t* VSfileName, const wchar_
 }
 
 void ShaderStateController::Bind() {
-	//if there are no shaders, exit the function
-	if (amtShaders == 0) return;
-	
-	//if state is -1, the object has no ID -> cannot bind texture
+	//if state is -1, either its a new initialization or the object has no valid ID
 	if (shaderState == -1) return;
 
 	//look up position in vector of shaders by ID
