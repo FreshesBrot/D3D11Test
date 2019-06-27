@@ -16,8 +16,8 @@ Pyramid::Pyramid() :
 		4,0,3
 	})
 {
-	VSfileName = L"VertexShader.cso";
-	PSfileName = L"PixelShader.cso";
+	VSfileName = L"testVrt.cso";
+	PSfileName = L"testPxl.cso";
 }
 
 std::vector<int> Pyramid::getIndices() {

@@ -1,8 +1,6 @@
 #include "UpdateController.h"
 
-UpdateController::UpdateController() : m_Transform(),newVertices(),newIndices() {
-	changes.resize(5);
-}
+UpdateController::UpdateController() : m_Transform(),newVertices(),newIndices() { }
 
 UpdateController::~UpdateController() { }
 
@@ -38,10 +36,3 @@ int UpdateController::getShaderState() {
 	return shaderState;
 }
 
-bool UpdateController::hasChanged(int i) {
-	return changes[i];
-}
-
-void UpdateController::setState(int i, bool state) {
-	changes[i] = state;
-}

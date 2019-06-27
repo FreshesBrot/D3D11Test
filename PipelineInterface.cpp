@@ -3,14 +3,11 @@
 PipelineInterface::PipelineInterface() : bindables(){
 	
 	//push back all required bindables in set order
-	bindables.reserve(5);
-	//bindables.push_back(new VertexShader(L"VertexShader.cso"));
-	//bindables.push_back(new PixelShader(L"PixelShader.cso"));
+	bindables.reserve(4);
 	bindables.push_back(new VertexBuffer(std::vector<Vertex>()));
 	bindables.push_back(new IndexBuffer(std::vector<int>()));
+	bindables.push_back(new ShaderStateController());
 	bindables.push_back(new MatrixBuffer());
-	
-
 
 }
 
@@ -26,13 +23,17 @@ void PipelineInterface::BindComponents() {
 
 void
 PipelineInterface::UpdateGeometry() {
-	int i = 2;
+	int i = 0;
 	bindables[i++]->Update();
 	bindables[i]->Update();
 }
 
 void PipelineInterface::UpdateTransformBuffer() {
-	bindables[4]->Update();
+	bindables[3]->Update();
+}
+
+void PipelineInterface::UpdateShader() {
+	bindables[2]->Update();
 }
 
 void PipelineInterface::UpdateBuffer(int position) {
@@ -45,4 +46,9 @@ void PipelineInterface::UpdateBuffer(int position) {
 void PipelineInterface::addBind(Bindable* b) {
 	bindables.push_back(b);
 	b->Bind();
+}
+
+int PipelineInterface::addShader(const wchar_t* VSfileName, const wchar_t* PSfileName) {
+	return static_cast<ShaderStateController*>(bindables[2])->
+		addShaderFile(VSfileName, PSfileName);
 }

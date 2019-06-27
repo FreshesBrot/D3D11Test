@@ -42,6 +42,9 @@ private:
 	std::unordered_map<int, VertexShader*> vertexShaders;
 	std::unordered_map<int, PixelShader*> pixelShaders;
 
+	//looks up wether a value is already in the map or not
+	//bool contains(const wchar_t*);
+	//bool contains(int i);
 
 	//this int controls what shader is bound to the pipeline; updated via updatecontroller
 	int shaderState;

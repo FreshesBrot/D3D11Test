@@ -21,12 +21,11 @@ int ShaderStateController::addShaderFile(const wchar_t* VSfileName, const wchar_
 		VertexShader* vs = new VertexShader(VSfileName);
 		vs->Create(getDevice());
 		vertexShaders[i] = vs;
-		return 0;
 		PixelShader* ps = new PixelShader(PSfileName);
 		ps->Create(getDevice());
 		pixelShaders[i] = ps;
 
-		return i++;
+		return i;
 
 	}
 
@@ -36,6 +35,9 @@ int ShaderStateController::addShaderFile(const wchar_t* VSfileName, const wchar_
 }
 
 void ShaderStateController::Bind() {
+	//if there are no shaders, exit the function
+	if (amtShaders == 0) return;
+	
 	//look up position in vector of shaders by ID
 
 	PixelShader* PS = pixelShaders[shaderState];

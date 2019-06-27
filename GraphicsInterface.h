@@ -45,7 +45,7 @@ private:
 	//combines all object indices and stores them
 	std::vector<int> allIndices;
 
-	//returns all vertices
+	//combines all vertices
 	std::vector<Vertex> allVertices;
 
 	//the camera object for the Scene

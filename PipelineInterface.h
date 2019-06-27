@@ -18,18 +18,27 @@ public:
 	void BindComponents();
 
 	//these will update the bindable components 
+	//updates the geometry data for vertex and index buffer
 	void UpdateGeometry();
+	//updates the world view transform buffer
 	void UpdateTransformBuffer();
+	//updates the shader that is bound to the pipeline
+	void UpdateShader();
+
+	//updates any buffer 
 	void UpdateBuffer(int position);
 
-	//this will add a bindable object and bind it to the pipeline (mainly buffers only)
+	//adds a bindable object and binds it to the pipeline (mainly buffers only)
 	void addBind(Bindable* b);
+	//adds a shader object by filename
+	int addShader(const wchar_t* VSfileName, const wchar_t* PSfileName);
+
 
 private:
 	
 	//the list of all bindables
-	//first five are allways in the same order:
-	//0: VertexShader - 1: PixelShader - 2: VertexBuffer 3: IndexBuffer - 4: MatrixBuffer  
+	//first four are allways in the same order:
+	//0: VertexBuffer - 1: IndexBuffer - 2: SSC - 3: MatrixBuffer  
 	std::vector<Bindable*> bindables;
 
 };

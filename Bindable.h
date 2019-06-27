@@ -31,11 +31,10 @@ protected:
 	//retrieves the pointer to the D3D device context
 	static ID3D11DeviceContext* getContext();
 
-	//shader blob (for the vertexbuffer)
-	static wrl::ComPtr<ID3DBlob> pShaderBlob;
-
 	//shared update controller
 	static UpdateController* UC;
+
+
 
 private:
 	//the shared graphics object

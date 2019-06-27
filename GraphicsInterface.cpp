@@ -35,17 +35,15 @@ void GraphicsInterface::Draw() {
 	int indexOffset = 0, vertexOffset = 0;
 
 	for (Object* obj : objects) {
-		//calculate model transformation matrix
-		dx::XMMATRIX modelTransform = obj->getTransformMatrix();
-		//calculate model view transformation matrix
-		dx::XMMATRIX modelViewTransform =  camera.getTransformMatrix() * modelTransform;
-		//project the vertices on NDC
-		dx::XMMATRIX projectedMVT = modelViewTransform * Object::m_projection;
-		//update the controller with modelview matrix
-		
-		dx::XMMATRIX test =  obj->getTransformMatrix() * camera.getTransformMatrix() * Object::m_projection;
-		UC->set(test);
+		//calculate projected modelview transform matrix and set it 
+		dx::XMMATRIX MVT =  obj->getTransformMatrix() * camera.getTransformMatrix() * Object::m_projection;
+		UC->set(MVT);
 		PI.UpdateTransformBuffer();
+
+		//set the shader
+		UC->setShaderState(obj->getShaderID());
+		PI.UpdateShader();
+
 		//draw the object
 		//store of indices and vertices
 		int ind = obj->getIndices().size(), vrt = obj->getVertices().size();
@@ -68,15 +66,7 @@ Graphics* GraphicsInterface::getGfx() {
 }
 
 void GraphicsInterface::addObject(Object* o) {
-	//push the new object
-	objects.push_back(o);
-
-	//insert new indices and vertices
-	std::vector<int> objInd = o->getIndices();
-	allIndices.insert(allIndices.end(), objInd.begin(), objInd.end());
-
-	std::vector<Vertex> objVrt = o->getVertices();
-	allVertices.insert(allVertices.end(), objVrt.begin(), objVrt.end());
+	addObjectGhost(o);
 
 	//update the update controller
 	UC->set(allIndices); UC->set(allVertices);
@@ -97,6 +87,9 @@ void GraphicsInterface::addObjectGhost(Object* o) {
 	std::vector<Vertex> objVrt = o->getVertices();
 	allVertices.insert(allVertices.end(), objVrt.begin(), objVrt.end());
 
+	//create the shader and retrieve shaderID and bind it to object instance
+	int shaderID = PI.addShader(o->getVSfileName(), o->getPSfileName());
+	o->setShaderID(shaderID);
 }
 
 void GraphicsInterface::UpdateGeometry() {

@@ -64,8 +64,8 @@ Cube::Cube() :
 	})
 {
 //set the file names for the shaders
-	VSfileName = L"PixelShader.cso";
-	PSfileName = L"VertexShader.cso";
+	VSfileName = L"VertexShader.cso";
+	PSfileName = L"PixelShader.cso";
 }
 
 dx::XMMATRIX Cube::getTransformMatrix() {

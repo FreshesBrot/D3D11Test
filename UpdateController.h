@@ -21,16 +21,18 @@ public:
 	std::vector<int> getNewIndices();
 	int getShaderState();
 
-	//checks wether the specified object has changed
-	bool hasChanged(int i);
-
 	//sets the state whether and object changed or not
 	void setState(int i,bool state);
 
+	//set the projection matrix
+
+
+	//projection matrix
+	static dx::XMMATRIX m_projection;
+
+
+
 private:
-	//the changed queue
-	//0: Pixelshader - 1: Vertexshader - 2: Indexbuffer - 3: Vertexbuffer - 4: Constbuffer
-	std::vector<bool> changes;
 
 	//the objects that can change
 	dx::XMMATRIX m_Transform;
