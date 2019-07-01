@@ -40,9 +40,12 @@ void GraphicsInterface::Draw() {
 		UC->set(MVT);
 		PI.UpdateTransformBuffer();
 
-		//set the shader
-		UC->setShaderState(obj->getShaderID());
-		PI.UpdateShader();
+		//update shaderstate controller
+		UC->setVSState(obj->getVSID());
+		UC->setPSState(obj->getPSID());
+		UC->setTextureState(obj->getTXID());
+
+		PI.UpdateShaderState();
 
 		//draw the object
 		//store of indices and vertices
@@ -65,17 +68,6 @@ Graphics* GraphicsInterface::getGfx() {
 	return gfx;
 }
 
-void GraphicsInterface::addObject(Object* o) {
-	addObjectGhost(o);
-
-	//update the update controller
-	UC->set(allIndices); UC->set(allVertices);
-
-	//call update on geometry buffers
-	PI.UpdateGeometry();
-
-}
-
 void GraphicsInterface::addObjectGhost(Object* o) {
 	//push the new object
 	objects.push_back(o);
@@ -87,9 +79,25 @@ void GraphicsInterface::addObjectGhost(Object* o) {
 	std::vector<Vertex> objVrt = o->getVertices();
 	allVertices.insert(allVertices.end(), objVrt.begin(), objVrt.end());
 
-	//create the shader and retrieve shaderID and bind it to object instance
-	int shaderID = PI.addShader(o->getVSfileName(), o->getPSfileName());
-	o->setShaderID(shaderID);
+	//set the states for the object
+	int ID;
+	ID = PI.addVertexShader(o->getVSfileName());
+	o->setVSID(ID);
+	ID = PI.addPixelShader(o->getPSfileName());
+	o->setPSID(ID);
+	ID = PI.addTexture(o->getTXfileName());
+	o->setTXID(ID);
+}
+
+void GraphicsInterface::addObject(Object* o) {
+	addObjectGhost(o);
+
+	//update the update controller
+	UC->set(allIndices); UC->set(allVertices);
+
+	//call update on geometry buffers
+	PI.UpdateGeometry();
+
 }
 
 void GraphicsInterface::UpdateGeometry() {
@@ -101,6 +109,12 @@ void GraphicsInterface::UpdateGeometry() {
 
 Object* GraphicsInterface::getObjectAt(int index) {
 	return objects[index];
+}
+
+void GraphicsInterface::Retexture(Object* obj, const wchar_t* fileName) {
+	int ID = PI.addTexture(fileName);
+	obj->setTXID(ID);
+	obj->setTXfile(fileName);
 }
 
 void GraphicsInterface::ClearBackBuffer() {

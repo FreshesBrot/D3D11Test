@@ -1,13 +1,14 @@
 #pragma once
 #include "VertexShader.h"
 #include "PixelShader.h"
+#include "Texture2D.h"
 #include "Bindable.h"
 #include <sstream>
 #include <string>
 #include <unordered_map>
 
 //this class encapsulates all shader files and controls which are bound to the pipeline
-class ShaderStateController : public Bindable{
+class ShaderStateController : public Bindable {
 	using Bindable::Bind;
 	using Bindable::Update;
 	using Bindable::Unbind;
@@ -18,9 +19,11 @@ public:
 	//deletes all that is stored in the maps
 	~ShaderStateController();
 	
-	//inserts a new shader; first looks, if the shader was already added to the map; if so, it wont add the shader
-	//also returns the key where the shader will be or is already stored 
-	int addShaderFile(const wchar_t* VSfileName, const wchar_t* PSfileName);
+	//inserts a new file resource; first looks, if the file resource was already added to the map; if so, it wont add the file
+	//also returns the key where the file will be or is already stored 
+	int addPSFile(const wchar_t* PSfileName);
+	int addVSFile(const wchar_t* VSfileName);
+	int addTextureFile(const wchar_t* textureFileName);
 
 	//binds the shader defined by the shader state
 	void Bind() override;
@@ -36,21 +39,39 @@ public:
 	
 private:
 	
-	//this map stores all string values
-	std::unordered_map<const wchar_t*,int> shaderFileNames;
-	//maps that store shader objects based on pointers
+	//looks up if the file was already stored
+	int add(const wchar_t* fileName,VertexShader* VS);
+	int add(const wchar_t* fileName, PixelShader* PS);
+	int add(const wchar_t* fileName, Texture2D* T2D);
+
+	//bind the components according to the state
+	void bindVS();
+	void bindPS();
+	void bindTX();
+
+	//these maps stores all file names and their key
+	std::unordered_map<const wchar_t*,int> VSFileNames;
+	std::unordered_map<const wchar_t*, int> PSFileNames;
+	std::unordered_map<const wchar_t*, int> textureFileNames;
+	//maps that store file objects based on pointers
 	std::unordered_map<int, VertexShader*> vertexShaders;
 	std::unordered_map<int, PixelShader*> pixelShaders;
-
-	//looks up wether a value is already in the map or not
-	//bool contains(const wchar_t*);
-	//bool contains(int i);
+	std::unordered_map<int, Texture2D*> textures;
 
 	//this int controls what shader is bound to the pipeline; updated via updatecontroller
-	int shaderState;
+	int PSState = -1;
+	int VSState = -1;
+	int textureState = -1;
 
-	//this is the amount of shaders currently collected
-	int amtShaders = 0;
+	//these are for temporary storage of previous state values
+	int tmpPS = -1;
+	int tmpVS = -1;
+	int tmpTX = -1;
+
+	//this is the amount of specific files currently collected
+	int amtPSShaders = 0;
+	int amtVSShaders = 0;
+	int amtTextures  = 0;
 
 };
 

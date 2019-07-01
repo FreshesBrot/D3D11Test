@@ -13,14 +13,16 @@ public:
 	void set(dx::XMMATRIX transform);
 	void set(std::vector<Vertex> vertices);
 	void set(std::vector<int> indices);
-	void setShaderState(int state);
+	void setPSState(int state);
+	void setVSState(int state);
 	void setTextureState(int state);
 
 	//get the Objects
 	dx::XMMATRIX getTransform();
 	std::vector<Vertex> getNewVertices();
 	std::vector<int> getNewIndices();
-	int getShaderState();
+	int getVSState();
+	int getPSState();
 	int getTextureState();
 
 	//set the projection matrix
@@ -37,7 +39,8 @@ private:
 	dx::XMMATRIX m_Transform;
 	std::vector<Vertex> newVertices;
 	std::vector<int> newIndices;
-	int shaderState;
+	int VSState;
+	int PSState;
 	int textureState;
 };
 

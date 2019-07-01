@@ -12,6 +12,18 @@ Object::~Object() { }
 
 #pragma region TRANSFORMS
 
+void Object::setVSfile(const wchar_t* fileName) {
+	VSfileName = fileName;
+}
+
+void Object::setPSfile(const wchar_t* fileName) {
+	PSfileName = fileName;
+}
+
+void Object::setTXfile(const wchar_t* fileName) {
+	TXfileName = fileName;
+}
+
 void Object::translate(float xOffset, float yOffset, float zOffset){
 	position.x += xOffset;
 	position.y += yOffset;
@@ -74,10 +86,14 @@ dx::XMMATRIX Object::scal(float xScale, float yScale, float zScale) {
 }
 #pragma endregion
 
-void Object::setShaderID(int ID) {
-	shaderID = ID;
+void Object::setVSID(int ID)  {
+	VSID = ID;
 }
 
-void Object::setTextureID(int ID) {
-	textureID = ID;
+void Object::setPSID(int ID) {
+	PSID = ID;
+}
+
+void Object::setTXID(int ID) {
+	TXID = ID;
 }

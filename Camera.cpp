@@ -4,16 +4,9 @@ Camera::Camera() {
 	position = {0,0,-0.5f};
 	PSfileName = nullptr;
 	VSfileName = nullptr;
-	shaderID = 0;
+	TXfileName = nullptr;
 }
 
-std::vector<int> Camera::getIndices() {
-	return std::vector<int>();
-}
-
-std::vector<Vertex> Camera::getVertices() {
-	return std::vector<Vertex>();
-}
 
 dx::XMMATRIX Camera::getTransformMatrix() {
 	dx::XMVECTOR v_position = dx::XMVectorSet(0.0f, 0.0f, -0.5f, 0.0f);

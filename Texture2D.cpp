@@ -1,8 +1,6 @@
 #include "Texture2D.h"
 
-Texture2D::Texture2D(const wchar_t* fileName) {
-	this->fileName = fileName;
-}
+Texture2D::Texture2D(const wchar_t* fileName) : FileResource(fileName) { }
 
 Texture2D::~Texture2D() {
 	pResource = nullptr;
@@ -11,11 +9,12 @@ Texture2D::~Texture2D() {
 }
 
 void Texture2D::Create(ID3D11Device* device) {
+
 	HRESULT hr;
 
 	//read the texture file by file name
 	//create the resource and resource view
-	GFX_FAILED(dx::CreateWICTextureFromFile(device,fileName,&pResource,&pResourceView));
+	GFX_FAILED(dx::CreateWICTextureFromFile(device,this->fileName,&pResource,&pResourceView));
 
 	//sampler description
 	D3D11_SAMPLER_DESC pSd = {};

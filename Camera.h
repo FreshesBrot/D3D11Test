@@ -11,18 +11,20 @@ public:
 	Camera();
 
 	//a camera is abstract and has no geometry; will return nothing
-	std::vector<int> getIndices() override;
-	std::vector<Vertex> getVertices() override;
+	std::vector<int> getIndices() override { return std::vector<int>(); };
+	std::vector<Vertex> getVertices() override { return std::vector<Vertex>(); };
 
 	//returns the VIEW TRANSFORMATION MATRIX and not the model transformation
 	dx::XMMATRIX getTransformMatrix() override;
 
 	//these functions are unused for the camera
-	int getShaderID() override { return -1; }
-	int getTextureID() override { return -1; }
-	const wchar_t* getPSfileName() override { return nullptr; }
-	const wchar_t* getVSfileName() override { return nullptr; }
-	const wchar_t* getTXTfileName() override { return nullptr; }
+	int getVSID() override { return -1; };
+	int getPSID() override { return -1; };
+	int getTXID() override { return -1; };
+
+	const wchar_t* getVSfileName() override { return nullptr; };
+	const wchar_t* getPSfileName() override { return nullptr; };
+	const wchar_t* getTXfileName() override { return nullptr; };
 
 private:
 

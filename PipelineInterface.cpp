@@ -8,7 +8,7 @@ PipelineInterface::PipelineInterface() : bindables(){
 	bindables.push_back(new IndexBuffer(std::vector<int>()));
 	bindables.push_back(new MatrixBuffer());
 	bindables.push_back(new ShaderStateController());
-	bindables.push_back(new TextureController());
+
 
 }
 
@@ -33,12 +33,8 @@ void PipelineInterface::UpdateTransformBuffer() {
 	bindables[2]->Update();
 }
 
-void PipelineInterface::UpdateShader() {
+void PipelineInterface::UpdateShaderState() {
 	bindables[3]->Update();
-}
-
-void PipelineInterface::UpdateTexture() {
-	bindables[4]->Update();
 }
 
 void PipelineInterface::UpdateBuffer(int position) {
@@ -46,16 +42,20 @@ void PipelineInterface::UpdateBuffer(int position) {
 	bindables[position]->Update();
 }
 
+int PipelineInterface::addVertexShader(const wchar_t* fileName) {
+	return static_cast<ShaderStateController*>(bindables[3])->addVSFile(fileName);
+}
+
+int PipelineInterface::addPixelShader(const wchar_t* fileName) {
+	return static_cast<ShaderStateController*>(bindables[3])->addPSFile(fileName);
+}
+
+int PipelineInterface::addTexture(const wchar_t* fileName) {
+	return static_cast<ShaderStateController*>(bindables[3])->addTextureFile(fileName);
+}
+
 void PipelineInterface::addBind(Bindable* b) {
 	bindables.push_back(b);
 	b->Bind();
 }
 
-int PipelineInterface::addShader(const wchar_t* VSfileName, const wchar_t* PSfileName) {
-	return static_cast<ShaderStateController*>(bindables[3])->
-		addShaderFile(VSfileName, PSfileName);
-}
-
-int PipelineInterface::addTexture(const wchar_t* fileName) {
-	return static_cast<TextureController*>(bindables[4])->addTextureFile(fileName);
-}

@@ -18,8 +18,12 @@ void UpdateController::set(std::vector<int> indices) {
 	newIndices = indices;
 }
 
-void UpdateController::setShaderState(int state) {
-	shaderState = state;
+void UpdateController::setPSState(int state) {
+	PSState = state;
+}
+
+void UpdateController::setVSState(int state) {
+	VSState = state;
 }
 
 void UpdateController::setTextureState(int state) {
@@ -38,8 +42,12 @@ std::vector<int> UpdateController::getNewIndices() {
 	return newIndices;
 }
 
-int UpdateController::getShaderState() {
-	return shaderState;
+int UpdateController::getVSState() {
+	return VSState;
+}
+
+int UpdateController::getPSState() {
+	return PSState;
 }
 
 int UpdateController::getTextureState() {

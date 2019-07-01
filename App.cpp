@@ -14,6 +14,7 @@ int App::Start() {
 	GI.addObject(new Cube());
 	GI.addObject(new Pyramid());
 	GI.getObjectAt(0)->translate(2, 1, 2);
+	GI.Retexture(GI.getObjectAt(0), L"cock.jpg");
 	GI.getObjectAt(1)->translate(-2, 1, 2);
 	GI.getObjectAt(2)->translate(0, -2, 2);
 	

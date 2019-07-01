@@ -1,9 +1,7 @@
 #include "VertexShader.h"
 
 
-VertexShader::VertexShader(const wchar_t* fileName) {
-	this->fileName = fileName;
-}
+VertexShader::VertexShader(const wchar_t* fileName) : FileResource(fileName) { }
 
 VertexShader::~VertexShader() {
 	pShader = nullptr;
@@ -14,7 +12,7 @@ void VertexShader::Create(ID3D11Device* device) {
 	HRESULT hr;
 
 	wrl::ComPtr<ID3DBlob> pBlob;
-	GFX_FAILED(D3DReadFileToBlob(fileName, &pBlob));
+	GFX_FAILED(D3DReadFileToBlob(this->fileName, &pBlob));
 	device->CreateVertexShader(pBlob->GetBufferPointer(),pBlob->GetBufferSize(),
 		nullptr,&pShader);
 

@@ -142,6 +142,7 @@
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="CustomException.cpp" />
     <ClCompile Include="dxerr.cpp" />
+    <ClCompile Include="FileResource.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="GraphicsInterface.cpp" />
     <ClCompile Include="GFXExc.cpp" />
@@ -155,7 +156,6 @@
     <ClCompile Include="Pyramid.cpp" />
     <ClCompile Include="ShaderStateController.cpp" />
     <ClCompile Include="Texture2D.cpp" />
-    <ClCompile Include="TextureController.cpp" />
     <ClCompile Include="UpdateController.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexShader.cpp" />
@@ -170,6 +170,7 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CustomException.h" />
     <ClInclude Include="dxerr.h" />
+    <ClInclude Include="FileResource.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GraphicsInterface.h" />
     <ClInclude Include="GFXExc.h" />
@@ -182,7 +183,6 @@
     <ClInclude Include="Pyramid.h" />
     <ClInclude Include="ShaderStateController.h" />
     <ClInclude Include="Texture2D.h" />
-    <ClInclude Include="TextureController.h" />
     <ClInclude Include="UpdateController.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexBuffer.h" />
@@ -238,7 +238,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\..\OneDrive\Desktop\Kappa.png" />
+    <Image Include="cock.jpg" />
+    <Image Include="eye.jpg" />
+    <Image Include="Kappa.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

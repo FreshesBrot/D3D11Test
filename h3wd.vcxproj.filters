@@ -121,10 +121,14 @@
     <ClCompile Include="PixelShader.cpp">
       <Filter>GraphicsEngine\Source</Filter>
     </ClCompile>
-    <ClCompile Include="TextureController.cpp" />
-    <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="FileResource.cpp">
+      <Filter>GraphicsEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
+      <Filter>GraphicsEngine\Source</Filter>
+    </ClCompile>
     <ClCompile Include="WICTextureLoader.cpp">
-      <Filter>UserInterface</Filter>
+      <Filter>GraphicsEngine\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,10 +201,14 @@
     <ClInclude Include="PixelShader.h">
       <Filter>GraphicsEngine\Header</Filter>
     </ClInclude>
-    <ClInclude Include="TextureController.h" />
-    <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="FileResource.h">
+      <Filter>GraphicsEngine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>GraphicsEngine\Header</Filter>
+    </ClInclude>
     <ClInclude Include="WICTextureLoader.h">
-      <Filter>UserInterface</Filter>
+      <Filter>GraphicsEngine\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -229,7 +237,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\..\OneDrive\Desktop\Kappa.png">
+    <Image Include="Kappa.jpg">
+      <Filter>GraphicsEngine\Resources</Filter>
+    </Image>
+    <Image Include="cock.jpg">
+      <Filter>GraphicsEngine\Resources</Filter>
+    </Image>
+    <Image Include="eye.jpg">
       <Filter>GraphicsEngine\Resources</Filter>
     </Image>
   </ItemGroup>

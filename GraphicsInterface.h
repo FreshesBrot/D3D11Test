@@ -30,6 +30,9 @@ public:
 	//returns the object by index
 	Object* getObjectAt(int index);
 
+	//retextures an object
+	void Retexture(Object* obj, const wchar_t* fileName);
+
 private:
 
 	//resets color values for the backbuffer

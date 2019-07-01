@@ -32,15 +32,23 @@ public:
 	virtual dx::XMMATRIX getTransformMatrix() = 0;
 
 	//retrieves and sets reource IDs of the object
-	virtual int getShaderID() = 0;
-	void setShaderID(int ID);
-	virtual int getTextureID() = 0;
-	void setTextureID(int ID);
+	virtual int getVSID() = 0;
+	void setVSID(int ID);
+	virtual int getPSID() = 0;
+	void setPSID(int ID);
+	virtual int getTXID() = 0;
+	void setTXID(int ID);
 
 	//retrieves the specific shader file Name
 	virtual const wchar_t* getVSfileName() = 0;
 	virtual const wchar_t* getPSfileName() = 0;
-	virtual const wchar_t* getTXTfileName() = 0;
+	virtual const wchar_t* getTXfileName() = 0;
+
+	//sets the filenames
+	void setVSfile(const wchar_t* fileName);
+	void setPSfile(const wchar_t* fileName);
+	void setTXfile(const wchar_t* fileName);
+
 
 #pragma region TRANSFORMS
 	//applies a continuous transformation
@@ -90,10 +98,11 @@ protected:
 	//the file attributes of the object
 	const wchar_t* VSfileName;
 	const wchar_t* PSfileName;
-	const wchar_t* TXTfileName;
+	const wchar_t* TXfileName;
 	
 	//the Resource IDs of the object
-	int shaderID;
-	int textureID;
+	int PSID;
+	int VSID;
+	int TXID;
 
 };

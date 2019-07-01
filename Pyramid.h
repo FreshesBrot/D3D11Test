@@ -14,12 +14,13 @@ public:
 
 	dx::XMMATRIX getTransformMatrix() override;
 
-	//return specific resources and IDs
-	int getShaderID() override;
-	int getTextureID() override;
+	int getVSID() override;
+	int getPSID() override;
+	int getTXID() override;
+
 	const wchar_t* getVSfileName() override;
 	const wchar_t* getPSfileName() override;
-	const wchar_t* getTXTfileName() override;
+	const wchar_t* getTXfileName() override;
 
 private:
 
