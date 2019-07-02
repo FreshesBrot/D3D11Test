@@ -156,6 +156,7 @@
     <ClCompile Include="Pyramid.cpp" />
     <ClCompile Include="ShaderStateController.cpp" />
     <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="UpdateController.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexShader.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="Pyramid.h" />
     <ClInclude Include="ShaderStateController.h" />
     <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="UpdateController.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexBuffer.h" />

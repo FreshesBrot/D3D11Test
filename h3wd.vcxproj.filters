@@ -130,6 +130,9 @@
     <ClCompile Include="WICTextureLoader.cpp">
       <Filter>GraphicsEngine\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Rest\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -209,6 +212,9 @@
     </ClInclude>
     <ClInclude Include="WICTextureLoader.h">
       <Filter>GraphicsEngine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Rest\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

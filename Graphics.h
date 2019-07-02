@@ -9,6 +9,7 @@
 #include <wrl.h>
 #include <DirectXMath.h>
 #include "Vertex.h"
+#include "Time.h"
 
 
 namespace wrl = Microsoft::WRL;

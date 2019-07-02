@@ -2,7 +2,6 @@
 #include "Graphics.h"
 
 
-
 //object transform descpriptions
 struct Position {
 	float x, y, z;
@@ -104,5 +103,4 @@ protected:
 	int PSID;
 	int VSID;
 	int TXID;
-
 };

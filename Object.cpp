@@ -25,9 +25,9 @@ void Object::setTXfile(const wchar_t* fileName) {
 }
 
 void Object::translate(float xOffset, float yOffset, float zOffset){
-	position.x += xOffset;
-	position.y += yOffset;
-	position.z += zOffset;
+	position.x += xOffset * Time::deltaTime;
+	position.y += yOffset * Time::deltaTime;
+	position.z += zOffset * Time::deltaTime;
 }
 
 void Object::setTransform(float xPos, float yPos, float zPos) {
@@ -37,9 +37,9 @@ void Object::setTransform(float xPos, float yPos, float zPos) {
 }
 
 void Object::rotate(float xAngle, float yAngle, float zAngle) {
-	rotation.x += xAngle;
-	rotation.y += yAngle;
-	rotation.z += zAngle;
+	rotation.x += xAngle * Time::deltaTime;
+	rotation.y += yAngle * Time::deltaTime;
+	rotation.z += zAngle * Time::deltaTime;
 }
 
 void Object::setRotation(float xAngle, float yAngle, float zAngle) {
@@ -49,9 +49,9 @@ void Object::setRotation(float xAngle, float yAngle, float zAngle) {
 }
 
 void Object::scale(float xScaling, float yScaling, float zScaling) {
-	scaling.x += xScaling;
-	scaling.y += yScaling;
-	scaling.z += zScaling;
+	scaling.x += xScaling * Time::deltaTime;
+	scaling.y += yScaling * Time::deltaTime;
+	scaling.z += zScaling * Time::deltaTime;
 }
 
 void Object::setScale(float xScale, float yScale, float zScale) {

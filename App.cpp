@@ -13,10 +13,10 @@ int App::Start() {
 	GI.addObject(new Cube());
 	GI.addObject(new Cube());
 	GI.addObject(new Pyramid());
-	GI.getObjectAt(0)->translate(2, 1, 2);
+	GI.getObjectAt(0)->setTransform(2, 1, 5);
 	GI.Retexture(GI.getObjectAt(0), L"cock.jpg");
-	GI.getObjectAt(1)->translate(-2, 1, 2);
-	GI.getObjectAt(2)->translate(0, -2, 2);
+	GI.getObjectAt(1)->setTransform(-2, 1, 5);
+	GI.getObjectAt(2)->setTransform(0, -2, 5);
 	
 	while (true) {
 		//check if processmessages returns any value
@@ -30,6 +30,7 @@ int App::Start() {
 
 }
 
+float prevTime = Time::deltaTime;
 float z = 4.0f;
 void App::DoFrame() {
 
@@ -40,7 +41,7 @@ void App::DoFrame() {
 		z--;
 	}
 
-	float move = 0.1f;
+	float move = 15;
 
 	Object* o0 = GI.getObjectAt(0);
 	Object* o1 = GI.getObjectAt(1);
@@ -73,10 +74,15 @@ void App::DoFrame() {
 		o2->translate(0.0f, 0.0f, -ms);
 	}
 
+	if (w.keyboard.isPressed('T')) 
+		Time::deltaTime = 0;
+	if (w.keyboard.OnRelease('T'))
+		Time::deltaTime =prevTime;
+
 	//auto rotation
-	o0->rotate(0.03f,0.0f,0.02f);
-	o1->rotate(0.02f, 0.01f, 0.0f);
-	o2->rotate(0.0f, 0.03f, 0.0f);
+	o0->rotate(30,0.0f,20);
+	o1->rotate(20, 10, 0.0f);
+	o2->rotate(0.0f, 30, 0.0f);
 
 	GI.Draw();
 
