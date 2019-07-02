@@ -141,6 +141,7 @@
     <ClCompile Include="ConstBuffer.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="CustomException.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="dxerr.cpp" />
     <ClCompile Include="FileResource.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PipelineInterface.cpp" />
     <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="PSConstBuffer.cpp" />
     <ClCompile Include="Pyramid.cpp" />
     <ClCompile Include="ShaderStateController.cpp" />
     <ClCompile Include="Texture2D.cpp" />
@@ -170,6 +172,7 @@
     <ClInclude Include="ConstBuffer.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CustomException.h" />
+    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="dxerr.h" />
     <ClInclude Include="FileResource.h" />
     <ClInclude Include="Graphics.h" />
@@ -181,6 +184,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="PipelineInterface.h" />
     <ClInclude Include="PixelShader.h" />
+    <ClInclude Include="PSConstBuffer.h" />
     <ClInclude Include="Pyramid.h" />
     <ClInclude Include="ShaderStateController.h" />
     <ClInclude Include="Texture2D.h" />

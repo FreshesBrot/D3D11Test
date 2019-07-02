@@ -2,3 +2,4 @@
 #include "Cube.h"
 #include "Camera.h"
 #include "Pyramid.h"
+#include "DirectionalLight.h"

@@ -45,11 +45,14 @@ private:
 
 
 
-	//combines all object indices and stores them
+	//combines all indices
 	std::vector<int> allIndices;
 
 	//combines all vertices
 	std::vector<Vertex> allVertices;
+
+	//all objects
+	std::vector<Object*> objects;
 
 	//the camera object for the Scene
 	Camera camera;
@@ -59,9 +62,6 @@ private:
 
 	//update controller
 	UpdateController* UC;
-
-	//object vector
-	std::vector<Object*> objects;
 
 	//pipeline interface
 	PipelineInterface PI;

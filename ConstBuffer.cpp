@@ -16,15 +16,16 @@ void MatrixBuffer::Bind() {
 	//the struct that holds the information to be bound
 	struct ConstBuffer {
 		dx::XMMATRIX m_transform;
+		dx::XMMATRIX m_projection;
 	} cb;
-	cb = { dx::XMMATRIX() };
+	cb = { dx::XMMATRIX(),Bindable::m_projection };
 
 	//create buffer description
 	CD3D11_BUFFER_DESC pBd = {};
 	pBd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	pBd.Usage = D3D11_USAGE_DYNAMIC;
-	pBd.ByteWidth = sizeof(dx::XMMATRIX);
-	pBd.StructureByteStride = 0u;
+	pBd.ByteWidth = sizeof(cb);
+	pBd.StructureByteStride = sizeof(dx::XMMATRIX);
 	pBd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	pBd.MiscFlags = 0u;
 
@@ -53,8 +54,9 @@ void MatrixBuffer::Update() {
 	//update the matrix buffer
 	struct ConstBuffer {
 		dx::XMMATRIX m_transform;
+		dx::XMMATRIX m_projection;
 	} cb;
-	cb = { transformationMatrix };
+	cb = { transformationMatrix,Bindable::m_projection };
 	memcpy(pMsr.pData, &cb, sizeof(ConstBuffer));
 	//unlock the resource
 	getContext()->Unmap(pConstBuffer.Get(),0u);

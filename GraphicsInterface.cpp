@@ -7,9 +7,10 @@ GraphicsInterface::GraphicsInterface(HWND hWnd) :
 	gfx = new Graphics(hWnd);
 	UC = new UpdateController();
 
-	//set the graphics object for the bindables
+	//set some static variables for the graphics object
 	Bindable::setGraphicsObject(gfx);
 	Bindable::setUpdateController(UC);
+	Bindable::setWorldProjection(Object::m_projection);
 
 	colors = { 0,0,0 };
 
@@ -36,7 +37,7 @@ void GraphicsInterface::Draw() {
 
 	for (Object* obj : objects) {
 		//calculate projected modelview transform matrix and set it 
-		dx::XMMATRIX MVT =  obj->getTransformMatrix() * camera.getTransformMatrix() * Object::m_projection;
+		dx::XMMATRIX MVT =  obj->getTransformMatrix() * camera.getTransformMatrix();
 		UC->set(MVT);
 		PI.UpdateTransformBuffer();
 

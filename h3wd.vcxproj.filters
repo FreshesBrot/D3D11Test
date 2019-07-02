@@ -133,6 +133,8 @@
     <ClCompile Include="Time.cpp">
       <Filter>Rest\Source</Filter>
     </ClCompile>
+    <ClCompile Include="PSConstBuffer.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -216,6 +218,8 @@
     <ClInclude Include="Time.h">
       <Filter>Rest\Header</Filter>
     </ClInclude>
+    <ClInclude Include="PSConstBuffer.h" />
+    <ClInclude Include="DirectionalLight.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

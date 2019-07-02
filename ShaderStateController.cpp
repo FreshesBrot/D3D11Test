@@ -51,7 +51,7 @@ ID3D11Device* ShaderStateController::getDevice() {
 }
 
 int ShaderStateController::add(const wchar_t* fileName, VertexShader* VS) {
-	
+
 	std::unordered_map<const wchar_t*, int>::const_iterator it = VSFileNames.find(fileName);
 	if (it == VSFileNames.end()) {
 		//insert new pair

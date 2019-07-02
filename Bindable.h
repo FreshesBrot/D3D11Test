@@ -21,8 +21,8 @@ public:
 	//sets the update controller
 	static void setUpdateController(UpdateController* UC);
 
-	//updates the shader blob
-	static void updateShaderBlob(ID3DBlob* pBlob);
+	//sets the world projection matrix
+	static void setWorldProjection(dx::XMMATRIX projection);
 
 protected:
 	//retrieves the pointer to the D3D device
@@ -34,7 +34,8 @@ protected:
 	//shared update controller
 	static UpdateController* UC;
 
-
+	//world projection matrix
+	static dx::XMMATRIX m_projection;
 
 private:
 	//the shared graphics object

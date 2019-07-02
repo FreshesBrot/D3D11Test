@@ -41,14 +41,12 @@ void App::DoFrame() {
 		z--;
 	}
 
-	float move = 15;
-
 	Object* o0 = GI.getObjectAt(0);
 	Object* o1 = GI.getObjectAt(1);
 	Object* o2 = GI.getObjectAt(2);
 
 	//move speed
-	float ms = 0.04f;
+	float ms = 40;
 	//move objects
 	if (w.keyboard.isPressed('D')) {
 		o0->translate(ms, 0.0f, 0.0f);
