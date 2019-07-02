@@ -25,6 +25,9 @@ public:
 	int addVSFile(const wchar_t* VSfileName);
 	int addTextureFile(const wchar_t* textureFileName);
 
+	//intiliazes default textures
+	void initializeDefaults();
+
 	//binds the shader defined by the shader state
 	void Bind() override;
 

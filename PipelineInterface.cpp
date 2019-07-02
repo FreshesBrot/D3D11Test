@@ -33,6 +33,10 @@ void PipelineInterface::UpdateTransformBuffer() {
 	bindables[2]->Update();
 }
 
+void PipelineInterface::initDefault() {
+	static_cast<ShaderStateController*>(bindables[3])->initializeDefaults();
+}
+
 void PipelineInterface::UpdateShaderState() {
 	bindables[3]->Update();
 }

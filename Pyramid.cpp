@@ -48,11 +48,11 @@ Pyramid::Pyramid() :
 	})
 {
 	//set shader file names
-	VSfileName = L"VertexShader.cso";
-	PSfileName = L"PixelShader.cso";
+	VSfileName = nullptr;
+	PSfileName = nullptr;
 
 	//set texture file name
-	TXfileName = L"eye.jpg";
+	TXfileName = nullptr;
 }
 
 std::vector<int> Pyramid::getIndices() {

@@ -141,7 +141,6 @@
     <ClCompile Include="ConstBuffer.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="CustomException.cpp" />
-    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="dxerr.cpp" />
     <ClCompile Include="FileResource.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -154,7 +153,6 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PipelineInterface.cpp" />
     <ClCompile Include="PixelShader.cpp" />
-    <ClCompile Include="PSConstBuffer.cpp" />
     <ClCompile Include="Pyramid.cpp" />
     <ClCompile Include="ShaderStateController.cpp" />
     <ClCompile Include="Texture2D.cpp" />
@@ -172,7 +170,6 @@
     <ClInclude Include="ConstBuffer.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CustomException.h" />
-    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="dxerr.h" />
     <ClInclude Include="FileResource.h" />
     <ClInclude Include="Graphics.h" />
@@ -184,7 +181,6 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="PipelineInterface.h" />
     <ClInclude Include="PixelShader.h" />
-    <ClInclude Include="PSConstBuffer.h" />
     <ClInclude Include="Pyramid.h" />
     <ClInclude Include="ShaderStateController.h" />
     <ClInclude Include="Texture2D.h" />
@@ -205,7 +201,7 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
     </FxCompile>
-    <FxCompile Include="testPxl.hlsl">
+    <FxCompile Include="defaultPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
@@ -219,7 +215,7 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
     </FxCompile>
-    <FxCompile Include="testVrt.hlsl">
+    <FxCompile Include="defaultVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
@@ -245,6 +241,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="cock.jpg" />
+    <Image Include="defaultTX.jpg" />
     <Image Include="eye.jpg" />
     <Image Include="Kappa.jpg" />
   </ItemGroup>

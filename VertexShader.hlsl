@@ -7,7 +7,7 @@ struct VSOut {
 
 };
 
-cbuffer Matrices {
+cbuffer Matrices : register (b0) {
 	matrix m_transform;
 	matrix m_projection;
 };

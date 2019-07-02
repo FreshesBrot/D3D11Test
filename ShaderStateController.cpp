@@ -1,6 +1,7 @@
 #include "ShaderStateController.h"
 
-ShaderStateController::ShaderStateController() { }
+ShaderStateController::ShaderStateController() {
+}
 
 ShaderStateController::~ShaderStateController() {
 	VSFileNames.clear();
@@ -24,6 +25,28 @@ int ShaderStateController::addPSFile(const wchar_t* PSfileName) {
 int ShaderStateController::addTextureFile(const wchar_t* textureFileName) {
 	if (textureFileName == nullptr) return -1;
 	return add(textureFileName, new Texture2D(textureFileName));
+}
+
+void ShaderStateController::initializeDefaults() {
+	const wchar_t* dfVS = L"defaultVS.cso";
+	const wchar_t* dfPS = L"defaultPS.cso";
+	const wchar_t* dfTX = L"defaultTX.jpg";
+
+	//insert default elements at -1
+	VSFileNames.insert(std::make_pair(dfVS, -1));
+	VertexShader* vs = new VertexShader(dfVS);
+	vs->Create(getDevice());
+	vertexShaders[-1] = vs;
+
+	PSFileNames.insert(std::make_pair(dfPS, -1));
+	PixelShader* ps = new PixelShader(dfPS);
+	ps->Create(getDevice());
+	pixelShaders[-1] = ps;
+
+	textureFileNames.insert(std::make_pair(dfTX, -1));
+	Texture2D* tx = new Texture2D(dfTX);
+	tx->Create(getDevice());
+	textures[-1] = tx;
 }
 
 void ShaderStateController::Bind() {
@@ -50,6 +73,7 @@ ID3D11Device* ShaderStateController::getDevice() {
 	return Bindable::getDevice();
 }
 
+#pragma region FILEADDS
 int ShaderStateController::add(const wchar_t* fileName, VertexShader* VS) {
 
 	std::unordered_map<const wchar_t*, int>::const_iterator it = VSFileNames.find(fileName);
@@ -95,6 +119,8 @@ int ShaderStateController::add(const wchar_t* fileName, Texture2D* T2D) {
 	return textureFileNames[fileName];
 }
 
+#pragma endregion
+
 void ShaderStateController::bindVS() {
 	//check if state is valid
 	if (VSState == -1) return;
@@ -121,7 +147,6 @@ void ShaderStateController::bindPS() {
 }
 
 void ShaderStateController::bindTX() {
-	if (textureState == -1) return;
 	if (textureState == tmpTX) return;
 	tmpTX = textureState;
 

@@ -22,6 +22,8 @@ public:
 	void UpdateGeometry();
 	//updates the world view transform buffer
 	void UpdateTransformBuffer();
+	//intializes default values for the SSC
+	void initDefault();
 	//updates the SSC
 	void UpdateShaderState();
 

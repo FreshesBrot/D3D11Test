@@ -133,8 +133,6 @@
     <ClCompile Include="Time.cpp">
       <Filter>Rest\Source</Filter>
     </ClCompile>
-    <ClCompile Include="PSConstBuffer.cpp" />
-    <ClCompile Include="DirectionalLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -218,8 +216,6 @@
     <ClInclude Include="Time.h">
       <Filter>Rest\Header</Filter>
     </ClInclude>
-    <ClInclude Include="PSConstBuffer.h" />
-    <ClInclude Include="DirectionalLight.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -228,10 +224,10 @@
     <FxCompile Include="PixelShader.hlsl">
       <Filter>GraphicsEngine\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="testVrt.hlsl">
+    <FxCompile Include="defaultVS.hlsl">
       <Filter>GraphicsEngine\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="testPxl.hlsl">
+    <FxCompile Include="defaultPS.hlsl">
       <Filter>GraphicsEngine\Shaders</Filter>
     </FxCompile>
   </ItemGroup>
@@ -254,6 +250,9 @@
       <Filter>GraphicsEngine\Resources</Filter>
     </Image>
     <Image Include="eye.jpg">
+      <Filter>GraphicsEngine\Resources</Filter>
+    </Image>
+    <Image Include="defaultTX.jpg">
       <Filter>GraphicsEngine\Resources</Filter>
     </Image>
   </ItemGroup>
