@@ -16,7 +16,7 @@ GraphicsInterface::GraphicsInterface(HWND hWnd) :
 
 	//intialize default values for the shader state controller
 	PI.initDefault();
-	//bind the components of the pipeline interface
+	//bind the required components of the pipeline interface
 	PI.BindComponents();
 
 }

@@ -3,7 +3,9 @@
 #include "ShaderStateController.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
-#include "ConstBuffer.h"
+#include "PSConstBuffer.h"
+#include "VSConstBuffer.h"
+#include "Object.h"
 
 
 //this class represents the interface between the graphics interface and the binable objects
@@ -14,7 +16,7 @@ public:
 	PipelineInterface();
 	~PipelineInterface();
 
-	//these will bind the components to the graphics pipeline
+	//these will bind the first components to the graphics pipeline
 	void BindComponents();
 
 	//these will update the bindable components 
@@ -26,11 +28,8 @@ public:
 	void initDefault();
 	//updates the SSC
 	void UpdateShaderState();
-
-
-
-	//updates any buffer 
-	void UpdateBuffer(int position);
+	//updates the component buffers
+	void UpdateComponentBuffers(Object* obj);
 
 
 	//adds file resources to the SSC
@@ -38,16 +37,18 @@ public:
 	int addPixelShader(const wchar_t* fileName);
 	int addTexture(const wchar_t* fileName);
 
-	//adds a bindable object and binds it to the pipeline (mainly buffers only)
-	void addBind(Bindable* b);
-
 
 private:
 	
-	//the list of all bindables
+	//the vector of essential bindables
 	//first four are allways in the same order:
 	//0: VertexBuffer - 1: IndexBuffer - 2: MatrixBuffer - 3: SSC
 	std::vector<Bindable*> bindables;
+
+	//vector of component buffers
+	std::vector<ConstBuffer*> componentBuffers;
+
+	//a buffer that holds light information
 
 };
 

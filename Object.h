@@ -1,19 +1,8 @@
 #pragma once
 #include "Graphics.h"
-
-
-//object transform descpriptions
-struct Position {
-	float x, y, z;
-};
-
-struct Rotation {
-	float x, y, z;
-};
-
-struct Scale {
-	float x, y, z;
-};
+#include "Component.h"
+#include "Transform.h"
+#include "Material.h"
 
 //this class represents a general object and its possible operations
 class Object {
@@ -26,9 +15,6 @@ public:
 	//returns the indices and vertices of the object
 	virtual std::vector<int> getIndices() = 0;
 	virtual std::vector<Vertex> getVertices() = 0;
-
-	//returns the model transformation matrix for the object (non-projected)
-	virtual dx::XMMATRIX getTransformMatrix() = 0;
 
 	//retrieves and sets reource IDs of the object
 	virtual int getVSID() = 0;
@@ -68,11 +54,6 @@ public:
 	//sets the scale of the object
 	void setScale(float xScale, float yScale, float zScale);
 
-	//returns a struct with the objects position data
-	Position getPosition();
-	Rotation getRotation();
-	Scale getScale();
-
 	//world projection matrix
 	static dx::XMMATRIX m_projection;
 
@@ -82,17 +63,8 @@ public:
 
 protected:
 
-	//the objects transform data
-	Position position;
-	Rotation rotation;
-	Scale scaling;
-
-	//shortcuts
-	dx::XMMATRIX trans(float xOffset, float yOffset, float zOffset);
-
-	dx::XMMATRIX rotateXYZ(float xAngle, float yAngle, float zAngle);
-	 
-	dx::XMMATRIX scal(float xScale, float yScale, float zScale);
+	//this vector stores the components the object has
+	std::vector<Component*> components;
 
 	//the file attributes of the object
 	const wchar_t* VSfileName;

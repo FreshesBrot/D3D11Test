@@ -50,6 +50,15 @@
     <Filter Include="GraphicsEngine\Resources">
       <UniqueIdentifier>{40079cc4-8ff7-47a3-b566-f4dd125c90b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Components">
+      <UniqueIdentifier>{bcf06691-0c2e-47d0-8f93-15ae1cb0d942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Components\Header">
+      <UniqueIdentifier>{4161fd9d-2e23-46a0-bf21-fc4ecd01ed2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Components\Source">
+      <UniqueIdentifier>{e970c881-e372-43a4-86c9-9c8dcf5a556a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -133,6 +142,24 @@
     <ClCompile Include="Time.cpp">
       <Filter>Rest\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Objects\Components\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Objects\Components\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Objects\Components\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Empty.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PSConstBuffer.cpp">
+      <Filter>GraphicsEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="VSConstBuffer.cpp">
+      <Filter>GraphicsEngine\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -215,6 +242,27 @@
     </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>Rest\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Objects\Components\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Objects\Components\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Objects\Components\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentStructs.h">
+      <Filter>Objects\Components\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Empty.h">
+      <Filter>Objects\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PSConstBuffer.h">
+      <Filter>GraphicsEngine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="VSConstBuffer.h">
+      <Filter>GraphicsEngine\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

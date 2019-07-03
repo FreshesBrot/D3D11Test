@@ -63,11 +63,6 @@ std::vector<Vertex> Pyramid::getVertices() {
 	return vertices;
 }
 
-dx::XMMATRIX Pyramid::getTransformMatrix() {
-	return (rotateXYZ(rotation.x,rotation.y,rotation.z)
-		* scal(scaling.x, scaling.y, scaling.z) *
-		trans(position.x, position.y, position.z));
-}
 
 int Pyramid::getVSID() {
 	return VSID;

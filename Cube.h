@@ -11,8 +11,6 @@ public:
 	std::vector<int> getIndices() override;
 	std::vector<Vertex> getVertices() override;
 
-	dx::XMMATRIX getTransformMatrix() override;
-
 	int getVSID() override;
 	int getPSID() override;
 	int getTXID() override;

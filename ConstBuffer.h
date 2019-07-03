@@ -1,5 +1,6 @@
 #pragma once
 #include "Bindable.h"
+#include "ComponentStructs.h"
 
 //this class represents a bindable constant buffer
 class ConstBuffer : public Bindable {

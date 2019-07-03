@@ -3,12 +3,16 @@
 dx::XMMATRIX Object::m_projection = dx::XMMatrixPerspectiveFovLH(1.0f,1.0f,0.5f,100.0f);
 
 Object::Object() {
-	position = { 0,0,5 };
-	rotation = { 0,0,0 };
-	scaling = { 1,1,1 };
+
+	//push required materials
+	components.push_back(new Transform());
+	components.push_back(new Material());
 }
 
-Object::~Object() { }
+Object::~Object() {
+	for (Component* cmp : components)
+		delete cmp;
+}
 
 #pragma region TRANSFORMS
 
@@ -25,65 +29,29 @@ void Object::setTXfile(const wchar_t* fileName) {
 }
 
 void Object::translate(float xOffset, float yOffset, float zOffset){
-	position.x += xOffset * Time::deltaTime;
-	position.y += yOffset * Time::deltaTime;
-	position.z += zOffset * Time::deltaTime;
+	static_cast<Transform*>(components[0])->translate(xOffset, yOffset, zOffset);
 }
 
 void Object::setTransform(float xPos, float yPos, float zPos) {
-	position.x = xPos;
-	position.y = yPos;
-	position.z = zPos;
+	static_cast<Transform*>(components[0])->setTransform(xPos, yPos, zPos);
 }
 
 void Object::rotate(float xAngle, float yAngle, float zAngle) {
-	rotation.x += xAngle * Time::deltaTime;
-	rotation.y += yAngle * Time::deltaTime;
-	rotation.z += zAngle * Time::deltaTime;
+	static_cast<Transform*>(components[0])->rotate(xAngle, yAngle, zAngle);
 }
 
 void Object::setRotation(float xAngle, float yAngle, float zAngle) {
-	rotation.x = xAngle;
-	rotation.y = yAngle;
-	rotation.z = zAngle;
+	static_cast<Transform*>(components[0])->setRotation(xAngle, yAngle, zAngle);
 }
 
 void Object::scale(float xScaling, float yScaling, float zScaling) {
-	scaling.x += xScaling * Time::deltaTime;
-	scaling.y += yScaling * Time::deltaTime;
-	scaling.z += zScaling * Time::deltaTime;
+	static_cast<Transform*>(components[0])->scale(xScaling, yScaling, zScaling);
 }
 
 void Object::setScale(float xScale, float yScale, float zScale) {
-	scaling.x = xScale;
-	scaling.y = yScale;
-	scaling.z = zScale;
+	static_cast<Transform*>(components[0])->setScale(xScale, yScale, zScale);
 }
 
-Position Object::getPosition() {
-	return position;
-}
-Rotation Object::getRotation() {
-	return rotation;
-}
-Scale Object::getScale() {
-	return scaling;
-}
-
-#pragma endregion
-
-#pragma region SHORTCUTS
-dx::XMMATRIX Object::trans(float xOffset, float yOffset, float zOffset) {
-	return dx::XMMatrixTranslation(xOffset, yOffset, zOffset);
-}
-
-dx::XMMATRIX Object::rotateXYZ(float xAngle, float yAngle, float zAngle) {
-	return dx::XMMatrixRotationX(xAngle) * dx::XMMatrixRotationY(yAngle) * dx::XMMatrixRotationZ(zAngle);
-}
-
-dx::XMMATRIX Object::scal(float xScale, float yScale, float zScale) {
-	return dx::XMMatrixScaling(xScale, yScale, zScale);
-}
 #pragma endregion
 
 void Object::setVSID(int ID)  {

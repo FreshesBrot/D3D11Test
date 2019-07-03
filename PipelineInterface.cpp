@@ -9,7 +9,6 @@ PipelineInterface::PipelineInterface() : bindables(){
 	bindables.push_back(new MatrixBuffer());
 	bindables.push_back(new ShaderStateController());
 
-
 }
 
 PipelineInterface::~PipelineInterface() {
@@ -41,11 +40,6 @@ void PipelineInterface::UpdateShaderState() {
 	bindables[3]->Update();
 }
 
-void PipelineInterface::UpdateBuffer(int position) {
-	if (position < 5) position = 5;
-	bindables[position]->Update();
-}
-
 int PipelineInterface::addVertexShader(const wchar_t* fileName) {
 	return static_cast<ShaderStateController*>(bindables[3])->addVSFile(fileName);
 }
@@ -56,10 +50,5 @@ int PipelineInterface::addPixelShader(const wchar_t* fileName) {
 
 int PipelineInterface::addTexture(const wchar_t* fileName) {
 	return static_cast<ShaderStateController*>(bindables[3])->addTextureFile(fileName);
-}
-
-void PipelineInterface::addBind(Bindable* b) {
-	bindables.push_back(b);
-	b->Bind();
 }
 
