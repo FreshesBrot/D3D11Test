@@ -41,6 +41,9 @@ void VSConstBuffer::CreateFromResource(Component* comp) {
 
 	//create buffer
 	GFX_FAILED(getDevice()->CreateBuffer(&pBd,&pData,&pBuffer));
+
+	//bind buffer
+	getContext()->VSSetConstantBuffers(comp->RegID(), 1u, pBuffer.GetAddressOf());
 }
 
 void VSConstBuffer::UpdateFromResource(Component* comp) {

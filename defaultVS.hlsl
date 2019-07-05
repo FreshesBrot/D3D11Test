@@ -7,7 +7,7 @@ cbuffer Matrices : register (b0) {
 }
 
 float4 main(float3 pos : POSITION) : SV_Position {
-	matrix modelview = mul(m_world,m_projection);
-	matrix projection = mul(modelview, m_projection);
+	matrix modelview = mul(m_view, m_world);
+	matrix projection = mul(m_projection, modelview);
 	return mul(projection, float4(pos, 1.0f));
 }

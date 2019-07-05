@@ -39,6 +39,7 @@ void PSConstBuffer::CreateFromResource(Component* comp) {
 	pBd.StructureByteStride = comp->byteStride();
 	
 	GFX_FAILED(getDevice()->CreateBuffer(&pBd,&pData,&pBuffer));
+	getContext()->PSSetConstantBuffers(comp->RegID(), 1u, pBuffer.GetAddressOf());
 
 }
 

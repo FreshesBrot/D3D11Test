@@ -18,7 +18,7 @@ VSOut main(float3 pos : Position, float3 color : Color, float3 normal : Normal, 
 	VSOut vsOut;
 	vsOut.pos = float4(pos, 1.0f);
 	
-	matrix modelview = mul(m_world, m_view);
+	matrix modelview = mul(m_view, m_world);
 	matrix projection = mul(m_projection, modelview);
 	vsOut.pos = mul(projection, vsOut.pos);
 	

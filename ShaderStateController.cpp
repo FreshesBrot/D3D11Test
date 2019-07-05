@@ -122,8 +122,6 @@ int ShaderStateController::add(const wchar_t* fileName, Texture2D* T2D) {
 #pragma endregion
 
 void ShaderStateController::bindVS() {
-	//check if state is valid
-	if (VSState == -1) return;
 	//check if state has changed
 	if (VSState == tmpVS) return;
 	//update temp state if the state did change
@@ -137,7 +135,6 @@ void ShaderStateController::bindVS() {
 }
 
 void ShaderStateController::bindPS() {
-	if (PSState == -1) return;
 	if (PSState == tmpPS) return;
 	
 	tmpPS = PSState;

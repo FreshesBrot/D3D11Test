@@ -93,7 +93,7 @@ void GraphicsInterface::addObjectGhost(Object* o) {
 	ID = PI.addTexture(o->getTXfileName());
 	o->setTXID(ID);
 
-	//bind all components once
+	//create component buffers and bind them once
 	PI.CreateComponentBuffers(o);
 
 }
