@@ -9,9 +9,11 @@ cbuffer Material : register (b1) {
 	struct {
 		float r, g, b;
 	} color;
+	float pad1;
 	struct {
 		float s, d, n;
 	} reflection;
+	float pad2;
 }
 
 float4 main(float3 color : Color, float2 UV : TexCoord, float3 NRM : normal) : SV_TARGET{

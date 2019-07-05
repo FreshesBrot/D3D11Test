@@ -10,10 +10,10 @@ PipelineInterface::PipelineInterface() : bindables(){
 	bindables.push_back(new ShaderStateController());
 
 	//reserve space for component buffers
-	vsBuffers.reserve(4);
+	vsBuffers.reserve(2);
 	vsBuffers.push_back(nullptr);
 	vsBuffers.push_back(nullptr);
-	psBuffers.reserve(4);
+	psBuffers.reserve(2);
 	psBuffers.push_back(nullptr);
 	psBuffers.push_back(nullptr);
 }

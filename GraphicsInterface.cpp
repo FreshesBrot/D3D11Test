@@ -37,10 +37,11 @@ void GraphicsInterface::Draw() {
 
 	int indexOffset = 0, vertexOffset = 0;
 
+	//set view matrix for transform component
+	Component::UpdateView(camera.ViewTransform());
+
 	for (Object* obj : objects) {
-		//set view matrix for transform component
-		Component::UpdateView(camera.ViewTransform());
-		
+	
 		//update components
 		PI.UpdateComponentBuffers(obj);
 
@@ -52,7 +53,7 @@ void GraphicsInterface::Draw() {
 		PI.UpdateShaderState();
 
 		//draw the object
-		//store of indices and vertices
+		//store of number of indices and vertices from previous drawcall
 		int ind = obj->getIndices().size(), vrt = obj->getVertices().size();
 		gfx->DrawIndexed(ind, indexOffset, vertexOffset);
 		//update offsets

@@ -20,12 +20,6 @@
     <Filter Include="GraphicsEngine\dxerr">
       <UniqueIdentifier>{68fa15a3-c681-4481-b783-ac5c035a975c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GraphicsEngine\Header">
-      <UniqueIdentifier>{6dbdce56-0f10-451a-ad79-fbb96128ca66}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GraphicsEngine\Source">
-      <UniqueIdentifier>{29f0aa90-0e71-4491-9026-dbebd2d232dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Rest">
       <UniqueIdentifier>{4fb37a5d-46d3-4657-b335-6115744b766f}</UniqueIdentifier>
     </Filter>
