@@ -27,14 +27,20 @@ public:
 	//returns the register ID
 	int RegID() override;
 
-private:
-	//material properties
-	Color c;
-	Reflection r;
+	//returns ShaderBind
+	ShaderBind shaderBind() override;
 
 	//change material properties
 	//input -1 to not change an attribute
 	void setColor(float r, float g, float b);
 	void setReflection(float d, float s, float n);
+
+private:
+
+	//material properties
+	Color c;
+	Reflection r;
+
+
 };
 

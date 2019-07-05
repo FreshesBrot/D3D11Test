@@ -1,7 +1,8 @@
 #include "Material.h"
 
 Material::Material() {
-	RegisterID = 2;
+	bind = ShaderBind::PS;
+	RegisterID = 1;
 	c = {1,1,1};
 	r = {0.5f,0.5f,4};
 }
@@ -9,10 +10,10 @@ Material::Material() {
 Material::~Material() { }
 
 ComponentStruct* Material::getComponentStruct() {
-	SMaterial* m = new SMaterial;
-	m->Color = {c.r,c.g,c.b};
-	m->Reflection = { r.d,r.s,r.n };
-	return m;
+	SMaterial m = {};
+	m.Color = {c.r,c.g,c.b};
+	m.Reflection = { r.d,r.s,r.n };
+	return &m;
 }
 
 UINT Material::bufferSize() {
@@ -25,6 +26,10 @@ UINT Material::byteStride() {
 
 int Material::RegID() {
 	return RegisterID;
+}
+
+ShaderBind Material::shaderBind() {
+	return bind;
 }
 
 void Material::setColor(float r, float g, float b) {

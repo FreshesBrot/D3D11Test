@@ -14,6 +14,8 @@ public:
 	std::vector<int> getIndices() override { return std::vector<int>(); };
 	std::vector<Vertex> getVertices() override { return std::vector<Vertex>(); };
 
+	//returns the view matrix for the camera
+	dx::XMMATRIX ViewTransform();
 
 	//these functions are unused for the camera
 	int getVSID() override { return -1; };

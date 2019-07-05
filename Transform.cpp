@@ -1,19 +1,23 @@
 #include "Transform.h"
 
 Transform::Transform() {
-	RegisterID = 1;
+	bind = ShaderBind::VS;
+	RegisterID = 0;
 	position = { 0,0,5 };
 	rotation = { 0,0,0 };
 	scaling = { 1,1,1 };
 }
 
+Transform::~Transform() { }
+
 ComponentStruct* Transform::getComponentStruct() {
-	dx::XMMATRIX m_transform = (rotateXYZ(rotation.x, rotation.y, rotation.z)
-		* scal(scaling.x, scaling.y, scaling.z) *
+	STransform t = {};
+	t.m_projection = Component::m_projection;
+	t.m_view = Component::m_view;
+	t.m_world = (rotateXYZ(rotation.x, rotation.y, rotation.z) *
+		scal(scaling.x, scaling.y, scaling.z) *
 		trans(position.x, position.y, position.z));
-	STransform* t = new STransform;
-	t->m_world = m_transform;
-	return t;
+	return &t;
 }
 
 UINT Transform::bufferSize() {
@@ -26,6 +30,10 @@ UINT Transform::byteStride() {
 
 int Transform::RegID() {
 	return RegisterID;
+}
+
+ShaderBind Transform::shaderBind() {
+	return bind;
 }
 
 #pragma region TRANSFORMATIONS

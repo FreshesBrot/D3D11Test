@@ -1,5 +1,4 @@
 #pragma once
-#include "Graphics.h"
 #include "Component.h"
 #include "Transform.h"
 #include "Material.h"
@@ -34,6 +33,9 @@ public:
 	void setPSfile(const wchar_t* fileName);
 	void setTXfile(const wchar_t* fileName);
 
+	//retrieves the vector of all components
+	std::vector<Component*> getComponents();
+
 
 #pragma region TRANSFORMS
 	//applies a continuous transformation
@@ -58,7 +60,6 @@ public:
 	static dx::XMMATRIX m_projection;
 
 #pragma endregion
-
 
 
 protected:

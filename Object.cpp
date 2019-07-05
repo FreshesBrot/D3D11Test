@@ -28,6 +28,10 @@ void Object::setTXfile(const wchar_t* fileName) {
 	TXfileName = fileName;
 }
 
+std::vector<Component*> Object::getComponents() {
+	return components;
+}
+
 void Object::translate(float xOffset, float yOffset, float zOffset){
 	static_cast<Transform*>(components[0])->translate(xOffset, yOffset, zOffset);
 }

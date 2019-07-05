@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="BindableResource.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstBuffer.cpp" />
@@ -172,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Bindable.h" />
+    <ClInclude Include="BindableResource.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentStructs.h" />

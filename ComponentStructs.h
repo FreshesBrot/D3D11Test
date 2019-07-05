@@ -4,10 +4,12 @@
 //superclass for component structs
 struct ComponentStruct {};
 
-//these structs represent what properties component carries, and what is bound to the pipeline
+//these structs represent what properties a component carries, and what is bound to the pipeline
 struct STransform : ComponentStruct {
-	//world transform matrix
-	dx::XMMATRIX m_world;
+	//world view and projection matrices
+	dx::XMMATRIX m_world;	
+	dx::XMMATRIX m_view;
+	dx::XMMATRIX m_projection;
 };
 
 struct SMaterial : ComponentStruct {
@@ -15,6 +17,7 @@ struct SMaterial : ComponentStruct {
 	struct {
 		float r, g, b;
 	} Color;
+	//reflection properties
 	struct {
 		float d, s, n;
 	} Reflection;

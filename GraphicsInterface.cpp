@@ -38,10 +38,11 @@ void GraphicsInterface::Draw() {
 	int indexOffset = 0, vertexOffset = 0;
 
 	for (Object* obj : objects) {
-		//calculate projected modelview transform matrix and set it 
-		dx::XMMATRIX MVT =  obj->getTransformMatrix() * camera.getTransformMatrix();
-		UC->set(MVT);
-		PI.UpdateTransformBuffer();
+		//set view matrix for transform component
+		Component::UpdateView(camera.ViewTransform());
+		
+		//update components
+		PI.UpdateComponentBuffers(obj);
 
 		//update shaderstate controller
 		UC->setVSState(obj->getVSID());
@@ -90,6 +91,10 @@ void GraphicsInterface::addObjectGhost(Object* o) {
 	o->setPSID(ID);
 	ID = PI.addTexture(o->getTXfileName());
 	o->setTXID(ID);
+
+	//bind all components once
+	PI.CreateComponentBuffers(o);
+
 }
 
 void GraphicsInterface::addObject(Object* o) {

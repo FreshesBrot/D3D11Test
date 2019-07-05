@@ -51,11 +51,13 @@ void MatrixBuffer::Update() {
 	ZeroMemory(&pMsr, sizeof(D3D11_MAPPED_SUBRESOURCE));
 	//locks the resource and denies GPU access
 	GFX_FAILED(getContext()->Map(pConstBuffer.Get(), 0u, D3D11_MAP_WRITE_DISCARD, 0, &pMsr));
+	
 	//update the matrix buffer
 	struct ConstBuffer {
 		dx::XMMATRIX m_transform;
 		dx::XMMATRIX m_projection;
 	} cb;
+	
 	cb = { transformationMatrix,Bindable::m_projection };
 	memcpy(pMsr.pData, &cb, sizeof(ConstBuffer));
 	//unlock the resource

@@ -59,6 +59,33 @@
     <Filter Include="Objects\Components\Source">
       <UniqueIdentifier>{e970c881-e372-43a4-86c9-9c8dcf5a556a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GraphicsEngine\Buffers">
+      <UniqueIdentifier>{32a198c5-283a-4430-bd64-6132b42af357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\Buffers\Header">
+      <UniqueIdentifier>{9f4bc229-e502-4b56-985b-99e2e6ad6260}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\Buffers\Source">
+      <UniqueIdentifier>{2ae48be7-3d9b-47d3-ad9d-2d2417ab7457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\Interfaces">
+      <UniqueIdentifier>{65c25815-9e0b-4bf8-8c7b-25e8d7d17f9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\Interfaces\Header">
+      <UniqueIdentifier>{4dcffdc2-6a98-4280-85b4-19d735a8ab69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\Interfaces\Source">
+      <UniqueIdentifier>{56e4f97a-94cf-4346-adbb-3c6fb3b669c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\StateController">
+      <UniqueIdentifier>{650955be-73dc-42fa-b97c-cc1e6ff653ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\StateController\Header">
+      <UniqueIdentifier>{5f772bee-a754-4c25-a78e-0f8a08bdf678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\StateController\Source">
+      <UniqueIdentifier>{125e7c91-13ae-4e8b-a46f-299a3b134f6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -73,23 +100,11 @@
     <ClCompile Include="dxerr.cpp">
       <Filter>GraphicsEngine\dxerr</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsInterface.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="App.cpp">
       <Filter>Rest\Source</Filter>
     </ClCompile>
     <ClCompile Include="CustomException.cpp">
       <Filter>Rest\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="UpdateController.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GFXExc.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Objects\Source</Filter>
@@ -100,44 +115,11 @@
     <ClCompile Include="h3wd.cpp">
       <Filter>Rest\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Bindable.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstBuffer.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="IndexBuffer.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="PipelineInterface.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexBuffer.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Objects\Source</Filter>
     </ClCompile>
     <ClCompile Include="Pyramid.cpp">
       <Filter>Objects\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexShader.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderStateController.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="PixelShader.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="FileResource.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture2D.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="WICTextureLoader.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
     </ClCompile>
     <ClCompile Include="Time.cpp">
       <Filter>Rest\Source</Filter>
@@ -154,11 +136,59 @@
     <ClCompile Include="Empty.cpp">
       <Filter>Objects\Source</Filter>
     </ClCompile>
-    <ClCompile Include="PSConstBuffer.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
+    <ClCompile Include="GFXExc.cpp">
+      <Filter>GraphicsEngine\dxerr</Filter>
     </ClCompile>
     <ClCompile Include="VSConstBuffer.cpp">
-      <Filter>GraphicsEngine\Source</Filter>
+      <Filter>GraphicsEngine\Buffers\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>GraphicsEngine\Buffers\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PSConstBuffer.cpp">
+      <Filter>GraphicsEngine\Buffers\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>GraphicsEngine\Buffers\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstBuffer.cpp">
+      <Filter>GraphicsEngine\Buffers\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Bindable.cpp">
+      <Filter>GraphicsEngine\Interfaces\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="BindableResource.cpp">
+      <Filter>GraphicsEngine\Interfaces\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="FileResource.cpp">
+      <Filter>GraphicsEngine\Interfaces\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>GraphicsEngine\Interfaces\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsInterface.cpp">
+      <Filter>GraphicsEngine\Interfaces\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PipelineInterface.cpp">
+      <Filter>GraphicsEngine\Interfaces\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="WICTextureLoader.cpp">
+      <Filter>GraphicsEngine\StateController\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>GraphicsEngine\StateController\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdateController.cpp">
+      <Filter>GraphicsEngine\StateController\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
+      <Filter>GraphicsEngine\StateController\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderStateController.cpp">
+      <Filter>GraphicsEngine\StateController\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>GraphicsEngine\StateController\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -174,44 +204,17 @@
     <ClInclude Include="dxerr.h">
       <Filter>GraphicsEngine\dxerr</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsInterface.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
     <ClInclude Include="CustomException.h">
       <Filter>Rest\Header</Filter>
     </ClInclude>
     <ClInclude Include="App.h">
       <Filter>Rest\Header</Filter>
     </ClInclude>
-    <ClInclude Include="UpdateController.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="GFXExc.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Objects\Header</Filter>
     </ClInclude>
     <ClInclude Include="Cube.h">
       <Filter>Objects\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Bindable.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstBuffer.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="IndexBuffer.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="PipelineInterface.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexBuffer.h">
-      <Filter>GraphicsEngine\Header</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Objects\Header</Filter>
@@ -221,24 +224,6 @@
     </ClInclude>
     <ClInclude Include="Pyramid.h">
       <Filter>Objects\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexShader.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderStateController.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="PixelShader.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="FileResource.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture2D.h">
-      <Filter>GraphicsEngine\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="WICTextureLoader.h">
-      <Filter>GraphicsEngine\Header</Filter>
     </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>Rest\Header</Filter>
@@ -258,11 +243,59 @@
     <ClInclude Include="Empty.h">
       <Filter>Objects\Header</Filter>
     </ClInclude>
-    <ClInclude Include="PSConstBuffer.h">
-      <Filter>GraphicsEngine\Header</Filter>
+    <ClInclude Include="GFXExc.h">
+      <Filter>GraphicsEngine\dxerr</Filter>
     </ClInclude>
     <ClInclude Include="VSConstBuffer.h">
-      <Filter>GraphicsEngine\Header</Filter>
+      <Filter>GraphicsEngine\Buffers\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>GraphicsEngine\Buffers\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PSConstBuffer.h">
+      <Filter>GraphicsEngine\Buffers\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>GraphicsEngine\Buffers\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstBuffer.h">
+      <Filter>GraphicsEngine\Buffers\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsInterface.h">
+      <Filter>GraphicsEngine\Interfaces\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PipelineInterface.h">
+      <Filter>GraphicsEngine\Interfaces\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Bindable.h">
+      <Filter>GraphicsEngine\Interfaces\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="BindableResource.h">
+      <Filter>GraphicsEngine\Interfaces\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FileResource.h">
+      <Filter>GraphicsEngine\Interfaces\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>GraphicsEngine\Interfaces\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="WICTextureLoader.h">
+      <Filter>Rest\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>GraphicsEngine\StateController\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateController.h">
+      <Filter>GraphicsEngine\StateController\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>GraphicsEngine\StateController\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStateController.h">
+      <Filter>GraphicsEngine\StateController\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelShader.h">
+      <Filter>GraphicsEngine\StateController\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

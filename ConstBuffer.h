@@ -1,9 +1,10 @@
 #pragma once
 #include "Bindable.h"
-#include "ComponentStructs.h"
+#include "BindableResource.h"
+#include "Component.h"
 
 //this class represents a bindable constant buffer
-class ConstBuffer : public Bindable {
+class ConstBuffer : public Bindable, public BindableResource {
 	using Bindable::Bind;
 	using Bindable::Update;
 	using Bindable::Unbind;
@@ -16,7 +17,12 @@ public:
 	void Update() override;
 	void Unbind() override;
 
-private:
+protected:
+
+	//pointer the the buffer resource
+	wrl::ComPtr<ID3D11Buffer> pBuffer;
+	//register ID ; bind slot for the buffer
+	int bindSlot;
 
 };
 

@@ -20,17 +20,26 @@ public:
 	void BindComponents();
 
 	//these will update the bindable components 
+	
 	//updates the geometry data for vertex and index buffer
 	void UpdateGeometry();
 	//updates the world view transform buffer
 	void UpdateTransformBuffer();
+
 	//intializes default values for the SSC
 	void initDefault();
 	//updates the SSC
 	void UpdateShaderState();
+	
+	//creates the components for the buffer
+	void CreateComponentBuffers(Object* obj);
+	
+	//binds the component buffers
+	void BindComponentBuffers();
+
 	//updates the component buffers
 	void UpdateComponentBuffers(Object* obj);
-
+	
 
 	//adds file resources to the SSC
 	int addVertexShader(const wchar_t* fileName);
@@ -45,10 +54,9 @@ private:
 	//0: VertexBuffer - 1: IndexBuffer - 2: MatrixBuffer - 3: SSC
 	std::vector<Bindable*> bindables;
 
-	//vector of component buffers
-	std::vector<ConstBuffer*> componentBuffers;
-
-	//a buffer that holds light information
+	//vectors of component buffers for both VS and PS
+	std::vector<VSConstBuffer*> vsBuffers;
+	std::vector<PSConstBuffer*> psBuffers;
 
 };
 

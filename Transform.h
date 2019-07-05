@@ -30,6 +30,9 @@ public:
 	//returns register ID
 	int RegID() override;
 
+	//returns the ShaderBind
+	ShaderBind shaderBind() override;
+
 //transformation operations
 #pragma region TRANSFORMATIONS
 	//applies a continuous transformation
