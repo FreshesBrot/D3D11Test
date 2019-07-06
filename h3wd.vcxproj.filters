@@ -184,6 +184,9 @@
     <ClCompile Include="PixelShader.cpp">
       <Filter>GraphicsEngine\StateController\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Objects\Components\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -291,6 +294,12 @@
     <ClInclude Include="PixelShader.h">
       <Filter>GraphicsEngine\StateController\Header</Filter>
     </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>Objects\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Objects\Components\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -303,6 +312,9 @@
       <Filter>GraphicsEngine\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="defaultPS.hlsl">
+      <Filter>GraphicsEngine\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="NormalShader.hlsl">
       <Filter>GraphicsEngine\Shaders</Filter>
     </FxCompile>
   </ItemGroup>

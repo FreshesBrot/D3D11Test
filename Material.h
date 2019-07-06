@@ -1,14 +1,6 @@
 #pragma once
 #include "Component.h"
 
-//specification of material attributes
-struct Color {
-	float r, g, b;
-};
-
-struct Reflection {
-	float d, s, n;
-};
 
 //this class defines material properties of an object
 class Material : public Component {
@@ -35,12 +27,20 @@ public:
 	void setColor(float r, float g, float b);
 	void setReflection(float d, float s, float n);
 
+	//specification of material attributes
+	struct Color {
+		float r, g, b;
+	};
+
+	struct Reflection {
+		float d, s, n;
+	};
+
 private:
 
 	//material properties
 	Color c;
 	Reflection r;
-
 
 };
 

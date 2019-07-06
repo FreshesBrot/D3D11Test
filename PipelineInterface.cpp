@@ -60,12 +60,12 @@ void PipelineInterface::CreateComponentBuffers(Object* obj) {
 		int ID = comp->RegID();
 		switch (comp->shaderBind()) {
 		case VS:
-			if (vsBuffers[ID] != nullptr) return;
+			if (vsBuffers[ID] != nullptr) continue;
 			vsBuffers[ID] = new VSConstBuffer();
 			vsBuffers[ID]->CreateFromResource(comp);
 			break;
 		case PS:
-			if (psBuffers[ID] != nullptr) return;
+			if (psBuffers[ID] != nullptr) continue;
 			psBuffers[ID] = new PSConstBuffer();
 			psBuffers[ID]->CreateFromResource(comp);
 			break;

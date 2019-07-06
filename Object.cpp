@@ -14,8 +14,6 @@ Object::~Object() {
 		delete cmp;
 }
 
-#pragma region TRANSFORMS
-
 void Object::setVSfile(const wchar_t* fileName) {
 	VSfileName = fileName;
 }
@@ -32,31 +30,9 @@ std::vector<Component*> Object::getComponents() {
 	return components;
 }
 
-void Object::translate(float xOffset, float yOffset, float zOffset){
-	static_cast<Transform*>(components[0])->translate(xOffset, yOffset, zOffset);
+void Object::addComponent(Component* comp) {
+	components.push_back(comp);
 }
-
-void Object::setTransform(float xPos, float yPos, float zPos) {
-	static_cast<Transform*>(components[0])->setTransform(xPos, yPos, zPos);
-}
-
-void Object::rotate(float xAngle, float yAngle, float zAngle) {
-	static_cast<Transform*>(components[0])->rotate(xAngle, yAngle, zAngle);
-}
-
-void Object::setRotation(float xAngle, float yAngle, float zAngle) {
-	static_cast<Transform*>(components[0])->setRotation(xAngle, yAngle, zAngle);
-}
-
-void Object::scale(float xScaling, float yScaling, float zScaling) {
-	static_cast<Transform*>(components[0])->scale(xScaling, yScaling, zScaling);
-}
-
-void Object::setScale(float xScale, float yScale, float zScale) {
-	static_cast<Transform*>(components[0])->setScale(xScale, yScale, zScale);
-}
-
-#pragma endregion
 
 void Object::setVSID(int ID)  {
 	VSID = ID;

@@ -1,18 +1,6 @@
 #pragma once
 #include "Component.h"
 
-struct Position {
-	float x, y, z;
-};
-
-struct Rotation {
-	float x, y, z;
-};
-
-struct Scale {
-	float x, y, z;
-};
-
 //this class represents the transform of an object
 class Transform : public Component {
 public:
@@ -52,6 +40,20 @@ public:
 
 	//sets the scale of the object
 	void setScale(float xScale, float yScale, float zScale);
+
+	//structs that hold transform properties
+
+	struct Position {
+		float x, y, z;
+	};
+
+	struct Rotation {
+		float x, y, z;
+	};
+
+	struct Scale {
+		float x, y, z;
+	};
 
 #pragma endregion
 

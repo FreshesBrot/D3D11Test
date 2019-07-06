@@ -4,7 +4,7 @@ Material::Material() {
 	bind = ShaderBind::PS;
 	RegisterID = 1;
 	c = {1,1,1};
-	r = {0.5f,0.5f,4};
+	r = {1,0.5f,4};
 }
 
 Material::~Material() { }

@@ -55,6 +55,8 @@ void GraphicsInterface::Draw() {
 		//draw the object
 		//store of number of indices and vertices from previous drawcall
 		int ind = obj->getIndices().size(), vrt = obj->getVertices().size();
+		//if the object has no geometric data, do not draw
+		if (ind == 0 || vrt == 0) continue;
 		gfx->DrawIndexed(ind, indexOffset, vertexOffset);
 		//update offsets
 		indexOffset += ind;
@@ -124,6 +126,24 @@ void GraphicsInterface::Retexture(Object* obj, const wchar_t* fileName) {
 	int ID = PI.addTexture(fileName);
 	obj->setTXID(ID);
 	obj->setTXfile(fileName);
+}
+
+void GraphicsInterface::VSReShader(Object* obj, const wchar_t* VSFileName) {
+	int ID = PI.addVertexShader(VSFileName);
+	obj->setVSID(ID);
+	obj->setVSfile(VSFileName);
+}
+
+void GraphicsInterface::PSReShader(Object* obj, const wchar_t* PSFileName) {
+	int ID = PI.addPixelShader(PSFileName);
+	obj->setPSID(ID);
+	obj->setPSfile(PSFileName);
+}
+
+void GraphicsInterface::AddComponentToObject(Object* obj, Component* comp) {
+	obj->addComponent(comp);
+	PI.CreateComponentBuffers(obj);
+	PI.BindComponentBuffers();
 }
 
 void GraphicsInterface::ClearBackBuffer() {

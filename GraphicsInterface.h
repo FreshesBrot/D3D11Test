@@ -33,6 +33,15 @@ public:
 	//retextures an object
 	void Retexture(Object* obj, const wchar_t* fileName);
 
+	//sets new VSshader for object
+	void VSReShader(Object* obj, const wchar_t* VSFileName);
+
+	//sets new PSshader for object
+	void PSReShader(Object* obj, const wchar_t* PSFileName);
+
+	//adds a component to an object and creates the buffer if there is none
+	void AddComponentToObject(Object* obj, Component* comp);
+
 private:
 
 	//resets color values for the backbuffer

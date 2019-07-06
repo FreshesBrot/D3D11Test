@@ -23,7 +23,10 @@ VSOut main(float3 pos : Position, float3 color : Color, float3 normal : Normal, 
 	vsOut.pos = mul(projection, vsOut.pos);
 	
 	vsOut.color = color;
-	vsOut.normal = mul(modelview, normal);
+
+	vsOut.normal = mul(m_world,normal);
+	
 	vsOut.tex = tex;
+	
 	return vsOut;
 }

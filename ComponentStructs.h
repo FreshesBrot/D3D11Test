@@ -31,5 +31,14 @@ struct SMaterial : ComponentStruct {
 
 //struct that carries light properties
 struct SLight : ComponentStruct {
-
+	struct {
+		dx::XMFLOAT3 dir;
+	} Direction;
+	float intensity;
+	struct {
+		dx::XMFLOAT4 color;
+	} Color;
+	struct {
+		dx::XMFLOAT4 diffuse;
+	} Ambient;
 };

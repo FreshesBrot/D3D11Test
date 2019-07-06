@@ -1,7 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "Transform.h"
-#include "Material.h"
+#include "Components.h"
 
 //this class represents a general object and its possible operations
 class Object {
@@ -44,30 +43,11 @@ public:
 		return nullptr;
 	};
 
-#pragma region TRANSFORMS
-	//applies a continuous transformation
-	void translate(float xOffset, float yOffset, float zOffset);
-
-	//sets the coordinates of the object
-	void setTransform(float xPos, float yPos, float zPos);
-
-	//applies a continuous rotation around the X/Y/Z axis
-	void rotate(float xAngle, float yAngle, float zAngle);
-
-	//sets the rotation of the object
-	void setRotation(float xAngle, float yAngle, float zAngle);
-
-	//applies a continuous scaling to the object
-	void scale(float xScaling, float yScaling, float zScaling);
-	
-	//sets the scale of the object
-	void setScale(float xScale, float yScale, float zScale);
-
 	//world projection matrix
 	static dx::XMMATRIX m_projection;
 
-#pragma endregion
-
+	//add a component to the object
+	void addComponent(Component* comp);
 
 protected:
 
