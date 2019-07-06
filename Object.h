@@ -36,6 +36,13 @@ public:
 	//retrieves the vector of all components
 	std::vector<Component*> getComponents();
 
+	//retrieves the specified component
+	template <class T> 
+	T GetComponent() {
+		for (Component* comp : components)
+			if (dynamic_cast<const T>(comp) != nullptr) return static_cast<T>(comp);
+		return nullptr;
+	};
 
 #pragma region TRANSFORMS
 	//applies a continuous transformation

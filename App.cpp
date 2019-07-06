@@ -45,6 +45,8 @@ void App::DoFrame() {
 	Object* o1 = GI.getObjectAt(1);
 	Object* o2 = GI.getObjectAt(2);
 
+	Material* t = o0->GetComponent<Material*>();
+
 	//move speed
 	float ms = 40;
 	//move objects
