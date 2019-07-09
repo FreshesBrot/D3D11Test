@@ -25,7 +25,7 @@ public:
 	//change material properties
 	//input -1 to not change an attribute
 	void setColor(float r, float g, float b);
-	void setReflection(float d, float s, float n);
+	void setReflection(float d, float s, int n);
 
 	//specification of material attributes
 	struct Color {
@@ -33,7 +33,8 @@ public:
 	};
 
 	struct Reflection {
-		float d, s, n;
+		float d, s;
+		int n;
 	};
 
 private:

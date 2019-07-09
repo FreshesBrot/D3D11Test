@@ -1,9 +1,9 @@
 struct VSOut {
-	
+
+	float4 pos: SV_Position;
 	float3 color : Color;
 	float2 tex : TexCoord;
 	float3 normal : Normal;
-	float4 pos: SV_Position;
 
 };
 

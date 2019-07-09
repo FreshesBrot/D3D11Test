@@ -4,7 +4,7 @@ Material::Material() {
 	bind = ShaderBind::PS;
 	RegisterID = 1;
 	c = {1,1,1};
-	r = {1,0.5f,4};
+	r = {1,0.5f,128};
 }
 
 Material::~Material() { }
@@ -39,7 +39,7 @@ void Material::setColor(float r, float g, float b) {
 	c = {r,g,b};
 }
 
-void Material::setReflection(float d, float s, float n) {
+void Material::setReflection(float d, float s, int n) {
 	if (d < 0) d = r.d;
 	if (s < 0) s = r.s;
 	if (n < 0) n = r.n;

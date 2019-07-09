@@ -21,16 +21,28 @@ public:
 	//return the shader bind
 	ShaderBind shaderBind() override;
 
+	//light specific functions
+	
+	//set the iight direction
+	void setLightDirection(float x, float y, float z);
+
+	//set the light color
+	void setLightColor(float r, float g, float b);
+
+	//set light ambient color
+	void setAmbientColor(float r, float g, float b);
+
 	//structs that hold light properties
 	struct Direction {
 		float x, y, z;
 	};
+
 	struct Color {
-		float r, g, b, a;
+		float r, g, b;
 	};
 
 	struct Ambient {
-		float r, g, b, a;
+		float r, g, b;
 	};
 
 private:

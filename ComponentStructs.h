@@ -24,7 +24,8 @@ struct SMaterial : ComponentStruct {
 	float pad1 = 0;
 	//reflection properties
 	struct {
-		float d, s, n;
+		float d, s;
+		int n;
 	} Reflection;
 	float pad2 = 0;
 };
@@ -36,9 +37,11 @@ struct SLight : ComponentStruct {
 	} Direction;
 	float intensity;
 	struct {
-		dx::XMFLOAT4 color;
+		dx::XMFLOAT3 color;
 	} Color;
+	float pad1 = 0;
 	struct {
-		dx::XMFLOAT4 diffuse;
+		dx::XMFLOAT3 diffuse;
 	} Ambient;
+	float pad2 = 0;
 };
