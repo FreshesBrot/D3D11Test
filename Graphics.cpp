@@ -1,8 +1,6 @@
 #include "Graphics.h"
 #include "Redef.h"
 
-
-
 Graphics::Graphics() { }
 
 Graphics::Graphics(HWND hWnd) {

@@ -7,6 +7,13 @@ Material::Material() {
 	r = {1,0.5f,128};
 }
 
+Material::Material(SMaterial m) {
+	bind = ShaderBind::PS;
+	RegisterID = 1;
+	c = {m.Color.r,m.Color.g,m.Color.b};
+	r = { m.Reflection.d,m.Reflection.s,m.Reflection.n };
+}
+
 Material::~Material() { }
 
 ComponentStruct* Material::getComponentStruct() {

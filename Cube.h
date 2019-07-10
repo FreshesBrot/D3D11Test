@@ -21,10 +21,8 @@ public:
 
 private:
 
-	//the cubes geometry data
-	const std::vector<int> indices;
-	const std::vector<Vertex> vertices;
-
-
+	//the objects geometry data
+	std::vector<int> indices;
+	std::vector<Vertex> vertices;
 };
 

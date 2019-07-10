@@ -74,48 +74,48 @@ ID3D11Device* ShaderStateController::getDevice() {
 }
 
 #pragma region FILEADDS
-int ShaderStateController::add(const wchar_t* fileName, VertexShader* VS) {
+int ShaderStateController::add(const wchar_t* fileName, VertexShader* Vs) {
 
 	std::unordered_map<const wchar_t*, int>::const_iterator it = VSFileNames.find(fileName);
 	if (it == VSFileNames.end()) {
 		//insert new pair
 		VSFileNames.insert(std::make_pair(fileName, amtVSShaders));
 		//create resources
-		VS->Create(getDevice());
+		Vs->Create(getDevice());
 		//store resource at location
-		vertexShaders[amtVSShaders] = VS;
+		vertexShaders[amtVSShaders] = Vs;
 		//return location
 		return amtVSShaders++;
 	}
 	//delete the file
-	delete VS;
+	delete Vs;
 	//return location
 	return VSFileNames[fileName];
 }
 
-int ShaderStateController::add(const wchar_t* fileName, PixelShader* PS) {
+int ShaderStateController::add(const wchar_t* fileName, PixelShader* Ps) {
 	std::unordered_map<const wchar_t*, int>::const_iterator it = PSFileNames.find(fileName);
 	if (it == PSFileNames.end()) {
 		PSFileNames.insert(std::make_pair(fileName, amtPSShaders));
-		PS->Create(getDevice());
-		pixelShaders[amtPSShaders] = PS;
+		Ps->Create(getDevice());
+		pixelShaders[amtPSShaders] = Ps;
 		return amtPSShaders++;
 	}
-	delete PS;
+	delete Ps;
 	return PSFileNames[fileName];
 }
 
-int ShaderStateController::add(const wchar_t* fileName, Texture2D* T2D) {
+int ShaderStateController::add(const wchar_t* fileName, Texture2D* Tx) {
 	
 	std::unordered_map<const wchar_t*, int>::const_iterator it = textureFileNames.find(fileName);
 	if (it == textureFileNames.end()) {
 		textureFileNames.insert(std::make_pair(fileName,amtTextures));
-		T2D->Create(getDevice());
-		textures[amtTextures] = T2D;
+		Tx->Create(getDevice());
+		textures[amtTextures] = Tx;
 		return amtTextures++;
 	}
 
-	delete T2D;
+	delete Tx;
 	return textureFileNames[fileName];
 }
 

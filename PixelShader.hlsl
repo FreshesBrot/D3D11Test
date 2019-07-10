@@ -16,7 +16,7 @@ cbuffer Material : register (b1) {
 	struct {
 		float d, s;
 		int n;
-	} reflection;
+	} Mreflection;
 	float pad22;
 }
 
@@ -31,14 +31,14 @@ float pow(float a, int n) {
 
 //calculate lambertian diffuse
 float lambertian(float3 normal) {
-	return reflection.d * dot(Ldir, normal) * Lintensity;
+	return Mreflection.d * dot(Ldir, normal) * Lintensity;
 }
 
 //calculate specular lighting
 float spec(float3 pos, float3 Lreflect) {
 	float dotpr = dot(pos, Lreflect);
-	float specExp = pow(dotpr, reflection.n);
-	return reflection.s * specExp * Lintensity;
+	float specExp = pow(dotpr, Mreflection.n);
+	return Mreflection.s * specExp * Lintensity;
 }
 
 

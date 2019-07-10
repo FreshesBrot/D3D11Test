@@ -12,6 +12,7 @@ Object* empty;
 Object* o0;
 Object* o1;
 Object* o2;
+Object* o3;
 Transform* t0;
 Transform* t1;
 Transform* t2;
@@ -25,6 +26,8 @@ int App::Start() {
 	//GI.PSReShader(o0, L"NormalShader.cso");
 	GI.addObject(o1 = new Cube());
 	GI.addObject(o2 = new Pyramid());
+	GI.addObject(o3 = new Mesh(MeshFile(L"test.txt")));
+
 
 	Transform* t0 = o0->GetComponent<Transform*>();
 	Transform* t1 = o1->GetComponent<Transform*>();

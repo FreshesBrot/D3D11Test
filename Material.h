@@ -6,7 +6,10 @@
 class Material : public Component {
 public:
 
+	//standard values
 	Material();
+	//construct material based on given struct
+	Material(SMaterial m);
 	~Material();
 
 	//returns the material specifications
@@ -31,7 +34,7 @@ public:
 	struct Color {
 		float r, g, b;
 	};
-
+	
 	struct Reflection {
 		float d, s;
 		int n;

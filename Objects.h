@@ -3,3 +3,4 @@
 #include "Camera.h"
 #include "Pyramid.h"
 #include "Empty.h"
+#include "Mesh.h"

@@ -80,6 +80,15 @@
     <Filter Include="GraphicsEngine\StateController\Source">
       <UniqueIdentifier>{125e7c91-13ae-4e8b-a46f-299a3b134f6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ObjectFileReader">
+      <UniqueIdentifier>{9d148e6b-ce16-4230-8ced-29e8db71f946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectFileReader\Header">
+      <UniqueIdentifier>{732cd25d-7158-4ca8-81d2-49c303425562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectFileReader\Source">
+      <UniqueIdentifier>{0071374d-fa80-4a8a-85f5-b259ad62f88b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -186,6 +195,18 @@
     </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Objects\Components\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReader.cpp">
+      <Filter>ObjectFileReader\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshFile.cpp">
+      <Filter>ObjectFileReader\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReaderException.cpp">
+      <Filter>ObjectFileReader\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Objects\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +321,21 @@
     <ClInclude Include="Light.h">
       <Filter>Objects\Components\Header</Filter>
     </ClInclude>
+    <ClInclude Include="MeshFile.h">
+      <Filter>ObjectFileReader\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader.h">
+      <Filter>ObjectFileReader\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects.h">
+      <Filter>Objects\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReaderException.h">
+      <Filter>ObjectFileReader\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Objects\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -342,5 +378,10 @@
     <Image Include="defaultTX.jpg">
       <Filter>GraphicsEngine\Resources</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="test.txt">
+      <Filter>UserInterface</Filter>
+    </Text>
   </ItemGroup>
 </Project>

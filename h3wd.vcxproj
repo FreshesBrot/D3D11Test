@@ -145,6 +145,8 @@
     <ClCompile Include="CustomException.cpp" />
     <ClCompile Include="dxerr.cpp" />
     <ClCompile Include="Empty.cpp" />
+    <ClCompile Include="FileReader.cpp" />
+    <ClCompile Include="FileReaderException.cpp" />
     <ClCompile Include="FileResource.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="GraphicsInterface.cpp" />
@@ -154,6 +156,8 @@
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshFile.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PipelineInterface.cpp" />
@@ -184,6 +188,8 @@
     <ClInclude Include="CustomException.h" />
     <ClInclude Include="dxerr.h" />
     <ClInclude Include="Empty.h" />
+    <ClInclude Include="FileReader.h" />
+    <ClInclude Include="FileReaderException.h" />
     <ClInclude Include="FileResource.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GraphicsInterface.h" />
@@ -192,8 +198,11 @@
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshFile.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Objects.h" />
     <ClInclude Include="PipelineInterface.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="PSConstBuffer.h" />
@@ -268,6 +277,9 @@
     <Image Include="defaultTX.jpg" />
     <Image Include="eye.jpg" />
     <Image Include="Kappa.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

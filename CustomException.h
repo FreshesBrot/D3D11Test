@@ -1,5 +1,6 @@
 #pragma once
 #include <exception>
+#include <sstream>
 #include <string>
 #include "Redef.h"
 
@@ -10,8 +11,11 @@ public:
 	CustomException(int line, const char* file, HRESULT hr);
 	CustomException();
 
+	//returns the error information
 	const char* what() const noexcept override;
+	//returns the error type
 	virtual const char* getType() const noexcept;
+	//translates the HR code
 	virtual const char* Translate(HRESULT hr) const noexcept;
 
 protected:

@@ -43,9 +43,9 @@ public:
 private:
 	
 	//looks up if the file was already stored
-	int add(const wchar_t* fileName,VertexShader* VS);
-	int add(const wchar_t* fileName, PixelShader* PS);
-	int add(const wchar_t* fileName, Texture2D* T2D);
+	int add(const wchar_t* fileName,VertexShader* Vs);
+	int add(const wchar_t* fileName, PixelShader* Ps);
+	int add(const wchar_t* fileName, Texture2D* Tx);
 
 	//bind the components according to the state
 	void bindVS();

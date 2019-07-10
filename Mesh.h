@@ -1,13 +1,14 @@
 #pragma once
 #include "Object.h"
-#include "Objects.h"
+#include "MeshFile.h"
 
-//this class represents a pyramid with 4 edges
-class Pyramid : public Object {
+//this class represents a mesh object
+class Mesh : public Object {
 public:
 
-	//initialize vertices, indices
-	Pyramid();
+	//construct a mesh from a mesh file
+	Mesh(MeshFile mf);
+	~Mesh();
 
 	std::vector<int> getIndices() override;
 	std::vector<Vertex> getVertices() override;
@@ -21,8 +22,10 @@ public:
 	const wchar_t* getTXfileName() override;
 
 private:
+
 	//the objects geometry data
 	std::vector<int> indices;
 	std::vector<Vertex> vertices;
+
 };
 
