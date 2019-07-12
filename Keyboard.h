@@ -2,6 +2,24 @@
 #include <vector>
 #include <queue>
 
+#pragma region KEYS
+#define SHIFT 16
+#define SPACE 32
+#define BACKSPACE 8
+#define CTRL 17
+#define RETURN 13
+#define NUM0 48
+#define NUM1 49
+#define NUM2 50
+#define NUM3 51
+#define NUM4 52
+#define NUM5 53
+#define NUM6 54 
+#define NUM7 55
+#define NUM8 56
+#define NUM9 57
+#pragma endregion
+
 //this class represents the keyboard and its functionality
 class Keyboard {
 public:

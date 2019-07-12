@@ -10,6 +10,7 @@
 #define TX 236
 #define MATERIAL 109
 #define COMMENT 35
+#define EMPTY -1
 
 //this class represents a mesh file that has been read externally
 class MeshFile : public FileReader {
@@ -38,7 +39,7 @@ private:
 	std::vector<Vertex> vertices;
 
 	//proccesses the file into geoemtry (and material) data
-	void ProcessFile();
+	void ProcessFile() override;
 
 	//stores the assigned VS,PS and TX
 	const wchar_t* VSfileName;
@@ -54,6 +55,8 @@ private:
 
 	//simple sum function
 	int val(std::string s);
-
+	
+	//shortcut that creates error message
+	std::string error(const char* msg);
 };
 

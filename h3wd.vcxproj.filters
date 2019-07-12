@@ -89,6 +89,9 @@
     <Filter Include="ObjectFileReader\Source">
       <UniqueIdentifier>{0071374d-fa80-4a8a-85f5-b259ad62f88b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\MeshFiles">
+      <UniqueIdentifier>{abb6221c-7987-44f5-95b6-23a88da65b28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -381,7 +384,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="test.txt">
-      <Filter>UserInterface</Filter>
+      <Filter>Objects\MeshFiles</Filter>
     </Text>
   </ItemGroup>
 </Project>
