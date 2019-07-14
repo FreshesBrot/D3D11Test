@@ -11,7 +11,9 @@ FileReader::~FileReader() {
 		fs.close();
 }
 
-void FileReader::Read() { 
+void
+FileReader::Read() { 
+	if(!fs.is_open())
 	fs.open(fileName); 
 }
 

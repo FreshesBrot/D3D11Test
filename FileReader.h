@@ -2,8 +2,7 @@
 #include <fstream>
 #include <istream>
 #include <sstream>
-#include <locale.h>
-#include <codecvt>
+#include <vector>
 #include <Windows.h>
 #include "FileReaderException.h"
 #define END_OF_FILE "0"
