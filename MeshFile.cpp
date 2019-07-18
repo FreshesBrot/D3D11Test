@@ -4,7 +4,7 @@ MeshFile::MeshFile(const wchar_t* fileName) : FileReader::FileReader(fileName) {
 	VSfileName = nullptr;
 	PSfileName = nullptr;
 	TXfileName = nullptr;
-
+	
 	ProcessFile();
 }
 
@@ -40,7 +40,8 @@ void MeshFile::ProcessFile() {
 	while ((newLine = nextLine()).compare(END_OF_FILE) != 0) {
 		std::istringstream iss(newLine);
 		//skip if the line begins with # (comment)
-		if (iss.peek() == COMMENT) continue;
+		char c0 = iss.peek();
+		if (c0 == COMMENT || c0 == EMPTY) continue;
 		//switch that determines the formatting of the line
 		switch (val(newLine)) {
 		case VERTEX:
@@ -138,8 +139,8 @@ std::vector<int> MeshFile::tesselate(std::vector<int> indices) {
 	//simple tesselation (only works for convex shapes)
 	for (int i = 1; i < maxIt; i++) {
 		newInd.push_back(0);
-		newInd.push_back(i);
-		newInd.push_back(i + 1);
+		newInd.push_back(indices[i]);
+		newInd.push_back(indices[i + 1]);
 	}
 	return newInd;
 }

@@ -23,23 +23,17 @@ int App::Start() {
 	GI.setBufferColors(0.1f, 0.2f, 0.9f);
 	GI.addObject(empty = new Empty());
 	GI.AddComponentToObject(empty, new Light());
-	GI.addObject(o0 = new Cube());
-	//GI.PSReShader(o0, L"NormalShader.cso");
-	GI.addObject(o1 = new Cube());
-	GI.addObject(o2 = new Pyramid());
-	GI.addObject(o3 = new Mesh(MeshFile(L"test.txt")));
-
-
-	Transform* t0 = o0->GetComponent<Transform*>();
-	Transform* t1 = o1->GetComponent<Transform*>();
-	Transform* t2 = o2->GetComponent<Transform*>();
-	
-
-	t0->setTransform(2, 1, 7);
-	GI.Retexture(o1, L"cock.jpg");
-	t1->setTransform(-2, 1, 7);
-	t2->setTransform(0, -2, 7);
-
+	//mesh file 1
+	const wchar_t* file1 = L"..\\TerrainGenerator\\out\\Terrain.sof";
+	//mesh file 2
+	const wchar_t* file2 = L"test.sof";
+	//plane mesh (file 3)
+	const wchar_t* file3 = L"plane.sof";
+	GI.addObject(new Cube());
+	GI.addObject(o1 = new Mesh(MeshFile(file1)));
+	t1 = o1->GetComponent<Transform*>();
+	//t1->setScale(0.1f, 0.1f, 0.1f);
+	t1->setTransform(0, 0, 20);
 	
 	while (true) {
 		//check if processmessages returns any value
@@ -59,50 +53,45 @@ float z = 4.0f;
 void App::DoFrame() {
 
 	//retrieve object transforms
-	t0 = o0->GetComponent<Transform*>();
 	t1 = o1->GetComponent<Transform*>();
-	t2 = o2->GetComponent<Transform*>();
-	t3 = o3->GetComponent<Transform*>();
+
 	
 	//move speed
 	float ms = 40;
-	//move objects
+	////move objects
 	if (w.keyboard.isPressed(SHIFT))
 		ms /= 2;
 	if (w.keyboard.isPressed('D')) {
-		t0->translate(ms, 0, 0);
+	//	t0->translate(ms, 0, 0);
 		t1->translate(ms,  0, 0);
-		t2->translate(ms,  0, 0);
+	//	t2->translate(ms,  0, 0);
 	}
-	
+	//
 	if (w.keyboard.isPressed('A')) {
-		t0->translate(-ms, 0.0f, 0.0f);
+	//	t0->translate(-ms, 0.0f, 0.0f);
 		t1->translate(-ms, 0.0f, 0.0f);
-		t2->translate(-ms, 0.0f, 0.0f);
+	//	t2->translate(-ms, 0.0f, 0.0f);
 	}
 
 	if (w.keyboard.isPressed('W')) {
-		t0->translate(0.0f, 0.0f, ms);
+	//	t0->translate(0.0f, 0.0f, ms);
 		t1->translate(0.0f, 0.0f, ms);
-		t2->translate(0.0f, 0.0f, ms);
+	//	t2->translate(0.0f, 0.0f, ms);
 	}
-	
+	//
 	if (w.keyboard.isPressed('S')) {
-		t0->translate(0.0f, 0.0f, -ms);
+	//	t0->translate(0.0f, 0.0f, -ms);
 		t1->translate(0.0f, 0.0f, -ms);
-		t2->translate(0.0f, 0.0f, -ms);
+	//	t2->translate(0.0f, 0.0f, -ms);
 	}
 
 	if (w.keyboard.isPressed('T')) 
 		Time::deltaTime = 0;
 	if (w.keyboard.OnRelease('T'))
-		Time::deltaTime =prevTime;
+		Time::deltaTime = prevTime;
 
 	//auto rotation
-	t0->rotate(30.0f, 0.0f, 0.0f);
-	t1->rotate(0.0f, 0.0f, 40.0f);
-	t2->rotate(0.0f, 30.0f, 0.0f);
-	t3->rotate(0.0f, 20.0f, 0.0f);
+	//t1->rotate(0.0f, ms, 0.0f);
 
 	GI.Draw();
 

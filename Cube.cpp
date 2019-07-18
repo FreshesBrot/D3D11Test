@@ -1,6 +1,7 @@
 #include "Cube.h"
 
 Cube::Cube() :
+#pragma region GEOMETRY
 	//defined in faces
 	vertices({
 		//x,y,z				r,g,b			xn,yn,zn			tx_u,tx_v
@@ -62,6 +63,7 @@ Cube::Cube() :
 		21,23,20,	21,22,23,
 
 	})
+#pragma endregion
 {
 	//set the file names for the shaders
 	VSfileName = L"VertexShader.cso";

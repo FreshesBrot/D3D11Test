@@ -1,4 +1,7 @@
-
+struct VS {
+	float4 pos : SV_Position;
+	float3 color : Color;
+};
 
 cbuffer Matrices : register (b0) {
 	matrix m_world;
@@ -6,8 +9,11 @@ cbuffer Matrices : register (b0) {
 	matrix m_projection;
 }
 
-float4 main(float3 pos : POSITION) : SV_Position {
+VS main(float3 pos : POSITION, float3 color : Color) {
+	VS vs;
 	matrix modelview = mul(m_view, m_world);
 	matrix projection = mul(m_projection, modelview);
-	return mul(projection, float4(pos, 1.0f));
+	vs.pos = mul(projection, float4(pos, 1.0f));
+	vs.color = color;
+	return vs;
 }
