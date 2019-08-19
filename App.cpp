@@ -29,11 +29,12 @@ int App::Start() {
 	const wchar_t* file2 = L"test.sof";
 	//plane mesh (file 3)
 	const wchar_t* file3 = L"plane.sof";
-	GI.addObject(new Cube());
-	GI.addObject(o1 = new Mesh(MeshFile(file1)));
-	t1 = o1->GetComponent<Transform*>();
+	GI.addObject(o0 = new Cube());
+	//GI.addObject(o1 = new Mesh(MeshFile(file1)));
+	
+	//o0->GetComponent<Transform*>()->setScale(0,0,0);
 	//t1->setScale(0.1f, 0.1f, 0.1f);
-	t1->setTransform(0, 0, 20);
+	
 	
 	while (true) {
 		//check if processmessages returns any value
@@ -53,7 +54,7 @@ float z = 4.0f;
 void App::DoFrame() {
 
 	//retrieve object transforms
-	t1 = o1->GetComponent<Transform*>();
+	t1 = o0->GetComponent<Transform*>();
 
 	
 	//move speed
@@ -91,7 +92,7 @@ void App::DoFrame() {
 		Time::deltaTime = prevTime;
 
 	//auto rotation
-	//t1->rotate(0.0f, ms, 0.0f);
+	t1->rotate(0.0f, ms, 0.0f);
 
 	GI.Draw();
 
